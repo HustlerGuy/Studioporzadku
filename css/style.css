@@ -567,3 +567,142 @@ form textarea { min-height: 130px; resize: vertical; }
   .cta-band { padding: 32px; }
   .section { padding: 60px 0; }
 }
+
+
+/* =========================================================
+   v3 — profesjonalny hero + dopracowane skalowanie mobilne
+   ========================================================= */
+
+html, body { overflow-x: hidden; }
+body { max-width: 100%; }
+
+/* ---------- Hero: układ dwukolumnowy ---------- */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: 52px;
+  align-items: center;
+  padding-top: 92px;
+}
+.hero .hero-inner { padding: 0; max-width: 620px; }
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffd9d6;
+  padding: 8px 15px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  margin-bottom: 20px;
+}
+.hero-tag::before {
+  content: "";
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--brand-red-light);
+  box-shadow: 0 0 0 4px rgba(255, 90, 82, 0.25);
+}
+
+/* panel wizualny */
+.hero-visual { position: relative; justify-self: center; width: 100%; max-width: 420px; }
+.hero-card {
+  position: relative;
+  background: #fff;
+  color: var(--ink);
+  border-radius: 22px;
+  padding: 26px 26px 30px;
+  box-shadow: var(--shadow-lg);
+}
+.hero-card__head {
+  display: flex; flex-direction: column; gap: 2px;
+  padding-bottom: 16px; margin-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.hero-card__stars { color: #f5a623; letter-spacing: 3px; font-size: 1.15rem; }
+.hero-card__rating { color: var(--muted); font-size: 0.9rem; }
+.hero-card__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 13px; }
+.hero-card__list li { display: flex; gap: 11px; align-items: flex-start; font-weight: 500; font-size: 0.98rem; line-height: 1.4; }
+.hero-card__list li svg {
+  flex: 0 0 auto; color: #fff; background: var(--grad-red);
+  border-radius: 50%; padding: 5px; width: 26px; height: 26px;
+  box-shadow: 0 4px 10px rgba(226, 35, 26, 0.3);
+}
+.hero-card__seal {
+  position: absolute; right: 16px; bottom: -28px;
+  width: 88px; height: 88px; border-radius: 50%;
+  background: var(--grad-red); color: #fff;
+  display: grid; place-content: center; text-align: center;
+  box-shadow: 0 14px 28px rgba(226, 35, 26, 0.45);
+  transform: rotate(-8deg);
+  border: 4px solid #fff;
+}
+.hero-card__seal strong { font-family: var(--font-head); font-size: 1.45rem; line-height: 1; }
+.hero-card__seal span { font-size: 0.72rem; letter-spacing: 0.02em; }
+
+/* pasek statystyk */
+.hero .hero-badges {
+  margin: 46px 0 0;
+  padding: 30px 0 96px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+/* ---------- Skalowanie mobilne ---------- */
+@media (max-width: 980px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; padding-top: 64px; }
+  .hero .hero-inner { max-width: 640px; }
+  .hero-visual { order: 2; max-width: 440px; }
+}
+
+@media (max-width: 620px) {
+  .hero .hero-badges {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 18px;
+    padding-bottom: 78px;
+  }
+  .hero-badges .badge strong { font-size: 1.6rem; }
+}
+
+@media (max-width: 560px) {
+  :root { --container: 100%; }
+  .container { padding: 0 16px; }
+  body { font-size: 16px; }
+
+  /* topbar bardziej zwarty */
+  .topbar { font-size: 0.8rem; }
+  .topbar__hours { display: none; }
+  .topbar .container { justify-content: center; }
+  .topbar .topbar__contact { gap: 14px; }
+
+  /* przyciski na pełną szerokość = duże, wygodne pola dotyku */
+  .hero .btn-row { flex-direction: column; align-items: stretch; gap: 12px; }
+  .hero .btn-row .btn { width: 100%; justify-content: center; }
+  .cta-band { flex-direction: column; align-items: flex-start; text-align: left; }
+  .cta-band > div:last-child { display: flex; flex-direction: column; width: 100%; gap: 10px; }
+  .cta-band > div:last-child .btn { width: 100%; justify-content: center; }
+
+  /* bloki "media" — mniejsza, zgrabna typografia */
+  .split .media { min-height: 240px; padding: 28px !important; }
+  .split .media div[style] { font-size: 1.9rem !important; }
+
+  /* kroki: mniejszy numer */
+  .steps .step { padding-left: 64px; }
+  .steps .step::before { width: 46px; height: 46px; font-size: 1.15rem; }
+
+  /* cennik: zwarte komórki, by nie wychodził poza ekran */
+  .price-table th, .price-table td { padding: 11px 12px; font-size: 0.9rem; }
+
+  /* karty i sekcje */
+  .card { padding: 24px; }
+  .section-head { margin-bottom: 34px; }
+  .hero-card__seal { width: 76px; height: 76px; right: 12px; }
+}
+
+@media (max-width: 380px) {
+  .hero .hero-badges { grid-template-columns: 1fr; }
+  h1 { font-size: 1.9rem; }
+}

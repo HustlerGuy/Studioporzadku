@@ -706,3 +706,33 @@ body { max-width: 100%; }
   .hero .hero-badges { grid-template-columns: 1fr; }
   h1 { font-size: 1.9rem; }
 }
+
+
+/* =========================================================
+   v4 — dopracowanie bloków "media" (klasa wizualna)
+   ========================================================= */
+.split .media {
+  font-family: var(--font-head);
+  isolation: isolate;
+}
+/* subtelny wzór kropek + delikatny blask dla głębi */
+.split .media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1.5px, transparent 1.7px);
+  background-size: 22px 22px;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.split .media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(circle at 30% 18%, rgba(255, 255, 255, 0.16), transparent 55%);
+  pointer-events: none;
+}
+.split .media > * { position: relative; z-index: 1; }
+.split .media [style*="font-size"] { letter-spacing: -0.01em; }

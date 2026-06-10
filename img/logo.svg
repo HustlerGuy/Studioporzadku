@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 96" width="360" height="96" role="img" aria-label="Studio Porządku.pl">
+  <defs>
+    <linearGradient id="sq" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ed3b32"/>
+      <stop offset="1" stop-color="#c4140d"/>
+    </linearGradient>
+  </defs>
+  <!-- kwadraty (mozaika porządku) -->
+  <g transform="translate(6,14)">
+    <rect x="0"  y="0"  width="30" height="30" rx="4" fill="#1a1a1a"/>
+    <rect x="34" y="0"  width="30" height="30" rx="4" fill="url(#sq)"/>
+    <rect x="0"  y="34" width="30" height="30" rx="4" fill="url(#sq)"/>
+    <rect x="34" y="34" width="30" height="30" rx="4" fill="#1a1a1a"/>
+  </g>
+  <!-- tekst -->
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <text x="86" y="44" font-size="30" font-weight="800" fill="#1a1a1a" letter-spacing="-0.5">Studio</text>
+    <text x="86" y="78" font-size="30" font-weight="800" fill="#e2231a" letter-spacing="-0.5">Porządku<tspan fill="#1a1a1a" font-size="20" dy="-1">.pl</tspan></text>
+  </g>
+</svg>

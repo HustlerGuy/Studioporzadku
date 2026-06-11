@@ -775,3 +775,133 @@ body { max-width: 100%; }
   /* menu rozwijane startuje pod całą belką (nie zasłania logo) */
   .nav-links { top: 100%; }
 }
+
+
+/* =========================================================
+   v6 — czyste tła (bez orbów), poprawiony dropdown,
+        mobilny drawer 75% z lewej z backdropem
+   ========================================================= */
+
+/* --- Czyste, profesjonalne tła (usunięcie AI-artefaktów) --- */
+.hero {
+  background: linear-gradient(135deg, #15171c 0%, #1f2229 55%, #2a2d35 100%);
+}
+.hero::before { display: none; }   /* siatka */
+.hero::after  { display: none; }   /* czerwony romb */
+
+.page-hero {
+  background: linear-gradient(135deg, #1a1c21 0%, #262932 100%);
+}
+.page-hero::before { display: none; }
+
+/* bloki media: bez kropek i radialnych plam */
+.split .media::before,
+.split .media::after { display: none; }
+
+/* CTA: bez romboidalnego rogu */
+.cta-band::after { display: none; }
+
+/* --- Fix dropdown desktop: niewidoczny mostek między linkiem a listą --- */
+.dropdown { margin-top: 10px; }
+.dropdown::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  /* przezroczysty „most" — zachowuje hover w przejściu kursora */
+}
+
+/* mała poprawa wizualna pozycji dropdown */
+.dropdown { animation: dd-in .18s ease both; }
+@keyframes dd-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* --- Backdrop pod drawerem mobilnym --- */
+.nav-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 17, 22, 0.55);
+  z-index: 65;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .28s ease, visibility .28s;
+}
+.nav-backdrop.show { opacity: 1; visibility: visible; }
+
+/* --- Mobilny drawer (≤900px): wyjazd z lewej, 75% szerokości --- */
+@media (max-width: 900px) {
+  .nav-links {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: 75%;
+    max-width: 320px;
+    height: 100vh;
+    height: 100dvh;
+    background: #fff;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 88px 18px 24px;
+    gap: 4px;
+    border: 0;
+    border-radius: 0;
+    box-shadow: 6px 0 32px rgba(0, 0, 0, 0.18);
+    transform: translateX(-100%);
+    transition: transform .32s cubic-bezier(.4, 0, .2, 1);
+    z-index: 70;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    display: flex;       /* zawsze flex; widoczność sterowana transformem */
+  }
+  .nav-links.open { transform: translateX(0); }
+
+  .nav-links > li { width: 100%; }
+  .nav-links > li > a {
+    display: block;
+    width: 100%;
+    padding: 13px 14px;
+    font-size: 1.02rem;
+    border-radius: 10px;
+  }
+  .nav-links > li > a:hover,
+  .nav-links a.active { background: var(--bg-soft); color: var(--brand-red); }
+
+  /* dropdown na mobile: rozwinięty inline pod „Usługi" */
+  .has-dropdown .dropdown {
+    position: static;
+    display: block;
+    background: transparent;
+    box-shadow: none;
+    border: 0;
+    padding: 4px 0 6px 14px;
+    margin: 0;
+    animation: none;
+  }
+  .has-dropdown .dropdown::before { display: none; } /* mostek niepotrzebny */
+  .has-dropdown .dropdown a {
+    padding: 10px 12px;
+    font-size: .98rem;
+    color: var(--ink-soft);
+    border-radius: 8px;
+  }
+  .has-dropdown .dropdown a:hover { background: var(--bg-soft); color: var(--brand-red); }
+
+  /* hamburger nad drawerem; animacja w X */
+  .nav-toggle {
+    display: block;
+    position: relative;
+    z-index: 80;
+  }
+  .nav-toggle span,
+  .nav-toggle span::before,
+  .nav-toggle span::after { transition: transform .25s ease, background-color .2s ease; }
+  .nav-toggle.is-open span { background: transparent; }
+  .nav-toggle.is-open span::before { transform: translateY(0) rotate(45deg); }
+  .nav-toggle.is-open span::after  { transform: translateY(0) rotate(-45deg); }
+}
+
+/* drobna estetyka panela hero — bez efektu "naklejki" */
+.hero-card { border: 1px solid rgba(0,0,0,.05); }

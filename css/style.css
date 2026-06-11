@@ -736,3 +736,42 @@ body { max-width: 100%; }
 }
 .split .media > * { position: relative; z-index: 1; }
 .split .media [style*="font-size"] { letter-spacing: -0.01em; }
+
+
+/* =========================================================
+   v5 — mobilny nagłówek: menu (lewo) · logo (środek) · telefon (prawo)
+   ========================================================= */
+.nav-phone { display: none; }
+
+@media (max-width: 900px) {
+  .nav { position: relative; justify-content: space-between; align-items: center; gap: 10px; }
+
+  /* hamburger po lewej */
+  .nav-toggle { display: block; order: 1; margin: 0; }
+
+  /* logo wyśrodkowane */
+  .brand { order: 2; margin: 0 auto; }
+  .brand img { height: 42px; }
+
+  /* ukryj desktopowy przycisk CTA */
+  .nav-cta { display: none; }
+
+  /* przycisk telefonu po prawej */
+  .nav-phone {
+    order: 3;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--grad-red);
+    color: #fff;
+    box-shadow: 0 8px 18px rgba(226, 35, 26, 0.35);
+    flex: 0 0 auto;
+  }
+  .nav-phone:hover { color: #fff; }
+  .nav-phone svg { width: 20px; height: 20px; }
+
+  /* menu rozwijane startuje pod całą belką (nie zasłania logo) */
+  .nav-links { top: 100%; }
+}

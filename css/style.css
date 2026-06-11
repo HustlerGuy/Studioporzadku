@@ -905,3 +905,11 @@ body { max-width: 100%; }
 
 /* drobna estetyka panela hero — bez efektu "naklejki" */
 .hero-card { border: 1px solid rgba(0,0,0,.05); }
+
+
+/* =========================================================
+   v7 — fix nakładania warstw mobilnego menu
+   (drawer był pod backdropem przez stacking context nagłówka)
+   ========================================================= */
+body.menu-open .site-header { z-index: 80; }
+body.menu-open .to-top { display: none !important; }

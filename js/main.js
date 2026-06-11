@@ -17,6 +17,7 @@
       backdrop.classList.add("show");
       toggle.classList.add("is-open");
       toggle.setAttribute("aria-expanded", "true");
+      document.body.classList.add("menu-open");
       document.body.style.overflow = "hidden";
     };
     var closeMenu = function () {
@@ -24,6 +25,7 @@
       backdrop.classList.remove("show");
       toggle.classList.remove("is-open");
       toggle.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("menu-open");
       document.body.style.overflow = "";
     };
 

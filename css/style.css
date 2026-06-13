@@ -1024,41 +1024,6 @@ body.menu-open .to-top { display: none !important; }
   .card .card-desc { margin-left: 22px; margin-right: 22px; }
 }
 
-/* ===== Sticky header — animacja po przewinięciu ===== */
-.site-header {
-  transition: box-shadow .25s ease, background-color .25s ease;
-}
-.topbar {
-  max-height: 56px;
-  overflow: hidden;
-  transition:
-    max-height .35s cubic-bezier(.4, 0, .2, 1),
-    opacity .25s ease,
-    padding .25s ease;
-}
-.brand img {
-  transition: height .25s ease;
-}
-.nav {
-  transition: min-height .25s ease;
-}
-
-.site-header.scrolled {
-  background: rgba(255, 255, 255, 0.97);
-  box-shadow: 0 6px 26px rgba(20, 22, 28, 0.10);
-}
-.site-header.scrolled .topbar {
-  max-height: 0;
-  opacity: 0;
-}
-.site-header.scrolled .brand img {
-  height: 40px;
-}
-.site-header.scrolled .nav {
-  min-height: 64px;
-}
-
-@media (max-width: 900px) {
-  .site-header.scrolled .brand img { height: 38px; }
-  .site-header.scrolled .nav { min-height: 60px; }
-}
+/* ===== Sticky header — bez animacji zwijania, tylko delikatny cień ===== */
+.site-header { transition: box-shadow .2s ease; }
+.site-header.scrolled { box-shadow: 0 6px 24px rgba(20, 22, 28, 0.10); }

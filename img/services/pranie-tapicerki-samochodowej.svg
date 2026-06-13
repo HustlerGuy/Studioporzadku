@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Fotel samochodowy - pranie tapicerki samochodowej">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6f7f9"/><stop offset="1" stop-color="#ffffff"/></linearGradient></defs>
+  <rect width="600" height="400" fill="url(#bg)"/>
+  <ellipse cx="300" cy="350" rx="200" ry="14" fill="#0a0c10" fill-opacity="0.09"/>
+  <g>
+    <path d="M210 100 q-10 -10 0 -20 h140 q10 10 0 20 v200 q0 12 -12 12 h-116 q-12 0 -12 -12z" fill="#16181d"/>
+    <path d="M210 130 q-10 0 -10 12 v120 q0 12 10 12 h140 q10 0 10 -12 v-120 q0 -12 -10 -12z" fill="#22252b"/>
+    <path d="M210 110 h140" stroke="#e2231a" stroke-width="3" fill="none"/>
+    <path d="M220 145 h120 M220 175 h120 M220 205 h120 M220 235 h120 M220 265 h120" stroke="#0a0c10" stroke-width="2" opacity="0.5"/>
+    <path d="M180 280 q0 -10 10 -10 h180 q10 0 10 10 v36 q0 8 -8 8 h-184 q-8 0 -8 -8z" fill="#16181d"/>
+    <path d="M186 290 h188" stroke="#e2231a" stroke-width="3"/>
+  </g>
+  <g fill="none" stroke="#e2231a" stroke-width="3">
+    <circle cx="120" cy="130" r="20" opacity="0.85"/>
+    <circle cx="100" cy="170" r="10" opacity="0.6"/>
+    <circle cx="490" cy="110" r="16" opacity="0.7"/>
+  </g>
+  <circle cx="525" cy="160" r="8" fill="#e2231a" fill-opacity="0.45"/>
+</svg>

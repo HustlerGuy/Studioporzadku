@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Odkurzacz piorący - wypożyczalnia Karcher">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6f7f9"/><stop offset="1" stop-color="#ffffff"/></linearGradient></defs>
+  <rect width="600" height="400" fill="url(#bg)"/>
+  <ellipse cx="300" cy="350" rx="220" ry="14" fill="#0a0c10" fill-opacity="0.08"/>
+  <g>
+    <rect x="220" y="140" width="200" height="170" rx="20" fill="#e2231a"/>
+    <rect x="220" y="140" width="200" height="40" rx="20" fill="#16181d"/>
+    <rect x="240" y="200" width="160" height="20" rx="4" fill="#16181d"/>
+    <rect x="240" y="232" width="160" height="60" rx="6" fill="#0f1014"/>
+    <circle cx="270" cy="262" r="14" fill="#e2231a"/>
+    <circle cx="270" cy="262" r="6" fill="#16181d"/>
+    <text x="310" y="268" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="22" fill="#ffffff" letter-spacing="2">PRO</text>
+    <circle cx="248" cy="318" r="22" fill="#16181d"/>
+    <circle cx="248" cy="318" r="10" fill="#3a3d44"/>
+    <circle cx="392" cy="318" r="22" fill="#16181d"/>
+    <circle cx="392" cy="318" r="10" fill="#3a3d44"/>
+  </g>
+  <g>
+    <path d="M420 180 q60 -40 100 0 q40 30 0 60 q-30 30 -60 60" fill="none" stroke="#16181d" stroke-width="14" stroke-linecap="round"/>
+    <rect x="450" y="295" width="40" height="14" rx="4" fill="#16181d"/>
+  </g>
+  <g fill="none" stroke="#e2231a" stroke-width="3">
+    <circle cx="100" cy="120" r="20" opacity="0.7"/>
+    <circle cx="80" cy="170" r="10" opacity="0.5"/>
+  </g>
+</svg>

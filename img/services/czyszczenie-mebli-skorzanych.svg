@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Skórzany fotel - czyszczenie mebli skórzanych">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6f7f9"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
+    <linearGradient id="seat" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22252b"/><stop offset="1" stop-color="#15171c"/></linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#bg)"/>
+  <ellipse cx="300" cy="350" rx="200" ry="14" fill="#0a0c10" fill-opacity="0.09"/>
+  <g>
+    <rect x="180" y="120" width="240" height="200" rx="20" fill="url(#seat)"/>
+    <rect x="200" y="240" width="200" height="80" rx="14" fill="#0f1014"/>
+    <rect x="140" y="200" width="40" height="120" rx="14" fill="#16181d"/>
+    <rect x="420" y="200" width="40" height="120" rx="14" fill="#16181d"/>
+    <path d="M210 160 q90 -22 180 0 q-10 30 -90 30 q-80 0 -90 -30 z" fill="#2a2d34"/>
+    <line x1="300" y1="135" x2="300" y2="320" stroke="#0a0c10" stroke-width="2" opacity="0.5"/>
+    <rect x="170" y="320" width="14" height="22" fill="#0a0c10"/>
+    <rect x="416" y="320" width="14" height="22" fill="#0a0c10"/>
+  </g>
+  <path d="M220 160 l40 30 -40 20 z" fill="#ffffff" fill-opacity="0.18"/>
+  <g fill="#e2231a">
+    <path d="M120 90 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4z"/>
+    <path d="M500 110 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z" opacity="0.7"/>
+    <path d="M530 80 l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2z" opacity="0.55"/>
+  </g>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Biurko z monitorem i krzesłem - sprzątanie biur">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6f7f9"/><stop offset="1" stop-color="#ffffff"/></linearGradient></defs>
+  <rect width="600" height="400" fill="url(#bg)"/>
+  <ellipse cx="300" cy="350" rx="230" ry="14" fill="#0a0c10" fill-opacity="0.08"/>
+  <g>
+    <rect x="80" y="240" width="440" height="22" rx="4" fill="#1a1c20"/>
+    <rect x="100" y="262" width="14" height="80" fill="#16181d"/>
+    <rect x="486" y="262" width="14" height="80" fill="#16181d"/>
+    <rect x="80" y="240" width="440" height="6" fill="#e2231a"/>
+    <rect x="220" y="120" width="160" height="100" rx="6" fill="#16181d"/>
+    <rect x="232" y="132" width="136" height="76" fill="#22252b"/>
+    <rect x="232" y="132" width="136" height="14" fill="#e2231a" opacity="0.7"/>
+    <rect x="290" y="220" width="20" height="16" fill="#16181d"/>
+    <rect x="270" y="234" width="60" height="8" rx="2" fill="#16181d"/>
+  </g>
+  <g>
+    <rect x="120" y="260" width="50" height="30" rx="4" fill="#16181d"/>
+    <path d="M125 260 l40 0 -10 -20 -20 0 z" fill="#3a3d44"/>
+    <rect x="110" y="290" width="14" height="50" fill="#16181d"/>
+    <rect x="100" y="338" width="34" height="6" rx="2" fill="#0a0c10"/>
+  </g>
+  <g>
+    <rect x="404" y="180" width="30" height="60" rx="4" fill="#16181d"/>
+    <path d="M404 180 q15 -50 30 0" fill="#e2231a"/>
+  </g>
+  <g fill="none" stroke="#e2231a" stroke-width="3">
+    <circle cx="80" cy="120" r="18" opacity="0.7"/>
+    <circle cx="540" cy="100" r="12" opacity="0.6"/>
+  </g>
+</svg>

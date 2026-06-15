@@ -1374,3 +1374,85 @@ body {
 /* Delikatne, miękkie krawędzie sekcji jasnych (subtelny separator) */
 .section--stats,
 .section--reviews { border-top: 1px solid rgba(0, 0, 0, 0.06); }
+
+
+
+/* =========================================================
+   v14 — czytelność, dostępność, dopracowanie (desktop + mobile)
+   ========================================================= */
+
+/* --- Czytelność: ciemniejszy kolor pomocniczy (lepszy kontrast AA) --- */
+:root { --muted: #5a616c; }
+.price-note,
+.card .card-desc,
+.slide-cap span,
+.hero-card__rating { color: var(--muted); }
+
+/* tekst bazowy odrobinę mocniejszy */
+body { color: #14161b; }
+
+/* --- Blokada przewijania przy otwartym menu mobilnym --- */
+body.menu-open { overscroll-behavior: none; touch-action: pan-y; }
+html:has(body.menu-open) { overflow: hidden; }
+
+/* --- Dostępność: czytelny focus dla nawigacji klawiaturą --- */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+.acc-head:focus-visible {
+  outline: 3px solid rgba(226, 35, 26, 0.5);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* --- Akcent pod nagłówkami sekcji (elegancja, spójność z marką) --- */
+.section-head h2 { position: relative; }
+.section-head h2::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 4px;
+  border-radius: 3px;
+  margin: 18px auto 0;
+  background: var(--grad-red);
+}
+
+/* --- Karty: głębszy, miększy efekt podniesienia --- */
+.card { transition: transform .3s cubic-bezier(.2, .8, .2, 1), box-shadow .3s ease, border-color .3s ease; }
+.card:hover { transform: translateY(-8px); box-shadow: 0 26px 56px rgba(20, 22, 28, 0.16); }
+
+/* --- Przyciski: subtelny połysk przy najechaniu --- */
+.btn--primary { position: relative; overflow: hidden; isolation: isolate; }
+.btn--primary::after {
+  content: "";
+  position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.28) 50%, transparent 65%);
+  transform: translateX(-130%);
+  transition: transform .6s ease;
+}
+.btn--primary:hover::after { transform: translateX(130%); }
+
+/* --- Desktop: oddech i rytm na dużych ekranach --- */
+@media (min-width: 1200px) {
+  .section { padding: 96px 0; }
+  .grid { gap: 30px; }
+}
+
+/* --- Delikatne, miękkie wejście panelu hero (desktop, bez ruchu gdy użytkownik tego nie chce) --- */
+@media (min-width: 981px) and (prefers-reduced-motion: no-preference) {
+  .hero-visual { animation: heroFloat 6.5s ease-in-out infinite; }
+  @keyframes heroFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+}
+
+/* --- Spójne, czytelne tabele cennika także na mobile --- */
+@media (max-width: 560px) {
+  .price-table th, .price-table td { font-size: 0.92rem; }
+  .section-head h2::after { margin-top: 14px; }
+}

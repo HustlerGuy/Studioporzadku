@@ -1324,3 +1324,53 @@ body.menu-open .to-top { display: none !important; }
 .freebox ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px 22px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
 .freebox li { display: flex; gap: 9px; align-items: flex-start; font-weight: 500; font-size: .95rem; }
 .freebox li svg { flex: 0 0 auto; width: 20px; height: 20px; margin-top: 1px; }
+
+
+
+/* =========================================================
+   v13 — przyjemna struktura tła zamiast płaskiej bieli
+   ========================================================= */
+
+/* Subtelna tekstura całej strony: delikatna kropkowa siatka
+   + miękkie, markowe poświaty w narożnikach. Karty i tabele
+   pozostają białe, dzięki czemu wyraźnie odcinają się od tła. */
+body {
+  background-color: #fbfbfd;
+  background-image:
+    radial-gradient(820px 460px at 100% -12%, rgba(226, 35, 26, 0.06), transparent 60%),
+    radial-gradient(680px 380px at -10% 6%, rgba(226, 35, 26, 0.035), transparent 60%),
+    radial-gradient(rgba(22, 24, 29, 0.05) 1.1px, transparent 1.3px);
+  background-size: auto, auto, 22px 22px;
+  background-repeat: no-repeat, no-repeat, repeat;
+}
+
+/* Sekcje białe stają się przezroczyste, by pokazać teksturę tła */
+.section { background: transparent; }
+
+/* Sekcje "soft": czysty, gładki pas dla rytmu wizualnego */
+.section--soft {
+  background: linear-gradient(180deg, #f4f6f9 0%, #eef1f6 100%);
+  border-top: 1px solid rgba(20, 22, 28, 0.05);
+  border-bottom: 1px solid rgba(20, 22, 28, 0.05);
+}
+
+/* Sekcja-zajawka na podstronach: spójna z tłem, lekko cieplejsza */
+.service-intro {
+  background:
+    radial-gradient(60% 120% at 50% -10%, rgba(226, 35, 26, 0.05), transparent 60%),
+    linear-gradient(180deg, #f5f7fa 0%, #fbfbfd 100%);
+  border-bottom: 1px solid rgba(20, 22, 28, 0.05);
+}
+
+/* Karty, tabele, FAQ, testimoniale: pełna biel + delikatny kontur,
+   aby ładnie "wybijały się" ponad teksturowane tło */
+.card,
+.price-table,
+.testimonial,
+.faq details {
+  background: #ffffff;
+}
+
+/* Delikatne, miękkie krawędzie sekcji jasnych (subtelny separator) */
+.section--stats,
+.section--reviews { border-top: 1px solid rgba(0, 0, 0, 0.06); }

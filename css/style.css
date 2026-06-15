@@ -1200,3 +1200,80 @@ body.menu-open .to-top { display: none !important; }
 }
 .media.media--svc::before,
 .media.media--svc::after { display: none !important; }
+
+
+
+/* =========================================================
+   v11 — czytelniejsze kafle usług + slider realizacji
+   ========================================================= */
+
+/* Kafle: wyraźny lead + zwięzły, równy opis (3 linie) */
+.card .card-tag { color: var(--ink); font-weight: 700; }
+.card .card-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ---------- Slider realizacji ---------- */
+.realizacje .slider { position: relative; margin-top: 6px; }
+.slider-viewport {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  cursor: grab;
+}
+.slider-viewport::-webkit-scrollbar { display: none; }
+.slider-viewport.dragging { cursor: grabbing; scroll-snap-type: none; }
+.slider-track {
+  display: flex;
+  gap: 18px;
+  list-style: none;
+  margin: 0;
+  padding: 6px 2px 12px;
+}
+.slide {
+  flex: 0 0 326px;
+  max-width: 82%;
+  scroll-snap-align: start;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.slide:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+.slide-media { aspect-ratio: 4 / 3; background: var(--bg-soft); overflow: hidden; }
+.slide-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.slide:hover .slide-media img { transform: scale(1.05); }
+.slide-cap { padding: 15px 18px 17px; }
+.slide-cap strong { display: block; font-family: var(--font-head); font-size: 1.05rem; }
+.slide-cap span { color: var(--muted); font-size: .9rem; }
+
+.slider-btn {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  border: 0;
+  background: #fff;
+  color: var(--brand-red);
+  box-shadow: var(--shadow);
+  display: grid; place-items: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: background .2s ease, color .2s ease, transform .2s ease;
+}
+.slider-btn:hover { background: var(--grad-red); color: #fff; transform: translateY(-50%) scale(1.06); }
+.slider-btn svg { width: 22px; height: 22px; }
+.slider-btn--prev { left: -12px; }
+.slider-btn--next { right: -12px; }
+
+@media (max-width: 560px) {
+  .slide { flex-basis: 80%; }
+  .slider-btn { display: none; }
+}

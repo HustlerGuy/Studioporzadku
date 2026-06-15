@@ -4,45 +4,90 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cennik | Studio Porządku</title>
-<meta name="description" content="Cennik Studio Porządku: stacjonarna pralnia dywanów, pranie tapicerki meblowej i samochodowej, czyszczenie skóry, ozonowanie, mycie okien, sprzątanie biur oraz wypożyczalnia sprzętu Karcher w Krakowie.">
+<meta name="description" content="Interaktywny cennik Studio Porządku: pralnia dywanów, pranie tapicerki i dywanów, czyszczenie skóry, ozonowanie, mycie okien, sprzątanie biur oraz wypożyczalnia sprzętu Karcher w Krakowie. Kliknij usługę i zobacz szczegóły.">
 <link rel="icon" href="../img/logo.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../css/style.css">
+<script>document.documentElement.classList.add('js');</script>
 <style>
-  /* --- Style lokalne strony cennika --- */
-  .cennik h2 { scroll-margin-top: 110px; }
-  .cennik h2 .h2-sub { display:block; font-family: var(--font); font-weight:500; font-size:.95rem; color: var(--muted); letter-spacing:0; margin-top:.35rem; }
+  /* ===== Cennik: interaktywna lista usług ===== */
+  .pricing { background:
+      radial-gradient(60% 50% at 100% 0%, rgba(226,35,26,.05), transparent 60%),
+      radial-gradient(50% 40% at 0% 100%, rgba(226,35,26,.04), transparent 55%),
+      var(--bg-soft);
+  }
 
-  .keyinfo { display:grid; gap:16px; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); margin: 8px 0 0; list-style:none; padding:0; }
-  .keyinfo li { display:flex; gap:12px; align-items:flex-start; background:#fff; border:1px solid var(--line); border-radius: var(--radius-sm); padding:14px 16px; box-shadow: var(--shadow-sm); }
-  .keyinfo .ic { width:38px; height:38px; flex:0 0 auto; border-radius:10px; display:grid; place-items:center; background: var(--grad-red); color:#fff; }
-  .keyinfo .ic svg { width:20px; height:20px; }
-  .keyinfo strong { display:block; font-family: var(--font-head); font-size:.98rem; }
-  .keyinfo span { color: var(--muted); font-size:.86rem; }
+  /* pasek kluczowych informacji */
+  .keyinfo { display:grid; gap:14px; grid-template-columns: repeat(auto-fit, minmax(210px,1fr)); margin: 0 0 30px; list-style:none; padding:0; }
+  .keyinfo li { display:flex; gap:13px; align-items:center; background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; box-shadow: var(--shadow-sm); }
+  .keyinfo .ic { width:42px; height:42px; flex:0 0 auto; border-radius:12px; display:grid; place-items:center; background: var(--grad-red); color:#fff; box-shadow:0 8px 16px rgba(226,35,26,.26); }
+  .keyinfo .ic svg { width:21px; height:21px; }
+  .keyinfo strong { display:block; font-family: var(--font-head); font-size:.97rem; line-height:1.2; }
+  .keyinfo span { color: var(--muted); font-size:.83rem; }
 
-  .toc { display:flex; flex-wrap:wrap; gap:10px; margin: 8px 0 0; padding:0; list-style:none; }
-  .toc a { display:inline-flex; align-items:center; gap:7px; padding:9px 15px; border-radius:999px; background:#fff; border:1px solid var(--line); color: var(--ink); font-weight:600; font-size:.92rem; box-shadow: var(--shadow-sm); transition: all .18s ease; }
-  .toc a:hover { color:#fff; background: var(--grad-red); border-color: transparent; transform: translateY(-2px); }
+  /* chipsy szybkiego wyboru */
+  .chips { display:flex; flex-wrap:wrap; gap:9px; margin:0 0 30px; padding:0; list-style:none; }
+  .chips button { display:inline-flex; align-items:center; gap:7px; padding:9px 15px; border-radius:999px; background:#fff; border:1px solid var(--line); color:var(--ink); font:600 .9rem var(--font); cursor:pointer; box-shadow:var(--shadow-sm); transition: all .18s ease; }
+  .chips button:hover { transform:translateY(-2px); color:#fff; background:var(--grad-red); border-color:transparent; box-shadow:0 10px 22px rgba(226,35,26,.32); }
+  .chips button .dot { width:7px; height:7px; border-radius:50%; background:var(--brand-red); transition:background .18s ease; }
+  .chips button:hover .dot { background:#fff; }
 
-  .price-block { margin-top: 18px; }
-  .price-block + .price-block { margin-top: 34px; }
-  .price-block > h3 { margin: 0 0 12px; }
+  /* karta-akordeon */
+  .acc { position:relative; background:#fff; border:1px solid var(--line); border-radius:18px; margin:0 0 16px; box-shadow:var(--shadow-sm); overflow:hidden; scroll-margin-top:96px; transition: box-shadow .25s ease, border-color .25s ease, transform .25s ease; }
+  .acc::before { content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:var(--grad-red); transform:scaleY(0); transform-origin:top; transition:transform .3s ease; }
+  .acc:hover { box-shadow:var(--shadow); border-color:#e0e2e8; }
+  .acc.open { box-shadow:var(--shadow); border-color:transparent; }
+  .acc.open::before { transform:scaleY(1); }
 
-  .subhead { font-family: var(--font-head); font-weight:700; font-size:1.02rem; color: var(--brand-red); text-transform:uppercase; letter-spacing:.06em; margin: 30px 0 10px; }
+  .acc-head { display:flex; align-items:center; gap:18px; width:100%; text-align:left; background:transparent; border:0; cursor:pointer; padding:20px 22px; font:inherit; color:inherit; }
+  .acc.open .acc-head { background: linear-gradient(100deg, #fff6f5 0%, #ffffff 70%); }
+  .acc-illus { width:64px; height:64px; flex:0 0 auto; border-radius:16px; display:grid; place-items:center; background: linear-gradient(135deg,#fde7e5,#fff); border:1px solid #f6d6d3; overflow:hidden; transition: transform .3s ease, background .3s ease; }
+  .acc-illus img { width:62px; height:62px; object-fit:cover; }
+  .acc.open .acc-illus, .acc-head:hover .acc-illus { transform: rotate(-4deg) scale(1.05); }
 
-  .freebox { background: linear-gradient(135deg,#0f8a4d 0%, #12a85e 100%); color:#fff; border-radius: var(--radius); padding: 30px 32px; box-shadow: 0 16px 40px rgba(16,138,77,.28); }
-  .freebox h3 { color:#fff; margin:0 0 4px; }
-  .freebox p { color: #d8f5e4; margin:0 0 18px; }
-  .freebox ul { list-style:none; margin:0; padding:0; display:grid; gap:10px 22px; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); }
-  .freebox li { display:flex; gap:10px; align-items:flex-start; font-weight:500; }
-  .freebox li svg { flex:0 0 auto; width:22px; height:22px; margin-top:1px; }
+  .acc-titles { flex:1 1 auto; min-width:0; }
+  .acc-title { display:block; font-family:var(--font-head); font-weight:800; font-size:1.16rem; letter-spacing:-.01em; line-height:1.2; }
+  .acc-tag { display:block; color:var(--muted); font-size:.92rem; margin-top:3px; }
 
-  .callout { display:flex; gap:14px; align-items:flex-start; background: var(--bg-soft); border:1px solid var(--line); border-left:4px solid var(--brand-red); border-radius: var(--radius-sm); padding:16px 18px; margin: 0 0 18px; }
-  .callout svg { flex:0 0 auto; width:24px; height:24px; color: var(--brand-red); margin-top:2px; }
-  .callout p { margin:0; font-size:.96rem; }
+  .acc-price { flex:0 0 auto; display:inline-flex; align-items:baseline; gap:4px; padding:7px 14px; border-radius:999px; background:var(--grad-red); color:#fff; font-family:var(--font-head); font-weight:700; font-size:.95rem; white-space:nowrap; box-shadow:0 8px 18px rgba(226,35,26,.28); }
+  .acc-chev { flex:0 0 auto; width:34px; height:34px; border-radius:50%; display:grid; place-items:center; background:var(--bg-soft); color:var(--brand-red); transition: transform .3s ease, background .3s ease, color .3s ease; }
+  .acc-chev svg { width:18px; height:18px; }
+  .acc.open .acc-chev { transform:rotate(180deg); background:var(--grad-red); color:#fff; }
 
-  .sec-anchor { padding-top: 56px; }
-  .sec-anchor:first-of-type { padding-top: 0; }
-  .price-table td:first-child { width: 58%; }
+  /* ciało: animowane rozwijanie */
+  .js .acc-body { max-height:0; overflow:hidden; transition:max-height .45s cubic-bezier(.4,0,.2,1); }
+  .acc-inner { padding:4px 22px 26px; border-top:1px solid var(--line); }
+  .acc.open .acc-inner { animation: accfade .5s ease both; }
+  @keyframes accfade { from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
+
+  .acc-inner h4 { font-family:var(--font-head); font-size:1.02rem; color:var(--brand-red); text-transform:uppercase; letter-spacing:.05em; margin:26px 0 10px; }
+  .acc-inner h4:first-child { margin-top:18px; }
+  .acc-inner .price-table { margin-bottom:2px; }
+  .acc-inner .price-table td:first-child { width:60%; }
+  .acc-inner .small { color:var(--muted); font-weight:400; }
+
+  .callout { display:flex; gap:13px; align-items:flex-start; background:#fff; border:1px solid var(--line); border-left:4px solid var(--brand-red); border-radius:12px; padding:15px 17px; margin:0 0 18px; }
+  .callout svg { flex:0 0 auto; width:22px; height:22px; color:var(--brand-red); margin-top:2px; }
+  .callout p { margin:0; font-size:.95rem; }
+
+  .freebox { background: linear-gradient(135deg,#0f8a4d 0%, #14a85e 100%); color:#fff; border-radius:16px; padding:24px 26px; margin-top:8px; box-shadow:0 14px 34px rgba(16,138,77,.26); }
+  .freebox h4 { color:#fff !important; margin:0 0 3px !important; }
+  .freebox p { color:#d8f5e4; margin:0 0 16px; font-size:.92rem; }
+  .freebox ul { list-style:none; margin:0; padding:0; display:grid; gap:9px 22px; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); }
+  .freebox li { display:flex; gap:9px; align-items:flex-start; font-weight:500; font-size:.95rem; }
+  .freebox li svg { flex:0 0 auto; width:20px; height:20px; margin-top:1px; }
+
+  .section-intro { max-width:640px; margin:0 0 26px; }
+
+  @media (max-width:620px){
+    .acc-head { gap:13px; padding:16px; flex-wrap:wrap; }
+    .acc-illus { width:50px; height:50px; }
+    .acc-illus img { width:48px; height:48px; }
+    .acc-title { font-size:1.04rem; }
+    .acc-tag { font-size:.85rem; }
+    .acc-price { order:3; font-size:.85rem; padding:6px 11px; }
+    .acc-chev { margin-left:auto; }
+    .acc-inner { padding:4px 15px 20px; }
+  }
 </style>
 </head>
 <body>
@@ -93,380 +138,411 @@
   <div class="container">
     <div class="breadcrumbs"><a href="../">Strona główna</a><span>/</span>Cennik</div>
     <h1>Cennik usług</h1>
-    <p style="color:#d7d9dc;max-width:720px;margin:0;">Pełny cennik Studio Porządku: stacjonarna pralnia dywanów, pranie tapicerki i dywanów u klienta, czyszczenie skóry, ozonowanie, mycie okien oraz wypożyczalnia sprzętu. Ceny mają charakter orientacyjny, dokładną wycenę przygotujemy bezpłatnie po poznaniu szczegółów.</p>
+    <p style="color:#d7d9dc;max-width:720px;margin:0;">Wybierz usługę z listy poniżej, a rozwiniemy dla Ciebie pełne ceny i szczegóły. Stawki mają charakter orientacyjny, dokładną wycenę przygotujemy bezpłatnie.</p>
   </div>
 </section>
 
-<section class="section cennik">
+<section class="section pricing">
   <div class="container">
 
-    <!-- Kluczowe informacje -->
     <ul class="keyinfo">
       <li>
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
-        <div><strong>Dywanomat 24h / 7</strong><span>Oddaj dywan o dowolnej porze, także w święta</span></div>
+        <div><strong>Dywanomat 24h / 7</strong><span>Oddaj dywan o dowolnej porze</span></div>
       </li>
       <li>
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h13v8H3zM16 10h3l2 2v3h-5z"/><circle cx="7" cy="17" r="1.6"/><circle cx="18" cy="17" r="1.6"/></svg></span>
-        <div><strong>Dojazd do klienta</strong><span>Mycie okien w Krakowie z dojazdem 0 zł</span></div>
+        <div><strong>Dojazd 0 zł</strong><span>Mycie okien na terenie Krakowa</span></div>
       </li>
       <li>
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-        <div><strong>Płatność po usłudze</strong><span>Za pranie dywanu płacisz dopiero przy odbiorze</span></div>
+        <div><strong>Płatność po usłudze</strong><span>Za dywan płacisz przy odbiorze</span></div>
       </li>
       <li>
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M5 7h9a3 3 0 0 1 0 6H7a3 3 0 0 0 0 6h10"/></svg></span>
-        <div><strong>Realizacja 6–8 dni</strong><span>Czas prania dywanu w pralni stacjonarnej</span></div>
+        <div><strong>Realizacja 6–8 dni</strong><span>Pranie dywanu w pralni</span></div>
       </li>
     </ul>
 
-    <!-- Spis treści -->
-    <p class="subhead" style="margin-top:40px;">Przejdź do usługi</p>
-    <ul class="toc">
-      <li><a href="#pralnia">Pralnia dywanów</a></li>
-      <li><a href="#dywany-klient">Dywany i wykładziny u klienta</a></li>
-      <li><a href="#tapicerka">Tapicerka meblowa</a></li>
-      <li><a href="#skora">Meble skórzane</a></li>
-      <li><a href="#auto">Tapicerka samochodowa</a></li>
-      <li><a href="#ozonowanie">Ozonowanie</a></li>
-      <li><a href="#okna">Mycie okien</a></li>
-      <li><a href="#biura">Sprzątanie biur</a></li>
-      <li><a href="#wypozyczalnia">Wypożyczalnia sprzętu</a></li>
+    <div class="section-intro">
+      <span class="eyebrow">Cennik interaktywny</span>
+      <h2 style="margin:0;">Kliknij usługę i zobacz szczegóły</h2>
+    </div>
+
+    <ul class="chips" id="chips">
+      <li><button data-target="pralnia"><span class="dot"></span>Pralnia dywanów</button></li>
+      <li><button data-target="dywany-klient"><span class="dot"></span>Dywany i wykładziny</button></li>
+      <li><button data-target="tapicerka"><span class="dot"></span>Tapicerka meblowa</button></li>
+      <li><button data-target="skora"><span class="dot"></span>Meble skórzane</button></li>
+      <li><button data-target="auto"><span class="dot"></span>Tapicerka aut</button></li>
+      <li><button data-target="ozonowanie"><span class="dot"></span>Ozonowanie</button></li>
+      <li><button data-target="okna"><span class="dot"></span>Mycie okien</button></li>
+      <li><button data-target="biura"><span class="dot"></span>Sprzątanie biur</button></li>
+      <li><button data-target="wypozyczalnia"><span class="dot"></span>Wypożyczalnia</button></li>
     </ul>
 
-    <!-- ============ PRALNIA DYWANÓW ============ -->
-    <div id="pralnia" class="sec-anchor">
-      <h2>Stacjonarna pralnia dywanów „w głębokiej wodzie"<span class="h2-sub">Pranie na wskroś w kąpieli wodnej. Punkt przyjęć: ul. Marii Jasnorzewskiej 5A, Kraków.</span></h2>
+    <div class="acc-list">
 
-      <div class="callout">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-        <p>Dywany przyjmujemy przez <strong>Dywanomat 24h/7</strong> (po prawej od wejścia) lub w godzinach lokalu <strong>Pon–Pt 7:00–12:00</strong> i <strong>Sob 9:00–12:00</strong>. Czas realizacji to zwykle 6–8 dni roboczych, a płatność następuje po wykonaniu usługi.</p>
+      <!-- PRALNIA -->
+      <div class="acc open" id="pralnia">
+        <button class="acc-head" aria-expanded="true">
+          <span class="acc-illus"><img src="../img/services/pralnia-dywanow.svg" alt=""></span>
+          <span class="acc-titles">
+            <span class="acc-title">Stacjonarna pralnia dywanów</span>
+            <span class="acc-tag">Pranie „na wskroś" w głębokiej wodzie, z Dywanomatem 24/7</span>
+          </span>
+          <span class="acc-price">od 18 zł<span class="small">/m²</span></span>
+          <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="callout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <p>Dywany przyjmujemy przez <strong>Dywanomat 24h/7</strong> lub w godzinach lokalu <strong>Pon–Pt 7:00–12:00</strong> i <strong>Sob 9:00–12:00</strong>. Realizacja zwykle 6–8 dni roboczych, płatność po wykonaniu. Pralnia: tel. 600 633 443.</p>
+          </div>
+          <h4>Pranie według rodzaju</h4>
+          <table class="price-table">
+            <thead><tr><th>Rodzaj dywanu</th><th>Cena</th></tr></thead>
+            <tbody>
+              <tr><td>Niski włos: sztuczne i wełniane, tkane maszynowo (dywany, chodniki, wykładziny)</td><td>od 18 zł / m²</td></tr>
+              <tr><td>Wysoki włos (shaggy), akryl, gruba wełna, dwustronne, wiskoza, bawełna</td><td>20 zł / m²</td></tr>
+              <tr><td>Maty wejściowe i wycieraczki z gumowym spodem</td><td>20 zł / m²</td></tr>
+              <tr><td>Jedwab, dywany orientalne, kilimy, gobeliny</td><td>25 zł / m²</td></tr>
+              <tr><td>Koc, narzuta, kapa (również duże rozmiary)</td><td>70–150 zł / szt.</td></tr>
+            </tbody>
+          </table>
+          <h4>Usługi dodatkowe</h4>
+          <table class="price-table">
+            <thead><tr><th>Usługa</th><th>Cena</th></tr></thead>
+            <tbody>
+              <tr><td>Usuwanie zapachów (mocz, wymioty, papierosy itp.)</td><td>+4 zł / m²</td></tr>
+              <tr><td>Ozonowanie (odkażanie O₃)</td><td>+20 zł / szt.</td></tr>
+              <tr><td>Impregnacja</td><td>+10 zł / m²</td></tr>
+              <tr><td>Obszywanie, skracanie, obcinanie frędzli (min. 40 zł)</td><td>12 zł / mb</td></tr>
+              <tr><td>Naprawa dywanów</td><td>wycena</td></tr>
+            </tbody>
+          </table>
+          <h4>Czyszczenie innych przedmiotów</h4>
+          <table class="price-table">
+            <thead><tr><th>Przedmiot</th><th>Cena</th></tr></thead>
+            <tbody>
+              <tr><td>Pokrowiec materaca 1-osobowy / 2-osobowy</td><td>140 zł / 180 zł</td></tr>
+              <tr><td>Fotelik dziecięcy z plastikami / nosidełko</td><td>od 90 zł</td></tr>
+              <tr><td>Wózek, spacerówka z plastikami / gondola</td><td>od 140 zł</td></tr>
+              <tr><td>Kojec dla psa / domek dla kota</td><td>od 30 zł</td></tr>
+              <tr><td>Krzesło, pufa, podnóżek</td><td>od 15 zł</td></tr>
+              <tr><td>Poduszka</td><td>od 10 zł</td></tr>
+              <tr><td>Kilimy, gobeliny, maskotki, pluszaki</td><td>wycena</td></tr>
+            </tbody>
+          </table>
+          <div class="freebox">
+            <h4>Usługi za 0 zł</h4>
+            <p>Te elementy prania dywanu masz u nas zawsze w cenie.</p>
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Foliowanie po praniu</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Usuwanie sierści i włosów</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Program antyalergiczny (roztocza)</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Usuwanie gumy, wosku, odplamianie</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Pranie obszyć, frędzli i osnowy</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Podnoszenie włosia</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Program zapachowy</li>
+            </ul>
+          </div>
+        </div></div>
       </div>
 
-      <div class="price-block">
-        <table class="price-table">
-          <thead><tr><th>Rodzaj dywanu</th><th>Cena</th></tr></thead>
-          <tbody>
-            <tr><td>Niski włos: sztuczne i wełniane, tkane maszynowo (dywany, chodniki, wykładziny)</td><td>od 18 zł / m²</td></tr>
-            <tr><td>Wysoki włos (shaggy), akryl, gruba wełna, dwustronne, wiskoza, bawełna</td><td>20 zł / m²</td></tr>
-            <tr><td>Maty wejściowe i wycieraczki z gumowym spodem</td><td>20 zł / m²</td></tr>
-            <tr><td>Jedwab, dywany orientalne, kilimy, gobeliny</td><td>25 zł / m²</td></tr>
-            <tr><td>Koc, narzuta, kapa (sztuczne i wełniane, również duże rozmiary)</td><td>70–150 zł / szt.</td></tr>
-          </tbody>
-        </table>
+      <!-- DYWANY I WYKŁADZINY U KLIENTA -->
+      <div class="acc" id="dywany-klient">
+        <button class="acc-head" aria-expanded="false">
+          <span class="acc-illus"><img src="../img/services/pranie-wykladzin-dywanow.svg" alt=""></span>
+          <span class="acc-titles">
+            <span class="acc-title">Pranie dywanów i wykładzin u klienta</span>
+            <span class="acc-tag">Metoda ekstrakcyjna na miejscu, bez demontażu</span>
+          </span>
+          <span class="acc-price">od 12 zł<span class="small">/m²</span></span>
+          <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="callout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <p>Minimalne zamówienie: <strong>od 200 zł w Krakowie</strong>, <strong>od 250 zł poza Krakowem</strong>. Ceny w widełkach „od", zależą od stopnia zabrudzenia i rodzaju włókna.</p>
+          </div>
+          <h4>Dywany</h4>
+          <table class="price-table">
+            <thead><tr><th>Rodzaj</th><th>Cena</th></tr></thead>
+            <tbody>
+              <tr><td>Krótki włos: sztuczne i wełniane</td><td>od 12 zł / m²</td></tr>
+              <tr><td>Shaggy (włochacze)</td><td>od 15 zł / m²</td></tr>
+              <tr><td>Wycieraczka, dywanik łazienkowy (do 1 m²)</td><td>5–15 zł / szt.</td></tr>
+              <tr><td>Jedwab, wiskoza, orientalne, delikatne, kilimy</td><td>wycena</td></tr>
+            </tbody>
+          </table>
+          <h4>Wykładziny</h4>
+          <table class="price-table">
+            <thead><tr><th>Powierzchnia</th><th>Cena</th></tr></thead>
+            <tbody>
+              <tr><td>Do 30 m²</td><td>od 12 zł / m²</td></tr>
+              <tr><td>Ponad 30 m² do 200 m²</td><td>8–15 zł / m²</td></tr>
+              <tr><td>Ponad 200 m² (z podsuszaniem)</td><td>wycena</td></tr>
+              <tr><td>Schody, nakładki na schody</td><td>od 3 zł / szt.</td></tr>
+              <tr><td>Czyszczenie na sucho (suche nawet w 2 h)</td><td>od 3 zł / m²</td></tr>
+            </tbody>
+          </table>
+        </div></div>
       </div>
 
-      <p class="subhead">Usługi dodatkowe</p>
-      <div class="price-block">
-        <table class="price-table">
-          <thead><tr><th>Usługa</th><th>Cena</th></tr></thead>
-          <tbody>
-            <tr><td>Usuwanie zapachów (mocz, wymioty, papierosy itp.)</td><td>+4 zł / m²</td></tr>
-            <tr><td>Ozonowanie (odkażanie O₃)</td><td>+20 zł / szt.</td></tr>
-            <tr><td>Impregnacja</td><td>+10 zł / m²</td></tr>
-            <tr><td>Obszywanie, skracanie dywanu, obcinanie frędzli (min. zamówienie 40 zł)</td><td>12 zł / mb</td></tr>
-            <tr><td>Naprawa dywanów</td><td>wycena</td></tr>
-          </tbody>
-        </table>
+      <!-- TAPICERKA MEBLOWA -->
+      <div class="acc" id="tapicerka">
+        <button class="acc-head" aria-expanded="false">
+          <span class="acc-illus"><img src="../img/services/pranie-tapicerki-meblowej.svg" alt=""></span>
+          <span class="acc-titles">
+            <span class="acc-title">Pranie tapicerki meblowej</span>
+            <span class="acc-tag">Kanapy, narożniki, fotele, krzesła i materace u klienta</span>
+          </span>
+          <span class="acc-price">od 10 zł</span>
+          <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="callout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <p>Minimalne zamówienie: <strong>od 200 zł w Krakowie</strong>, <strong>od 250 zł poza Krakowem</strong>. Po dokładną wycenę prześlij zdjęcia na nr <strong>506 507 171</strong>.</p>
+          </div>
+          <table class="price-table">
+            <thead><tr><th>Mebel</th><th>Cena</th></tr></thead>
+            <tbody>
+              <tr><td>Krzesło, pufa, podnóżek</td><td>od 10 zł</td></tr>
+              <tr><td>Fotel (siedzisko + oparcie)</td><td>35–55 zł</td></tr>
+              <tr><td>Fotel (siedzisko + oparcie + boki)</td><td>45–75 zł</td></tr>
+              <tr><td>Sofa 2-3 os., wersalka, kanapa</td><td>150–220 zł</td></tr>
+              <tr><td>Narożnik (do 160 × 240 cm)</td><td>200–250 zł</td></tr>
+              <tr><td>Narożnik duży, z zagłówkami, w kształcie „U"</td><td>od 250 zł</td></tr>
+              <tr><td>Poduszka</td><td>5–25 zł</td></tr>
+              <tr><td>Tapczan 1-osobowy</td><td>80–130 zł</td></tr>
+              <tr><td>Wezgłowie + rama łóżka</td><td>80–180 zł</td></tr>
+              <tr><td>Materac 1-os. (80 × 200): jednostronnie / obustronnie</td><td>70 / 120 zł</td></tr>
+              <tr><td>Materac 2-os. (160 × 200): jednostronnie / obustronnie</td><td>120 / 170 zł</td></tr>
+            </tbody>
+          </table>
+          <p class="price-note">Cena może wzrosnąć przy usuwaniu zapachów, pleśni, dużych gabarytach lub bardzo mocnych zabrudzeniach.</p>
+        </div></div>
       </div>
 
-      <p class="subhead">Czyszczenie innych przedmiotów</p>
-      <div class="price-block">
-        <table class="price-table">
-          <thead><tr><th>Przedmiot</th><th>Cena</th></tr></thead>
-          <tbody>
-            <tr><td>Pokrowiec materaca 1-osobowy</td><td>140 zł</td></tr>
-            <tr><td>Pokrowiec materaca 2-osobowy</td><td>180 zł</td></tr>
-            <tr><td>Fotelik dziecięcy (samochodowy) z plastikami / nosidełko</td><td>od 90 zł</td></tr>
-            <tr><td>Wózek dziecięcy, spacerówka z plastikami / gondola</td><td>od 140 zł</td></tr>
-            <tr><td>Kojec dla psa / domek dla kota</td><td>od 30 zł</td></tr>
-            <tr><td>Krzesło, pufa, podnóżek</td><td>od 15 zł</td></tr>
-            <tr><td>Poduszka</td><td>od 10 zł</td></tr>
-            <tr><td>Kilimy, gobeliny (ozdoby ścienne), maskotki, pluszaki</td><td>wycena</td></tr>
-          </tbody>
-        </table>
-        <p class="price-note">Istnieje możliwość przywiezienia mebli tapicerowanych na czyszczenie i suszenie do naszej firmy. Pralnia: tel. 600 633 443.</p>
+      <!-- MEBLE SKÓRZANE -->
+      <div class="acc" id="skora">
+        <button class="acc-head" aria-expanded="false">
+          <span class="acc-illus"><img src="../img/services/czyszczenie-mebli-skorzanych.svg" alt=""></span>
+          <span class="acc-titles">
+            <span class="acc-title">Czyszczenie mebli skórzanych</span>
+            <span class="acc-tag">Skóra naturalna i ekoskóra: czyszczenie, odżywianie, impregnacja</span>
+          </span>
+          <span class="acc-price">od 280 zł</span>
+          <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+        <div class="acc-body"><div class="acc-inner">
+          <table class="price-table">
+            <thead><tr><th>Usługa</th><th>Cena</th></tr></thead>
+            <tbody>
+              <tr><td>Tapicerka skórzana (czyszczenie i impregnacja)</td><td>+45% do cen tapicerki</td></tr>
+              <tr><td>Skóra w aucie (fotele, kanapa, boki drzwi, podłokietnik)</td><td>280–370 zł</td></tr>
+            </tbody>
+          </table>
+          <p class="price-note">Pracujemy na preparatach Colourlock, Saphir i Gliptone. Impregnacja chroniąca skórę w cenie usługi.</p>
+        </div></div>
       </div>
 
-      <p class="subhead">W cenie, czyli za co dodatkowo nie płacisz</p>
-      <div class="freebox">
-        <h3>Usługi za 0 zł</h3>
-        <p>Te elementy prania dywanu masz u nas zawsze w cenie.</p>
-        <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Foliowanie dywanów po praniu</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Usuwanie dużych ilości sierści i włosów</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Program antyalergiczny (usuwanie roztoczy)</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Usuwanie gumy, wosku i odplamianie</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Pranie obszyć, frędzli oraz osnowy</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Podnoszenie włosia (w miarę możliwości)</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Program zapachowy (zapach uwalnia się podczas chodzenia)</li>
-        </ul>
+      <!-- TAPICERKA SAMOCHODOWA -->
+      <div class="acc" id="auto">
+        <button class="acc-head" aria-expanded="false">
+          <span class="acc-illus"><img src="../img/services/pranie-tapicerki-samochodowej.svg" alt=""></span>
+          <span class="acc-titles">
+            <span class="acc-title">Pranie tapicerki samochodowej</span>
+            <span class="acc-tag">Detailing wnętrz: fotele, podsufitka, dywaniki, bagażnik</span>
+          </span>
+          <span class="acc-price">od 450 zł</span>
+          <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+        <div class="acc-body"><div class="acc-inner">
+          <h4>Pranie kompleksowe</h4>
+          <table class="price-table">
+            <thead><tr><th>Zakres</th><th>Cena</th></tr></thead>
+            <tbody>
+              <tr><td>Hatchback, sedan, kombi: komplet (fotele, kanapa, boki, podsufitka, podłoga, bagażnik, dywaniki, mycie szyb, suszenie)</td><td>od 450 zł</td></tr>
+              <tr><td>VAN: komplet (6-9 miejsc)</td><td>od 520 zł</td></tr>
+              <tr><td>Plastiki: gruntowne mycie i zabezpieczenie</td><td>od 100 zł</td></tr>
+              <tr><td>Czyszczenie i impregnacja skóry</td><td>280–370 zł</td></tr>
+            </tbody>
+          </table>
+          <h4>Pranie częściowe i dodatki</h4>
+          <table class="price-table">
+            <thead><tr><th>Usługa</th><th>Cena</th></tr></thead>
+            <tbody>
+              <tr><td>Sam fotel (np. kierowcy), 1 szt.</td><td>75 zł</td></tr>
+              <tr><td>Dwa fotele lub kanapa tylna</td><td>150 zł</td></tr>
+              <tr><td>Dwa fotele + kanapa tylna</td><td>300 zł</td></tr>
+              <tr><td>Podsufitka + mycie szyb od wewnątrz</td><td>od 100 zł</td></tr>
+              <tr><td>Sprzątanie wnętrza bez prania (odkurzanie, plastiki, szyby)</td><td>od 80 zł</td></tr>
+              <tr><td>Impregnacja tapicerki materiałowej</td><td>od 30 zł / fotel</td></tr>
+              <tr><td>Usuwanie naklejki rejestracyjnej / emblematów</td><td>od 5–20 zł</td></tr>
+              <tr><td>Usuwanie wymiotów, krwi, moczu, pleśni, zapachów</td><td>wycena</td></tr>
+            </tbody>
+          </table>
+        </div></div>
       </div>
+
+      <!-- OZONOWANIE -->
+      <div class="acc" id="ozonowanie">
+        <button class="acc-head" aria-expanded="false">
+          <span class="acc-illus"><img src="../img/services/ozonowanie.svg" alt=""></span>
+          <span class="acc-titles">
+            <span class="acc-title">Ozonowanie i dezynfekcja O₃</span>
+            <span class="acc-tag">Usuwanie zapachów, bakterii, wirusów i pleśni bez chemii</span>
+          </span>
+          <span class="acc-price">od 50 zł</span>
+          <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+        <div class="acc-body"><div class="acc-inner">
+          <h4>Auto: klimatyzacja i wnętrze</h4>
+          <table class="price-table">
+            <thead><tr><th>Pojazd</th><th>Cena</th></tr></thead>
+            <tbody>
+              <tr><td>Osobowy (30 min + wietrzenie)</td><td>50 zł</td></tr>
+              <tr><td>Bus (60 min + wietrzenie)</td><td>80 zł</td></tr>
+              <tr><td>Kamper / przyczepa kempingowa</td><td>80 zł</td></tr>
+            </tbody>
+          </table>
+          <h4>Pomieszczenia</h4>
+          <table class="price-table">
+            <thead><tr><th>Powierzchnia</th><th>Cena</th></tr></thead>
+            <tbody>
+              <tr><td>Do 50 m²</td><td>200–600 zł</td></tr>
+              <tr><td>Do 100 m²</td><td>600–900 zł</td></tr>
+              <tr><td>Powyżej 100 m²</td><td>wycena</td></tr>
+            </tbody>
+          </table>
+          <h4>Przedmioty (na poczekaniu)</h4>
+          <table class="price-table">
+            <thead><tr><th>Przedmiot</th><th>Cena / szt.</th></tr></thead>
+            <tbody>
+              <tr><td>Dywan, koc, narzuta, śpiwór</td><td>25 zł</td></tr>
+              <tr><td>Buty skórzane, sportowe</td><td>20 zł</td></tr>
+              <tr><td>Buty narciarskie, snowboardowe, motocyklowe</td><td>30 zł</td></tr>
+              <tr><td>Rękawiczki, kask, torba, plecak</td><td>30 zł</td></tr>
+              <tr><td>Zabawki, maskotki</td><td>20–40 zł</td></tr>
+              <tr><td>Poduszki</td><td>10–30 zł</td></tr>
+              <tr><td>Ubrania (worek 120 l)</td><td>40 zł</td></tr>
+            </tbody>
+          </table>
+        </div></div>
+      </div>
+
+      <!-- MYCIE OKIEN -->
+      <div class="acc" id="okna">
+        <button class="acc-head" aria-expanded="false">
+          <span class="acc-illus"><img src="../img/services/mycie-okien-witryn.svg" alt=""></span>
+          <span class="acc-titles">
+            <span class="acc-title">Mycie okien i witryn</span>
+            <span class="acc-tag">Okna, witryny i przeszklenia bez smug, także na wysokości</span>
+          </span>
+          <span class="acc-price">od 4 zł<span class="small">/m²</span></span>
+          <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="callout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <p>Minimalne zamówienie w Krakowie: <strong>od 150 zł</strong>. Dojazd na terenie Krakowa: <strong>0 zł</strong>.</p>
+          </div>
+          <h4>Witryny</h4>
+          <table class="price-table">
+            <thead><tr><th>Zakres</th><th>Cena</th></tr></thead>
+            <tbody>
+              <tr><td>Do 6 m wysokości: jednostronnie</td><td>od 4 zł / m²</td></tr>
+              <tr><td>Do 6 m wysokości: obustronnie</td><td>od 7 zł / m²</td></tr>
+              <tr><td>Powyżej 6 m wysokości</td><td>wycena</td></tr>
+            </tbody>
+          </table>
+          <h4>Okna (obustronnie: ramy, framugi, szyby, parapety)</h4>
+          <table class="price-table">
+            <thead><tr><th>Element</th><th>Cena</th></tr></thead>
+            <tbody>
+              <tr><td>Szklana balustrada / okno 1-skrzydłowe</td><td>od 15 zł</td></tr>
+              <tr><td>Okno 2-skrzydłowe</td><td>od 30 zł</td></tr>
+              <tr><td>Okno 3-skrzydłowe</td><td>od 45 zł</td></tr>
+              <tr><td>Okno dachowe</td><td>od 25 zł</td></tr>
+              <tr><td>Drzwi balkonowe 1 / 2-skrzydłowe</td><td>od 30 / 50 zł</td></tr>
+              <tr><td>Mycie luster, szyldów, usuwanie naklejek</td><td>wycena</td></tr>
+            </tbody>
+          </table>
+        </div></div>
+      </div>
+
+      <!-- SPRZĄTANIE BIUR -->
+      <div class="acc" id="biura">
+        <button class="acc-head" aria-expanded="false">
+          <span class="acc-illus"><img src="../img/services/sprzatanie-biur.svg" alt=""></span>
+          <span class="acc-titles">
+            <span class="acc-title">Sprzątanie biur i lokali</span>
+            <span class="acc-tag">Jednorazowe, cykliczne oraz wynajem pracownika</span>
+          </span>
+          <span class="acc-price">wycena</span>
+          <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+        <div class="acc-body"><div class="acc-inner">
+          <table class="price-table">
+            <thead><tr><th>Usługa</th><th>Cena</th></tr></thead>
+            <tbody>
+              <tr><td>Jednorazowe sprzątanie biura (także po remoncie lub imprezie)</td><td>wycena</td></tr>
+              <tr><td>Cykliczne sprzątanie biura (umowa stała)</td><td>wycena</td></tr>
+              <tr><td>Wynajem pracownika sprzątającego (zastępstwo, urlop, L4)</td><td>wycena</td></tr>
+            </tbody>
+          </table>
+          <p class="price-note">Pracujemy na własnym sprzęcie i chemii, zapewniamy też artykuły (papier, ręczniki, mydło). Zakres ustalamy indywidualnie, tel. 506 507 171.</p>
+        </div></div>
+      </div>
+
+      <!-- WYPOŻYCZALNIA -->
+      <div class="acc" id="wypozyczalnia">
+        <button class="acc-head" aria-expanded="false">
+          <span class="acc-illus"><img src="../img/services/wypozyczalnia-karcher.svg" alt=""></span>
+          <span class="acc-titles">
+            <span class="acc-title">Wypożyczalnia sprzętu Karcher</span>
+            <span class="acc-tag">17 urządzeń: odkurzacze piorące, myjki, ozonatory, szorowarki</span>
+          </span>
+          <span class="acc-price">od 15 zł<span class="small">/doba</span></span>
+          <span class="acc-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="callout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <p>Odbiór i zwrot: <strong>Pon–Pt 7:00–12:00, Sob 9:00–12:00</strong>. Rezerwacja: <strong>tel. 600 633 443</strong>. Weekend = Sob+Nd, długi weekend = Pt+Sob+Nd. Pobieramy zwrotną kaucję.</p>
+          </div>
+          <table class="price-table">
+            <thead><tr><th>Urządzenie</th><th>1 doba</th><th>Kaucja</th></tr></thead>
+            <tbody>
+              <tr><td>Odkurzacz piorący Karcher Puzzi 200 + proszek w cenie</td><td>80 zł <span class="small">(wk 120 / dł. 150)</span></td><td>250 zł</td></tr>
+              <tr><td>Myjka do okien Karcher WV + płyn</td><td>35 zł <span class="small">(25 zł z innym sprzętem)</span></td><td>50 zł</td></tr>
+              <tr><td>Parownica / mop parowy Ariete (5 bar)</td><td>120 zł <span class="small">(wk 180 / dł. 220)</span></td><td>250 zł</td></tr>
+              <tr><td>Odkurzacz przemysłowy sucho/mokro Karcher NT</td><td>60 zł <span class="small">(wk 100 / dł. 120)</span></td><td>250 zł</td></tr>
+              <tr><td>Myjka ciśnieniowa Karcher HD (150 bar)</td><td>140 zł <span class="small">(wk 190 / dł. 250)</span></td><td>400 zł</td></tr>
+              <tr><td>Ozonator KORONA 45 g/h</td><td>140 zł <span class="small">(kolejna 110, wk 220)</span></td><td>400 zł</td></tr>
+              <tr><td>Szorowarka jednotarczowa Karcher BDS 33</td><td>130 zł <span class="small">(wk 220 / dł. 250)</span></td><td>400 zł</td></tr>
+              <tr><td>Szorowarka walcowa CRB TM4</td><td>130 zł <span class="small">(wk 220 / dł. 250)</span></td><td>400 zł</td></tr>
+              <tr><td>Szorowarka szorująco-zbierająca Karcher BD 530</td><td>250 zł netto</td><td>500 zł</td></tr>
+              <tr><td>Szorowarka samojezdna Karcher BD 75/140-90/140</td><td>380 zł</td><td>1500 zł</td></tr>
+              <tr><td>Spawarka inwertorowa Bester MMA (230 V)</td><td>130 zł <span class="small">(wk 180 / dł. 220)</span></td><td>200 zł</td></tr>
+              <tr><td>Agregat prądotwórczy inwerterowy 2500 W</td><td>150 zł <span class="small">(wk 220 / dł. 250)</span></td><td>400 zł</td></tr>
+              <tr><td>Wertykulator NAC 1800 W</td><td>90 zł <span class="small">(wk 130 / dł. 150)</span></td><td>100 zł</td></tr>
+              <tr><td>Wózek serwisowy z wyciskaczem + mop 50 cm</td><td>50 zł <span class="small">(wk 90 / dł. 110)</span></td><td>100 zł</td></tr>
+              <tr><td>Nagrzewnica 3300 W lub dmuchawa Karcher AB 84</td><td>25 zł / szt.</td><td>100 zł (zestaw 200)</td></tr>
+              <tr><td>Przedłużacz 230 V, 30 m</td><td>25 zł <span class="small">(wk 40 / dł. 50)</span></td><td>100 zł</td></tr>
+              <tr><td>Przedłużacz 230 V, 10 m</td><td>15 zł <span class="small">(wk 25 / dł. 35)</span></td><td>50 zł</td></tr>
+            </tbody>
+          </table>
+          <p class="price-note">Dodatki: porcja proszku do Puzzi 20 zł (ok. 70 l płynu), preparat na zapachy 250 ml / 20 zł, impregnat 250 ml / 30 zł, T-Racer do myjki HD +50 zł / doba. Na miejscu pokaz i instruktaż, do wglądu dowód osobisty.</p>
+        </div></div>
+      </div>
+
     </div>
 
-    <!-- ============ DYWANY I WYKŁADZINY U KLIENTA ============ -->
-    <div id="dywany-klient" class="sec-anchor">
-      <h2>Pranie dywanów i wykładzin u klienta<span class="h2-sub">Metoda ekstrakcyjna bezpośrednio na miejscu, bez demontażu wykładziny.</span></h2>
-
-      <div class="callout">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-        <p>Minimalne zamówienie: <strong>od 200 zł na terenie Krakowa</strong>, <strong>od 250 zł poza Krakowem</strong>. Ceny podane w widełkach „od", dokładna kwota zależy od stopnia zabrudzenia, rodzaju włókna i wielkości powierzchni.</p>
-      </div>
-
-      <div class="price-block">
-        <h3>Dywany</h3>
-        <table class="price-table">
-          <thead><tr><th>Rodzaj</th><th>Cena</th></tr></thead>
-          <tbody>
-            <tr><td>Krótki włos: sztuczne i wełniane</td><td>od 12 zł / m²</td></tr>
-            <tr><td>Shaggy (włochacze)</td><td>od 15 zł / m²</td></tr>
-            <tr><td>Wycieraczka, dywanik łazienkowy (do 1 m²)</td><td>5–15 zł / szt.</td></tr>
-            <tr><td>Jedwab, wiskoza, orientalne, delikatne, kilimy, gobeliny</td><td>wycena</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="price-block">
-        <h3>Wykładziny</h3>
-        <table class="price-table">
-          <thead><tr><th>Powierzchnia</th><th>Cena</th></tr></thead>
-          <tbody>
-            <tr><td>Do 30 m²</td><td>od 12 zł / m²</td></tr>
-            <tr><td>Ponad 30 m² do 200 m²</td><td>8–15 zł / m²</td></tr>
-            <tr><td>Ponad 200 m² (z podsuszaniem)</td><td>wycena</td></tr>
-            <tr><td>Schody, nakładki na schody</td><td>od 3 zł / szt.</td></tr>
-            <tr><td>Czyszczenie wykładzin na sucho (suche nawet w 2 h)</td><td>od 3 zł / m²</td></tr>
-            <tr><td>Maty wejściowe, wycieraczki przemysłowe</td><td>wycena</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- ============ TAPICERKA MEBLOWA ============ -->
-    <div id="tapicerka" class="sec-anchor">
-      <h2>Pranie tapicerki meblowej u klienta<span class="h2-sub">Pranie ekstrakcyjne kanap, narożników, foteli, krzeseł i materacy.</span></h2>
-
-      <div class="callout">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-        <p>Minimalne zamówienie: <strong>od 200 zł w Krakowie</strong>, <strong>od 250 zł poza Krakowem</strong>. Po dokładniejszą wycenę prześlij zdjęcia na nr <strong>506 507 171</strong> lub mailowo.</p>
-      </div>
-
-      <div class="price-block">
-        <table class="price-table">
-          <thead><tr><th>Mebel</th><th>Cena</th></tr></thead>
-          <tbody>
-            <tr><td>Krzesło, pufa, podnóżek</td><td>od 10 zł</td></tr>
-            <tr><td>Fotel (siedzisko + oparcie)</td><td>35–55 zł</td></tr>
-            <tr><td>Fotel (siedzisko + oparcie + boki)</td><td>45–75 zł</td></tr>
-            <tr><td>Sofa 2-3 os., wersalka, kanapa</td><td>150–220 zł</td></tr>
-            <tr><td>Narożnik (do 160 × 240 cm)</td><td>200–250 zł</td></tr>
-            <tr><td>Narożnik duży, z zagłówkami lub w kształcie litery „U"</td><td>od 250 zł</td></tr>
-            <tr><td>Poduszka</td><td>5–25 zł</td></tr>
-            <tr><td>Tapczan 1-osobowy</td><td>80–130 zł</td></tr>
-            <tr><td>Wezgłowie + rama łóżka</td><td>80–180 zł</td></tr>
-            <tr><td>Materac 1-os. (ok. 80 × 200): jednostronnie / obustronnie</td><td>70 zł / 120 zł</td></tr>
-            <tr><td>Materac 2-os. (ok. 160 × 200): jednostronnie / obustronnie</td><td>120 zł / 170 zł</td></tr>
-            <tr><td>Impregnacja (efekt hydrofobowy)</td><td>wycena</td></tr>
-          </tbody>
-        </table>
-        <p class="price-note">Cena może wzrosnąć przy usuwaniu zapachów, pleśni, dużych gabarytach, nietypowym wykończeniu, bardzo mocnych zabrudzeniach lub dużej ilości sierści.</p>
-      </div>
-    </div>
-
-    <!-- ============ MEBLE SKÓRZANE ============ -->
-    <div id="skora" class="sec-anchor">
-      <h2>Czyszczenie mebli skórzanych<span class="h2-sub">Skóra naturalna i ekoskóra: czyszczenie, odżywianie i impregnacja.</span></h2>
-      <div class="price-block">
-        <table class="price-table">
-          <thead><tr><th>Usługa</th><th>Cena</th></tr></thead>
-          <tbody>
-            <tr><td>Tapicerka skórzana (czyszczenie i impregnacja)</td><td>+45% do cen tapicerki meblowej</td></tr>
-            <tr><td>Czyszczenie i impregnacja skóry w aucie (fotele, kanapa, boki drzwi, podłokietnik)</td><td>280–370 zł</td></tr>
-          </tbody>
-        </table>
-        <p class="price-note">Pracujemy na renomowanych preparatach Colourlock, Saphir i Gliptone. Impregnacja chroniąca skórę przed wysychaniem w cenie usługi.</p>
-      </div>
-    </div>
-
-    <!-- ============ TAPICERKA SAMOCHODOWA ============ -->
-    <div id="auto" class="sec-anchor">
-      <h2>Pranie tapicerki samochodowej i detailing wnętrz<span class="h2-sub">Pranie ekstrakcyjne foteli, podsufitki, boków, dywaników i bagażnika.</span></h2>
-
-      <div class="price-block">
-        <h3>Pranie kompleksowe</h3>
-        <table class="price-table">
-          <thead><tr><th>Zakres</th><th>Cena</th></tr></thead>
-          <tbody>
-            <tr><td>Hatchback, sedan, kombi: komplet (fotele, kanapa, boki drzwi, podsufitka, podłoga, bagażnik, zagłówki, dywaniki, mycie szyb od wewnątrz, suszenie)</td><td>od 450 zł</td></tr>
-            <tr><td>VAN: komplet (6-9 miejsc)</td><td>od 520 zł</td></tr>
-            <tr><td>Plastiki: gruntowne mycie i zabezpieczenie (kokpit, schowki, drzwi, kierownica, tunel, progi)</td><td>od 100 zł</td></tr>
-            <tr><td>Czyszczenie i impregnacja tapicerki skórzanej</td><td>280–370 zł</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="price-block">
-        <h3>Pranie częściowe i dodatki</h3>
-        <table class="price-table">
-          <thead><tr><th>Usługa</th><th>Cena</th></tr></thead>
-          <tbody>
-            <tr><td>Sam fotel (np. kierowcy), 1 szt.</td><td>75 zł</td></tr>
-            <tr><td>Dwa fotele lub kanapa tylna (z zagłówkami / podłokietnikiem)</td><td>150 zł</td></tr>
-            <tr><td>Dwa fotele + kanapa tylna</td><td>300 zł</td></tr>
-            <tr><td>Podsufitka + mycie szyb od wewnątrz</td><td>od 100 zł</td></tr>
-            <tr><td>Sprzątanie wnętrza bez prania (odkurzanie, plastiki, szyby)</td><td>od 80 zł</td></tr>
-            <tr><td>Impregnacja tapicerki materiałowej</td><td>od 30 zł / fotel</td></tr>
-            <tr><td>Usuwanie naklejki rejestracyjnej</td><td>15–20 zł</td></tr>
-            <tr><td>Usuwanie naklejek i emblematów</td><td>od 5 zł</td></tr>
-            <tr><td>Usuwanie wymiotów, krwi, moczu, pleśni, sierści, ciężkich plam, zapachów</td><td>wycena</td></tr>
-          </tbody>
-        </table>
-        <p class="price-note">Ceny orientacyjne w widełkach „od". Dokładna kwota zależy od stopnia zabrudzenia, modelu auta i rodzaju tapicerki.</p>
-      </div>
-    </div>
-
-    <!-- ============ OZONOWANIE ============ -->
-    <div id="ozonowanie" class="sec-anchor">
-      <h2>Ozonowanie i dezynfekcja O₃<span class="h2-sub">Usuwanie zapachów, bakterii, wirusów i pleśni bez chemii.</span></h2>
-
-      <div class="price-block">
-        <h3>Auto: odgrzybianie klimatyzacji i wnętrza</h3>
-        <table class="price-table">
-          <thead><tr><th>Pojazd</th><th>Cena</th></tr></thead>
-          <tbody>
-            <tr><td>Osobowy (30 min + wietrzenie)</td><td>50 zł</td></tr>
-            <tr><td>Bus (60 min + wietrzenie)</td><td>80 zł</td></tr>
-            <tr><td>Kamper / przyczepa kempingowa</td><td>80 zł</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="price-block">
-        <h3>Pomieszczenia (mieszkanie, dom, biuro, gabinet)</h3>
-        <table class="price-table">
-          <thead><tr><th>Powierzchnia</th><th>Cena</th></tr></thead>
-          <tbody>
-            <tr><td>Do 50 m²</td><td>200–600 zł</td></tr>
-            <tr><td>Do 100 m²</td><td>600–900 zł</td></tr>
-            <tr><td>Powyżej 100 m²</td><td>wycena</td></tr>
-          </tbody>
-        </table>
-        <p class="price-note">Cena obejmuje dojazd i przygotowanie pomieszczeń. Każde zlecenie wyceniamy indywidualnie, zadzwoń: 506 507 171.</p>
-      </div>
-
-      <div class="price-block">
-        <h3>Ozonowanie przedmiotów (na poczekaniu)</h3>
-        <table class="price-table">
-          <thead><tr><th>Przedmiot</th><th>Cena / szt.</th></tr></thead>
-          <tbody>
-            <tr><td>Dywan, koc, narzuta, śpiwór</td><td>25 zł</td></tr>
-            <tr><td>Buty skórzane, sportowe itp.</td><td>20 zł</td></tr>
-            <tr><td>Buty narciarskie, snowboardowe, motocyklowe</td><td>30 zł</td></tr>
-            <tr><td>Rękawiczki, kask</td><td>30 zł</td></tr>
-            <tr><td>Torba, plecak</td><td>30 zł</td></tr>
-            <tr><td>Zabawki, maskotki</td><td>20–40 zł</td></tr>
-            <tr><td>Poduszki</td><td>10–30 zł</td></tr>
-            <tr><td>Ubrania (worek 120 l)</td><td>40 zł</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- ============ MYCIE OKIEN ============ -->
-    <div id="okna" class="sec-anchor">
-      <h2>Mycie okien i witryn<span class="h2-sub">Okna, witryny i przeszklenia bez smug, także na wysokości.</span></h2>
-
-      <div class="callout">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-        <p>Minimalne zamówienie w Krakowie: <strong>od 150 zł</strong>. Dojazd na terenie Krakowa: <strong>0 zł</strong>. Konkretna wycena telefonicznie na podstawie zdjęć i wymiarów.</p>
-      </div>
-
-      <div class="price-block">
-        <h3>Witryny</h3>
-        <table class="price-table">
-          <thead><tr><th>Zakres</th><th>Cena</th></tr></thead>
-          <tbody>
-            <tr><td>Do 6 m wysokości: jednostronnie</td><td>od 4 zł / m²</td></tr>
-            <tr><td>Do 6 m wysokości: obustronnie</td><td>od 7 zł / m²</td></tr>
-            <tr><td>Powyżej 6 m wysokości</td><td>wycena</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="price-block">
-        <h3>Okna (obustronnie: ramy, framugi, szyby, parapety)</h3>
-        <table class="price-table">
-          <thead><tr><th>Element</th><th>Cena</th></tr></thead>
-          <tbody>
-            <tr><td>Szklana balustrada</td><td>od 15 zł</td></tr>
-            <tr><td>Okno 1-skrzydłowe</td><td>od 15 zł</td></tr>
-            <tr><td>Okno 2-skrzydłowe</td><td>od 30 zł</td></tr>
-            <tr><td>Okno 3-skrzydłowe</td><td>od 45 zł</td></tr>
-            <tr><td>Okno dachowe</td><td>od 25 zł</td></tr>
-            <tr><td>Drzwi balkonowe 1-skrzydłowe</td><td>od 30 zł</td></tr>
-            <tr><td>Drzwi balkonowe 2-skrzydłowe</td><td>od 50 zł</td></tr>
-            <tr><td>Okna drewniane starego typu (rozkręcane, podwójne)</td><td>wycena</td></tr>
-            <tr><td>Mycie luster, szyldów, banerów, reklam, usuwanie naklejek / graffiti</td><td>wycena</td></tr>
-          </tbody>
-        </table>
-        <p class="price-note">Cena rośnie przy zabrudzeniach poremontowych (farba, zaprawa, folie, nacieki wapienne) oraz przy utrudnionym dostępie (kraty, rolety, żaluzje).</p>
-      </div>
-    </div>
-
-    <!-- ============ SPRZĄTANIE BIUR ============ -->
-    <div id="biura" class="sec-anchor">
-      <h2>Sprzątanie biur i lokali<span class="h2-sub">Sprzątanie jednorazowe, cykliczne oraz wynajem pracownika sprzątającego.</span></h2>
-      <div class="price-block">
-        <table class="price-table">
-          <thead><tr><th>Usługa</th><th>Cena</th></tr></thead>
-          <tbody>
-            <tr><td>Jednorazowe sprzątanie biura (także po remoncie lub imprezie firmowej)</td><td>wycena</td></tr>
-            <tr><td>Cykliczne sprzątanie biura (umowa stała)</td><td>wycena</td></tr>
-            <tr><td>Wynajem pracownika sprzątającego (zastępstwo, urlop, L4)</td><td>wycena</td></tr>
-          </tbody>
-        </table>
-        <p class="price-note">Pracujemy na własnym sprzęcie i chemii, zapewniamy też artykuły (papier, ręczniki, mydło). Zakres i wycenę ustalamy indywidualnie, tel. 506 507 171.</p>
-      </div>
-    </div>
-
-    <!-- ============ WYPOŻYCZALNIA ============ -->
-    <div id="wypozyczalnia" class="sec-anchor">
-      <h2>Wypożyczalnia sprzętu Karcher i profesjonalnego<span class="h2-sub">Odbiór i zwrot: Pon–Pt 7:00–12:00, Sob 9:00–12:00. Rezerwacja: tel. 600 633 443.</span></h2>
-
-      <div class="callout">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-        <p>Weekend oznacza Sob + Nd, długi weekend to Pt + Sob + Nd. Płatność z góry gotówką lub przedpłatą, przy wynajmie pobieramy zwrotną kaucję. Przed przyjazdem prosimy o telefon potwierdzający dostępność: <strong>600 633 443</strong>.</p>
-      </div>
-
-      <div class="price-block">
-        <table class="price-table">
-          <thead><tr><th>Urządzenie</th><th>1 doba</th><th>Kaucja</th></tr></thead>
-          <tbody>
-            <tr><td>Odkurzacz piorący Karcher Puzzi 200 (10/2) + proszek w cenie</td><td>80 zł <span style="color:var(--muted);font-weight:400;">(weekend 120 / długi 150)</span></td><td>250 zł</td></tr>
-            <tr><td>Myjka do okien Karcher WV + płyn</td><td>35 zł <span style="color:var(--muted);font-weight:400;">(25 zł z innym sprzętem)</span></td><td>50 zł</td></tr>
-            <tr><td>Parownica / mop parowy Ariete (5 bar)</td><td>120 zł <span style="color:var(--muted);font-weight:400;">(weekend 180 / długi 220)</span></td><td>250 zł</td></tr>
-            <tr><td>Odkurzacz przemysłowy sucho/mokro Karcher NT (45 l)</td><td>60 zł <span style="color:var(--muted);font-weight:400;">(weekend 100 / długi 120)</span></td><td>250 zł</td></tr>
-            <tr><td>Myjka ciśnieniowa Karcher HD (150 bar, wąż 25 m)</td><td>140 zł <span style="color:var(--muted);font-weight:400;">(weekend 190 / długi 250)</span></td><td>400 zł</td></tr>
-            <tr><td>Ozonator KORONA 45 g/h (230 V i 12 V)</td><td>140 zł <span style="color:var(--muted);font-weight:400;">(kolejna doba 110, weekend 220)</span></td><td>400 zł</td></tr>
-            <tr><td>Szorowarka jednotarczowa Karcher BDS 33</td><td>130 zł <span style="color:var(--muted);font-weight:400;">(weekend 220 / długi 250)</span></td><td>400 zł</td></tr>
-            <tr><td>Szorowarka walcowa CRB TM4</td><td>130 zł <span style="color:var(--muted);font-weight:400;">(weekend 220 / długi 250)</span></td><td>400 zł</td></tr>
-            <tr><td>Szorowarka szorująco-zbierająca Karcher BD 530</td><td>250 zł netto</td><td>500 zł</td></tr>
-            <tr><td>Szorowarka samojezdna Karcher BD 75/140 lub 90/140</td><td>380 zł</td><td>1500 zł</td></tr>
-            <tr><td>Spawarka inwertorowa Bester MMA (230 V)</td><td>130 zł <span style="color:var(--muted);font-weight:400;">(weekend 180 / długi 220)</span></td><td>200 zł</td></tr>
-            <tr><td>Agregat prądotwórczy inwerterowy 2500 W</td><td>150 zł <span style="color:var(--muted);font-weight:400;">(weekend 220 / długi 250)</span></td><td>400 zł</td></tr>
-            <tr><td>Wertykulator NAC 1800 W</td><td>90 zł <span style="color:var(--muted);font-weight:400;">(weekend 130 / długi 150)</span></td><td>100 zł</td></tr>
-            <tr><td>Wózek serwisowy z wyciskaczem + mop 50 cm</td><td>50 zł <span style="color:var(--muted);font-weight:400;">(weekend 90 / długi 110)</span></td><td>100 zł</td></tr>
-            <tr><td>Nagrzewnica 3300 W lub dmuchawa Karcher AB 84</td><td>25 zł / szt. <span style="color:var(--muted);font-weight:400;">(powyżej 2 dni 20 zł)</span></td><td>100 zł (zestaw 200)</td></tr>
-            <tr><td>Przedłużacz 230 V, 30 m (3 × 2,5 mm)</td><td>25 zł <span style="color:var(--muted);font-weight:400;">(weekend 40 / długi 50)</span></td><td>100 zł</td></tr>
-            <tr><td>Przedłużacz 230 V, 10 m (3 × 2,5 mm)</td><td>15 zł <span style="color:var(--muted);font-weight:400;">(weekend 25 / długi 35)</span></td><td>50 zł</td></tr>
-          </tbody>
-        </table>
-        <p class="price-note">Dodatki: dodatkowa porcja proszku do Puzzi 20 zł (ok. 70 l gotowego płynu), preparat na zapachy 250 ml / 20 zł, impregnat do tapicerki 250 ml / 30 zł, T-Racer do myjki HD +50 zł / doba. Na miejscu pokaz i instruktaż obsługi, do wglądu aktualny dowód osobisty.</p>
-      </div>
-    </div>
-
-    <!-- CTA -->
-    <div class="cta-band" style="margin-top:56px">
+    <div class="cta-band" style="margin-top:42px">
       <div><h2>Chcesz dokładną wycenę?</h2><p>Opisz zlecenie lub prześlij zdjęcia, a wycenę przygotujemy bezpłatnie i bez zobowiązań.</p></div>
       <div style="display:flex;gap:12px;flex-wrap:wrap;">
         <a class="btn btn--light" href="../kontakt/">Poproś o wycenę</a>
@@ -520,5 +596,64 @@
 </footer>
 
 <script src="../js/main.js"></script>
+<script>
+(function () {
+  var items = Array.prototype.slice.call(document.querySelectorAll(".acc"));
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function bodyOf(it){ return it.querySelector(".acc-body"); }
+
+  function open(it){
+    it.classList.add("open");
+    var head = it.querySelector(".acc-head"); if (head) head.setAttribute("aria-expanded","true");
+    var b = bodyOf(it); if (b) b.style.maxHeight = b.scrollHeight + "px";
+  }
+  function close(it){
+    it.classList.remove("open");
+    var head = it.querySelector(".acc-head"); if (head) head.setAttribute("aria-expanded","false");
+    var b = bodyOf(it); if (b) b.style.maxHeight = "0px";
+  }
+
+  // stan początkowy: tylko pierwsza pozycja otwarta
+  items.forEach(function (it, i) {
+    var b = bodyOf(it);
+    if (it.classList.contains("open")) {
+      if (b) b.style.maxHeight = b.scrollHeight + "px";
+    } else {
+      if (b) b.style.maxHeight = "0px";
+    }
+    var head = it.querySelector(".acc-head");
+    head.addEventListener("click", function () {
+      var isOpen = it.classList.contains("open");
+      // akordeon: zamknij pozostałe
+      items.forEach(function (other) { if (other !== it) close(other); });
+      if (isOpen) { close(it); } else { open(it); }
+    });
+  });
+
+  // po rozwinięciu treści (obrazki SVG) przelicz wysokość otwartej pozycji
+  window.addEventListener("load", function () {
+    var openIt = document.querySelector(".acc.open");
+    if (openIt) { var b = bodyOf(openIt); if (b) b.style.maxHeight = b.scrollHeight + "px"; }
+  });
+  window.addEventListener("resize", function () {
+    var openIt = document.querySelector(".acc.open");
+    if (openIt) { var b = bodyOf(openIt); if (b) { b.style.maxHeight = "none"; var h = b.scrollHeight; b.style.maxHeight = h + "px"; } }
+  });
+
+  // chipsy: otwórz wskazaną usługę i przewiń
+  document.querySelectorAll("#chips button").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var id = btn.getAttribute("data-target");
+      var it = document.getElementById(id);
+      if (!it) return;
+      items.forEach(function (other) { if (other !== it) close(other); });
+      open(it);
+      var y = it.getBoundingClientRect().top + window.pageYOffset - 84;
+      window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" });
+    });
+  });
+})();
+</script>
 </body>
 </html>

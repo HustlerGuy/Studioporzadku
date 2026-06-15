@@ -1456,3 +1456,38 @@ select:focus-visible,
   .price-table th, .price-table td { font-size: 0.92rem; }
   .section-head h2::after { margin-top: 14px; }
 }
+
+
+
+/* =========================================================
+   v15 — fix: widoczność sekcji ciemnych + karty bez zdjęcia (formularz, wartości)
+   ========================================================= */
+
+/* Sekcje ciemne: przywrócenie tła (wcześniejsza reguła .section{background:transparent}
+   z v13 nadpisywała je przez kolejność w pliku) */
+.section--stats {
+  background: linear-gradient(135deg, #15171c 0%, #1f2229 100%) !important;
+}
+.section--reviews {
+  background: linear-gradient(135deg, #16181d 0%, #1f2229 100%) !important;
+}
+.section--dark {
+  background: var(--bg-dark) !important;
+}
+
+/* Karty bez obrazka (formularz kontaktowy, wartości na "O nas", liczby):
+   przywrócenie wewnętrznego paddingu, który globalny styl kafli (.card{padding:0})
+   przeznaczył dla kart ze zdjęciem. */
+.card.card--text { padding: 30px; }
+.card.card--text > h3 { margin: 0 0 .5em; }
+.card.card--text > p { margin-left: 0; margin-right: 0; }
+.card.card--text > .icon { margin-left: 0; margin-right: 0; }
+.card.card--text .form-success { margin-left: 0; margin-right: 0; }
+
+@media (max-width: 560px) {
+  .card.card--text { padding: 22px; }
+}
+
+/* Dodatkowe zabezpieczenie dla przeglądarek z :has() — karta bez obrazka */
+.card:not(:has(.card-image)):not(.card--text) { padding: 30px; }
+.card:not(:has(.card-image)) > h3 { margin-top: 0; }

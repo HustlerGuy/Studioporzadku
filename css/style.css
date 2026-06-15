@@ -1592,3 +1592,25 @@ select:focus-visible,
     border: 3px solid #eef0f4;
   }
 }
+
+
+
+/* =========================================================
+   v17 — sticky header na mobile i desktop
+   Przyczyna problemu: overflow-x:hidden na html/body tworzy kontekst
+   przewijania, ktory lamie position:sticky. overflow-x:clip zapobiega
+   poziomemu przewijaniu, ale NIE tworzy takiego kontekstu.
+   ========================================================= */
+html, body { overflow-x: clip; }
+@supports not (overflow-x: clip) {
+  /* starsze przegladarki: priorytetem jest dzialajacy sticky header */
+  html, body { overflow-x: visible; }
+}
+
+.site-header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 60;
+}
+body.menu-open .site-header { z-index: 80; }

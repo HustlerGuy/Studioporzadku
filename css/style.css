@@ -1491,3 +1491,104 @@ select:focus-visible,
 /* Dodatkowe zabezpieczenie dla przeglądarek z :has() — karta bez obrazka */
 .card:not(:has(.card-image)):not(.card--text) { padding: 30px; }
 .card:not(:has(.card-image)) > h3 { margin-top: 0; }
+
+
+
+/* =========================================================
+   v16 — warstwa "premium": spójne, stylowe wykończenie całej strony
+   ========================================================= */
+
+/* Zaznaczanie tekstu w kolorze marki */
+::selection { background: rgba(226, 35, 26, 0.18); color: var(--ink); }
+
+/* Markowy pasek na samej górze strony i nad stopką */
+.site-header { border-top: 3px solid transparent; border-image: linear-gradient(90deg, var(--brand-red), #ff8d87) 1; }
+.site-footer { border-top: 3px solid transparent; border-image: linear-gradient(90deg, var(--brand-red), #ff8d87) 1; }
+
+/* Eyebrow jako elegancka "pigułka" z kropką (spójnie w całej witrynie) */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(226, 35, 26, 0.09);
+  color: var(--brand-red);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+}
+.eyebrow::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--brand-red);
+  box-shadow: 0 0 0 3px rgba(226, 35, 26, 0.18);
+}
+.section--stats .eyebrow,
+.section--reviews .eyebrow {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ff9a93;
+}
+.section--stats .eyebrow::before,
+.section--reviews .eyebrow::before {
+  background: #ff6a63;
+  box-shadow: 0 0 0 3px rgba(255, 106, 99, 0.22);
+}
+
+/* Karty: głębia obrazu + markowa poświata przy najechaniu */
+.card .card-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, transparent 55%, rgba(20, 22, 28, 0.12));
+  pointer-events: none;
+}
+.card:hover {
+  box-shadow: 0 26px 56px rgba(20, 22, 28, 0.16), 0 10px 26px rgba(226, 35, 26, 0.10);
+}
+
+/* Tabele cennika: gradientowy, bardziej "premium" nagłówek */
+.price-table thead th { background: linear-gradient(135deg, #20242c 0%, #14161b 100%); }
+
+/* Opinie: subtelny znak cudzysłowu w tle (klasa premium) */
+.testimonial { position: relative; overflow: hidden; }
+.testimonial::before {
+  content: "\201C";
+  position: absolute;
+  top: -6px; right: 16px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 5rem;
+  line-height: 1;
+  color: rgba(226, 35, 26, 0.18);
+  pointer-events: none;
+}
+
+/* Hero: subtelna głębia (miękka markowa poświata, bez nachalnych artefaktów) */
+.hero {
+  background:
+    radial-gradient(60% 80% at 85% 8%, rgba(226, 35, 26, 0.18), transparent 55%),
+    linear-gradient(135deg, #14151a 0%, #1e2128 55%, #282b33 100%);
+}
+.page-hero {
+  background:
+    radial-gradient(70% 90% at 90% 0%, rgba(226, 35, 26, 0.16), transparent 55%),
+    linear-gradient(135deg, #1a1c21 0%, #262932 100%);
+}
+
+/* Przyciski: pełniejszy, markowy cień */
+.btn--primary { box-shadow: 0 12px 26px rgba(226, 35, 26, 0.34); }
+.btn--primary:hover { box-shadow: 0 18px 38px rgba(226, 35, 26, 0.44); }
+.btn--ghost:hover { background: rgba(226, 35, 26, 0.06); }
+
+/* Niestandardowy, dyskretny pasek przewijania (desktop) */
+@media (min-width: 900px) {
+  * { scrollbar-width: thin; scrollbar-color: #d7361d #eef0f4; }
+  ::-webkit-scrollbar { width: 12px; height: 12px; }
+  ::-webkit-scrollbar-track { background: #eef0f4; }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(#e2231a, #b81a13);
+    border-radius: 10px;
+    border: 3px solid #eef0f4;
+  }
+}

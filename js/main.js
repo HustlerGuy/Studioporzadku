@@ -2,7 +2,18 @@
 (function () {
   "use strict";
 
-  /* ---------- Mobilne menu (drawer) ---------- */
+  /* ---------- Nagłówek + jego wysokość (dla panelu menu) ---------- */
+  var header = document.querySelector(".site-header");
+  function setHeaderH() {
+    if (header) {
+      document.documentElement.style.setProperty("--header-h", header.offsetHeight + "px");
+    }
+  }
+  setHeaderH();
+  window.addEventListener("resize", setHeaderH);
+  window.addEventListener("load", setHeaderH);
+
+  /* ---------- Mobilne menu (panel pod nagłówkiem) ---------- */
   var toggle = document.querySelector(".nav-toggle");
   var links = document.querySelector(".nav-links");
   var backdrop = null;
@@ -13,6 +24,7 @@
     document.body.appendChild(backdrop);
 
     var openMenu = function () {
+      setHeaderH();
       links.classList.add("open");
       backdrop.classList.add("show");
       toggle.classList.add("is-open");
@@ -76,7 +88,6 @@
   }
 
   /* ---------- Cień nagłówka po przewinięciu ---------- */
-  var header = document.querySelector(".site-header");
 
   /* ---------- Przycisk "do góry" ---------- */
   var toTop = document.createElement("button");

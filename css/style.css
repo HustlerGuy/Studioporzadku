@@ -1614,3 +1614,74 @@ html, body { overflow-x: clip; }
   z-index: 60;
 }
 body.menu-open .site-header { z-index: 80; }
+
+
+
+/* =========================================================
+   v18 — mobilne menu: niezawodny panel rozwijany pod nagłówkiem
+   Zastępuje boczny drawer (problemy z nakładaniem warstw i przewijaniem).
+   Nagłówek zostaje zawsze na wierzchu, panel zjeżdża pod nim, tło przyciemnia backdrop.
+   ========================================================= */
+@media (max-width: 900px) {
+  .nav-links {
+    position: fixed;
+    top: var(--header-h, 116px);
+    left: 0;
+    right: 0;
+    width: auto;
+    max-width: none;
+    height: auto;
+    max-height: calc(100dvh - var(--header-h, 116px));
+    background: #fff;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    padding: 10px 16px calc(20px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--line);
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 24px 32px rgba(15, 17, 22, 0.18);
+    transform: translateY(-14px);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform .26s ease, opacity .26s ease, visibility .26s;
+    z-index: 55;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    display: flex;
+  }
+  .nav-links.open {
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* backdrop pod panelem; nagłówek pozostaje nad nim i jest klikalny */
+  .nav-backdrop { z-index: 54; }
+  body.menu-open .site-header { z-index: 80; }
+
+  /* pozycje menu: wygodne pola dotyku */
+  .nav-links > li > a {
+    display: block;
+    width: 100%;
+    padding: 14px 14px;
+    font-size: 1.04rem;
+    border-radius: 10px;
+  }
+
+  /* podmenu "Usługi" rozwinięte inline, lekko wcięte */
+  .has-dropdown .dropdown {
+    position: static;
+    display: block;
+    background: transparent;
+    box-shadow: none;
+    border: 0;
+    margin: 0;
+    padding: 2px 0 6px 12px;
+    animation: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    max-height: none;
+  }
+  .has-dropdown .dropdown a { padding: 11px 12px; font-size: 0.98rem; border-radius: 8px; }
+}

@@ -11,11 +11,16 @@
   if (toggle && links) {
     toggle.addEventListener("click", function () {
       var open = links.classList.toggle("open");
+      toggle.classList.toggle("is-open", open);
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
     });
     links.querySelectorAll("a").forEach(function (a) {
       a.addEventListener("click", function () {
-        if (window.innerWidth <= 900) links.classList.remove("open");
+        if (window.innerWidth <= 900) {
+          links.classList.remove("open");
+          toggle.classList.remove("is-open");
+          toggle.setAttribute("aria-expanded", "false");
+        }
       });
     });
   }
@@ -51,6 +56,7 @@
   var revealSelectors = [
     ".section-head",
     ".card",
+    ".testimonial",
     ".split > div",
     ".steps",
     ".cta-band",
@@ -144,4 +150,37 @@
   }
   onScrollTop();
   window.addEventListener("scroll", onScrollTop, { passive: true });
+
+  /* ---------- Poświata kart podążająca za kursorem ---------- */
+  if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
+    document.querySelectorAll(".card").forEach(function (card) {
+      card.addEventListener("pointermove", function (e) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty("--mx", (e.clientX - r.left) + "px");
+        card.style.setProperty("--my", (e.clientY - r.top) + "px");
+      });
+    });
+  }
+
+  /* ---------- Pływający przycisk „Zadzwoń" (mobile) ---------- */
+  if (!document.querySelector(".call-fab")) {
+    var fab = document.createElement("a");
+    fab.className = "call-fab";
+    fab.href = "tel:+48600000000";
+    fab.setAttribute("aria-label", "Zadzwoń do nas");
+    fab.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.4 2L8 9.6a16 16 0 0 0 6 6l1.1-1.1a2 2 0 0 1 2-.4c.9.3 1.8.6 2.8.7A2 2 0 0 1 22 16.9z"/></svg> Zadzwoń';
+    document.body.appendChild(fab);
+  }
+
+  /* ---------- Ikony social w stopce (wstrzykiwane na każdej stronie) ---------- */
+  var footerBrand = document.querySelector(".footer-brand");
+  if (footerBrand && !footerBrand.querySelector(".footer-social")) {
+    var social = document.createElement("div");
+    social.className = "footer-social";
+    social.innerHTML =
+      '<a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7h2.3l.4-2.9h-2.7V9.3c0-.84.26-1.4 1.46-1.4H16.3V5.3A20 20 0 0 0 14.2 5.2c-2.1 0-3.5 1.27-3.5 3.6v2.3H8.3V14h2.4v7z"/></svg></a>' +
+      '<a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>' +
+      '<a href="tel:+48600000000" aria-label="Telefon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.4 2L8 9.6a16 16 0 0 0 6 6l1.1-1.1a2 2 0 0 1 2-.4c.9.3 1.8.6 2.8.7A2 2 0 0 1 22 16.9z"/></svg></a>';
+    footerBrand.appendChild(social);
+  }
 })();

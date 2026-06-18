@@ -1685,3 +1685,34 @@ body.menu-open .site-header { z-index: 80; }
   }
   .has-dropdown .dropdown a { padding: 11px 12px; font-size: 0.98rem; border-radius: 8px; }
 }
+
+
+/* =========================================================
+   Expert polish (v17) — dodatki additywne, bez zmian istniejacych regul
+   ========================================================= */
+
+/* Wezszy kontener (np. FAQ na stronie glownej) */
+.container--narrow { max-width: 860px; }
+
+/* Karty: delikatna markowa poswiata podazajaca za kursorem (desktop) */
+.card > * { position: relative; z-index: 1; }
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(240px circle at var(--mx, 50%) var(--my, -20%),
+              rgba(226, 35, 26, 0.10), transparent 70%);
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+.card:hover::after { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .card::after { display: none; }
+}
+
+/* Licznik statystyk: stabilna szerokosc podczas animacji (bez skakania) */
+.stat-card .num { font-variant-numeric: tabular-nums; }
+.stat-card .num.counting { will-change: contents; }

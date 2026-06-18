@@ -141,4 +141,63 @@
       io.observe(el);
     });
   }
+
+  /* ---------- Poświata kart podążająca za kursorem (desktop) ---------- */
+  if (window.matchMedia && window.matchMedia("(pointer: fine)").matches) {
+    document.querySelectorAll(".card").forEach(function (card) {
+      card.addEventListener("pointermove", function (e) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty("--mx", (e.clientX - r.left) + "px");
+        card.style.setProperty("--my", (e.clientY - r.top) + "px");
+      });
+    });
+  }
+
+  /* ---------- Animowane liczniki statystyk ---------- */
+  function animateCounter(el) {
+    if (el.dataset.counted) return;
+    el.dataset.counted = "1";
+    var original = el.innerHTML;
+    var raw = (el.textContent || "").trim();
+    var m = raw.match(/(\d+(?:[.,]\d+)?)/);
+    if (!m) return;
+    if (reduce) return; // przy reduced-motion zostawiamy wartosc docelowa
+    var numStr = m[1];
+    var decimals = /[.,]/.test(numStr) ? 1 : 0;
+    var target = parseFloat(numStr.replace(",", "."));
+    var prefix = raw.slice(0, m.index);
+    var suffix = raw.slice(m.index + numStr.length);
+    var dur = 1500;
+    var startTs = null;
+    el.classList.add("counting");
+    function fmt(v) {
+      return decimals ? v.toFixed(1).replace(".", ",") : Math.round(v).toString();
+    }
+    function tick(ts) {
+      if (!startTs) startTs = ts;
+      var p = Math.min((ts - startTs) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = prefix + fmt(target * eased) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+      else { el.innerHTML = original; el.classList.remove("counting"); }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var statsSection = document.querySelector(".section--stats");
+  if (statsSection && "IntersectionObserver" in window) {
+    var statsIo = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            statsSection.querySelectorAll(".stat-card .num").forEach(animateCounter);
+            statsIo.disconnect();
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    statsIo.observe(statsSection);
+  }
 })();

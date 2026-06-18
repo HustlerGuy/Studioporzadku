@@ -174,3 +174,77 @@
   /* rok w stopce */
   $$("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
 })();
+
+
+
+/* =========================================================
+   HERO · text reveal (maska, rozne predkosci) · blask CTA · aurora
+   ========================================================= */
+(function () {
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var fine = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
+  var $ = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+
+  /* --- maskowane litery naglowka --- */
+  function splitLine(line) {
+    var nodes = Array.prototype.slice.call(line.childNodes);
+    line.textContent = "";
+    var add = function (ch, parent) {
+      var s = document.createElement("span");
+      s.className = "ch";
+      s.textContent = ch === " " ? "\u00A0" : ch;
+      parent.appendChild(s);
+    };
+    nodes.forEach(function (node) {
+      if (node.nodeType === 3) {
+        node.textContent.split("").forEach(function (ch) { add(ch, line); });
+      } else if (node.nodeType === 1) {
+        var wrap = node.cloneNode(false);   // zachowaj np. <em> + klase
+        line.appendChild(wrap);
+        (node.textContent || "").split("").forEach(function (ch) { add(ch, wrap); });
+      }
+    });
+  }
+
+  var title = $("[data-splitlines]");
+  if (title) {
+    $$(".line", title).forEach(splitLine);
+    var chs = $$(".ch", title);
+    chs.forEach(function (c, i) {
+      var dur = (0.7 + Math.random() * 0.5).toFixed(2);   // rozna predkosc
+      var del = (0.15 + i * 0.035 + Math.random() * 0.05).toFixed(2);
+      c.style.setProperty("--du", dur + "s");
+      c.style.setProperty("--dl", del + "s");
+    });
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { title.classList.add("is-ready"); });
+    });
+  }
+
+  /* --- blask CTA podazajacy za kursorem --- */
+  $$(".cta-glow").forEach(function (b) {
+    b.addEventListener("pointermove", function (e) {
+      var r = b.getBoundingClientRect();
+      b.style.setProperty("--mx", (e.clientX - r.left) + "px");
+      b.style.setProperty("--my", (e.clientY - r.top) + "px");
+    });
+  });
+
+  /* --- aurora reagujaca na kursor (parallax) --- */
+  var hero = $(".hero");
+  if (hero && fine && !reduce) {
+    var px = 0, py = 0, raf = null;
+    hero.addEventListener("pointermove", function (e) {
+      var r = hero.getBoundingClientRect();
+      px = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      py = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      if (!raf) raf = requestAnimationFrame(function () {
+        hero.style.setProperty("--px", px.toFixed(3));
+        hero.style.setProperty("--py", py.toFixed(3));
+        raf = null;
+      });
+    });
+  }
+})();

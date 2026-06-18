@@ -6,6 +6,7 @@
 <title>Studio Porządku · fundament</title>
 <meta name="description" content="Studio Porządku · profesjonalne pranie i czyszczenie. Fundament nowej strony: nawigacja i stopka.">
 <meta name="theme-color" content="#0c0d10">
+<script>document.documentElement.classList.add('js');</script>
 <link rel="icon" href="../img/logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,12 +57,36 @@
   </div>
 </nav>
 
-<!-- ============ MAIN (placeholder, by fundament zyl) ============ -->
+<!-- ============ MAIN ============ -->
 <main class="shell">
-  <section class="teaser u-container">
-    <span class="eyebrow" data-reveal>Kraków · od 2011</span>
-    <h1 data-reveal>Czystość, którą <span class="accent">czuć</span>.</h1>
-    <p data-reveal>Fundament nowej strony jest gotowy. Header, menu i stopka żyją, a kolejne sekcje wskakują tutaj, kaskadowo i z klasą.</p>
+  <section class="hero" id="start">
+    <div class="hero__aurora" aria-hidden="true">
+      <span class="ow ow--1"><span class="orb"></span></span>
+      <span class="ow ow--2"><span class="orb"></span></span>
+      <span class="ow ow--3"><span class="orb"></span></span>
+    </div>
+    <div class="hero__noise" aria-hidden="true"></div>
+
+    <div class="hero__inner u-container">
+      <span class="hero__eyebrow" data-reveal>Kraków <b>·</b> studio czystości od 2011</span>
+      <h1 class="hero__title" data-splitlines>
+        <span class="line">Czystość,</span>
+        <span class="line">którą</span>
+        <span class="line"><em>czuć</em>.</span>
+      </h1>
+      <p class="hero__lead" data-reveal>Pranie dywanów, tapicerki i mebli, ozonowanie i detailing. Precyzja rzemiosła, efekt, który widać i czuć od progu.</p>
+      <div class="hero__actions">
+        <span class="cta-wrap" data-magnetic="0.4">
+          <a class="cta-glow" href="#kontakt">
+            <span class="lbl">Bezpłatna wycena</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </span>
+        <a class="hero__ghost" href="#uslugi" data-magnetic="0.25">Zobacz usługi</a>
+      </div>
+    </div>
+
+    <span class="hero__scroll" aria-hidden="true"><span class="rail"></span> Przewiń</span>
   </section>
 </main>
 

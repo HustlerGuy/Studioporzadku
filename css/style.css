@@ -832,7 +832,7 @@ body { max-width: 100%; }
   z-index: 65;
   opacity: 0;
   visibility: hidden;
-  transition: opacity .28s ease, visibility .28s;
+  transition: opacity .42s ease, visibility .42s;
 }
 .nav-backdrop.show { opacity: 1; visibility: visible; }
 
@@ -2065,12 +2065,16 @@ h1, h2, h3, h4 { letter-spacing: -0.022em; }
     box-shadow: 10px 0 44px rgba(15, 17, 22, 0.26);
     transform: translateX(-105%);
     visibility: hidden;
-    transition: transform .34s cubic-bezier(.4, 0, .2, 1), visibility .34s;
+    will-change: transform;
+    /* zamykanie: troche szybciej, zdecydowanie */
+    transition: transform .34s cubic-bezier(.4, 0, .6, 1), visibility .34s;
     z-index: 70;
   }
   .nav-links.open {
     transform: translateX(0);
     visibility: visible;
+    /* otwieranie: natychmiastowy ruch pod palcem + plynne wyhamowanie (dopamina) */
+    transition: transform .46s cubic-bezier(.16, 1, .3, 1), visibility .46s;
   }
 
   /* pozycje menu */

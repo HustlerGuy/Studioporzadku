@@ -2038,41 +2038,39 @@ h1, h2, h3, h4 { letter-spacing: -0.022em; }
    wiec zawsze rozwija sie tuz pod belka, bez zaleznosci od JS.
    ========================================================= */
 @media (max-width: 900px) {
-  .site-header { background: #ffffff; }
+  /* naglowek na mobile: solidne tlo + WYLACZONY backdrop-filter
+     (z backdrop-filter 'position: fixed' liczyloby sie wzgledem naglowka, nie ekranu) */
+  .site-header {
+    background: #ffffff;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
 
-  /* nav jako wiersz; panel menu zawija sie do nowej linii pod spodem
-     i rozpycha sticky-naglowek w dol (accordion w przeplywie = brak przycinania) */
-  .nav { flex-wrap: wrap; row-gap: 0; }
-
+  /* MENU = szuflada wysuwana z lewej, zakotwiczona do ekranu (position: fixed) */
   .nav-links {
-    order: 5;
-    flex-basis: 100%;
-    width: 100%;
-    position: static;
+    position: fixed;
+    top: var(--header-h, 64px);
+    left: 0;
+    bottom: 0;
+    width: 82%;
+    max-width: 340px;
+    margin: 0;
+    padding: 14px 16px calc(24px + env(safe-area-inset-bottom, 0px));
+    background: #ffffff;
     flex-direction: column;
     align-items: stretch;
     gap: 2px;
-    margin: 0 -20px;
-    padding: 0 20px;
-    background: #ffffff;
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    visibility: hidden;
-    border-top: 0 solid var(--line);
-    transition: max-height .32s ease, opacity .25s ease, visibility .32s, padding .32s ease;
-  }
-  .nav-links.open {
-    max-height: 80vh;
     overflow-y: auto;
     overscroll-behavior: contain;
-    opacity: 1;
+    box-shadow: 10px 0 44px rgba(15, 17, 22, 0.26);
+    transform: translateX(-105%);
+    visibility: hidden;
+    transition: transform .34s cubic-bezier(.4, 0, .2, 1), visibility .34s;
+    z-index: 70;
+  }
+  .nav-links.open {
+    transform: translateX(0);
     visibility: visible;
-    margin-top: 8px;
-    padding-top: 10px;
-    padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
-    border-top-width: 1px;
-    box-shadow: inset 0 1px 0 var(--line);
   }
 
   /* pozycje menu */

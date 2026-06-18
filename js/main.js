@@ -23,12 +23,17 @@
     backdrop.className = "nav-backdrop";
     document.body.appendChild(backdrop);
 
+    var scrollY = 0;
+
     var openMenu = function () {
       setHeaderH();
+      scrollY = window.scrollY || document.documentElement.scrollTop || 0;
       links.classList.add("open");
       backdrop.classList.add("show");
       toggle.classList.add("is-open");
       toggle.setAttribute("aria-expanded", "true");
+      // blokada przewijania tla (zapamietujemy pozycje; body -> position: fixed via .menu-open)
+      document.body.style.top = (-scrollY) + "px";
       document.body.classList.add("menu-open");
     };
     var closeMenu = function () {
@@ -37,6 +42,8 @@
       toggle.classList.remove("is-open");
       toggle.setAttribute("aria-expanded", "false");
       document.body.classList.remove("menu-open");
+      document.body.style.top = "";
+      window.scrollTo(0, scrollY); // przywroc pozycje przewiniecia
     };
 
     toggle.addEventListener("click", function (e) {

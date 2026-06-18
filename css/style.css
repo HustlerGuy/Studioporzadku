@@ -2038,9 +2038,6 @@ h1, h2, h3, h4 { letter-spacing: -0.022em; }
    wiec zawsze rozwija sie tuz pod belka, bez zaleznosci od JS.
    ========================================================= */
 @media (max-width: 900px) {
-  /* naglowek = kontekst pozycjonowania panelu (jest position: sticky) */
-  .site-header { background: #ffffff; }
-
   .site-header { background: #ffffff; }
 
   /* nav jako wiersz; panel menu zawija sie do nowej linii pod spodem

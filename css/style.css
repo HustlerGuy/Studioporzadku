@@ -2016,3 +2016,139 @@ h1, h2, h3, h4 { letter-spacing: -0.022em; }
 .cert-body { padding: 18px 20px 22px; }
 .cert-body h3 { font-size: 1.06rem; margin: 0 0 4px; }
 .cert-body p { margin: 0; color: var(--muted); font-size: .92rem; line-height: 1.55; }
+
+
+
+/* =========================================================
+   v21 — Lightbox (realizacje, certyfikaty, galeria) + siatka galerii
+   ========================================================= */
+
+/* elementy klikalne otwierajace podglad */
+[data-lightbox] { cursor: zoom-in; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 4vmin;
+  background: rgba(10, 11, 14, 0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.lightbox.open { display: flex; animation: lbFade .25s ease; }
+@keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
+
+.lightbox-figure {
+  margin: 0;
+  max-width: 92vw;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.lightbox-figure img {
+  max-width: 92vw;
+  max-height: 78vh;
+  width: auto;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  background: #fff;
+  animation: lbZoom .28s cubic-bezier(.2, .8, .2, 1);
+}
+@keyframes lbZoom { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: none; } }
+.lightbox-figure figcaption {
+  color: #f2f3f5;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  max-width: 80vw;
+}
+
+.lightbox-close,
+.lightbox-nav {
+  position: absolute;
+  border: 0;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  transition: background .2s ease, transform .2s ease, border-color .2s ease;
+}
+.lightbox-close:hover,
+.lightbox-nav:hover { background: var(--brand-red); border-color: transparent; transform: scale(1.06); }
+.lightbox-close { top: 18px; right: 18px; width: 48px; height: 48px; }
+.lightbox-close svg { width: 22px; height: 22px; }
+.lightbox-nav { top: 50%; transform: translateY(-50%); width: 52px; height: 52px; }
+.lightbox-nav:hover { transform: translateY(-50%) scale(1.06); }
+.lightbox-prev { left: 18px; }
+.lightbox-next { right: 18px; }
+.lightbox-nav svg { width: 26px; height: 26px; }
+
+@media (max-width: 560px) {
+  .lightbox-nav { width: 44px; height: 44px; }
+  .lightbox-prev { left: 10px; }
+  .lightbox-next { right: 10px; }
+  .lightbox-close { top: 12px; right: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lightbox.open, .lightbox-figure img { animation: none; }
+}
+
+/* ---------- Siatka galerii (strona /galeria/) ---------- */
+.galeria-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+.galeria-item {
+  position: relative;
+  margin: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--bg-soft);
+  box-shadow: var(--shadow-sm);
+  aspect-ratio: 4 / 3;
+  cursor: zoom-in;
+}
+.galeria-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .45s ease;
+}
+.galeria-item:hover img { transform: scale(1.06); }
+.galeria-item figcaption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 26px 16px 14px;
+  color: #fff;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: .95rem;
+  background: linear-gradient(180deg, transparent, rgba(12, 13, 17, 0.82));
+  transform: translateY(8px);
+  opacity: 0;
+  transition: opacity .3s ease, transform .3s ease;
+}
+.galeria-item:hover figcaption { opacity: 1; transform: none; }
+/* ikona "powiększ" w rogu */
+.galeria-item::after {
+  content: "";
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(12, 13, 17, 0.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M21 21l-4.3-4.3M11 8v6M8 11h6'/%3E%3C/svg%3E") center / 18px no-repeat;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.galeria-item:hover::after { opacity: 1; }

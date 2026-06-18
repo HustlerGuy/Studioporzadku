@@ -185,6 +185,16 @@
   }
 
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- Suwak "przed / po" ---------- */
+  document.querySelectorAll("[data-compare]").forEach(function (c) {
+    var range = c.querySelector(".compare-range");
+    if (!range) return;
+    var sync = function () { c.style.setProperty("--pos", range.value + "%"); };
+    range.addEventListener("input", sync);
+    sync();
+  });
+
   var statsSection = document.querySelector(".section--stats");
   if (statsSection && "IntersectionObserver" in window) {
     var statsIo = new IntersectionObserver(

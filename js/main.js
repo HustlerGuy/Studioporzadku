@@ -30,9 +30,6 @@
       toggle.classList.add("is-open");
       toggle.setAttribute("aria-expanded", "true");
       document.body.classList.add("menu-open");
-      // blokada przewijania: html + body (sam body nie wystarcza, dokument scrolluje przez <html>)
-      document.documentElement.style.overflow = "hidden";
-      document.body.style.overflow = "hidden";
     };
     var closeMenu = function () {
       links.classList.remove("open");
@@ -40,8 +37,6 @@
       toggle.classList.remove("is-open");
       toggle.setAttribute("aria-expanded", "false");
       document.body.classList.remove("menu-open");
-      document.documentElement.style.overflow = "";
-      document.body.style.overflow = "";
     };
 
     toggle.addEventListener("click", function (e) {

@@ -1340,8 +1340,8 @@ body {
 body { color: #14161b; }
 
 /* --- Blokada przewijania przy otwartym menu mobilnym --- */
-body.menu-open { overscroll-behavior: none; touch-action: pan-y; }
-html:has(body.menu-open) { overflow: hidden; }
+body.menu-open { overscroll-behavior: contain; }
+/* (usunieto html{overflow:hidden} przy otwartym menu - lamalo sticky naglowek po przewinieciu) */
 
 /* --- Dostępność: czytelny focus dla nawigacji klawiaturą --- */
 a:focus-visible,

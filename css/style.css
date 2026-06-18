@@ -2124,16 +2124,8 @@ h1, h2, h3, h4 { letter-spacing: -0.022em; }
   .has-dropdown .dropdown a { padding: 11px 12px; font-size: 0.98rem; border-radius: 8px; color: var(--ink-soft); }
   .has-dropdown .dropdown a:hover { background: var(--bg-soft); color: var(--brand-red); }
 
-  /* blokada przewijania tla: body zamrozony (position: fixed; top ustawia JS = -scrollY) */
-  body.menu-open {
-    position: fixed;
-    left: 0;
-    right: 0;
-    width: 100%;
-    overflow: hidden;
-  }
-  /* na czas otwarcia naglowek jako fixed (stabilny przy zamrozonym body), nad szuflada i klikalny */
-  body.menu-open .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 80; }
+  /* naglowek nad szuflada (klikalny X); sticky zostaje - bez przeskoku layoutu */
+  body.menu-open .site-header { z-index: 80; }
 }
 
 
@@ -2151,4 +2143,17 @@ h1, h2, h3, h4 { letter-spacing: -0.022em; }
   }
   .nav-links > li,
   .nav-links.open > li { transition-delay: 0s !important; }
+}
+
+
+
+/* =========================================================
+   v24 — usuniecie niebieskiego "tap highlight" na mobile
+   (nie rusza dostepnego focus-visible dla klawiatury)
+   ========================================================= */
+html { -webkit-tap-highlight-color: transparent; }
+a, button, summary, label, input, select, textarea,
+.btn, .nav-toggle, .nav-phone, .card, .slide, .slider-btn,
+.galeria-item, .cert-card, [data-lightbox], [data-compare] {
+  -webkit-tap-highlight-color: transparent;
 }

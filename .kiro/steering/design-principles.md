@@ -26,3 +26,22 @@ nienaruszalne i obowiązują przy każdej sekcji oraz podstronie tego projektu.
 - Szanuj `prefers-reduced-motion` (wyłączaj/upraszczaj ruch).
 - Wydajność: animacje na transform/opacity (GPU), `will-change` z umiarem.
 - Dostępność: czytelny focus-visible, semantyka, kontrast.
+
+
+
+## Generator Podstron (stały workflow)
+
+Każdą kolejną podstronę (O nas, Kontakt, Oferta, Blog, ...) buduję wg tego samego schematu,
+podmieniając tylko nazwę i treść:
+
+1. Budujemy na fundamencie z `/redesign/` (ten sam header `.hdr`, menu `.menu`, stopka `.ftr`,
+   tokeny i klasy z `redesign/css/app.css`, interakcje z `redesign/js/app.js`).
+2. Każda podstrona to nowy katalog: `redesign/<slug>/index.html` (np. `redesign/o-nas/`),
+   linkujący `../css/app.css` i `../js/app.js`.
+3. Treść dzielimy na NIEOCZYWISTE sekcje: asymetryczny grid obraz/tekst, mocne skoki typografii,
+   dużo negatywnej przestrzeni. Zero równych, nudnych kart na szarym tle.
+4. Scroll-triggered fade-up: elementy `data-reveal` (i grupy `data-reveal-group`) ujawniają się
+   kaskadowo podczas przewijania — strona ma "rozkwitać" przed oczami.
+5. Mikro-interakcje wszędzie: magnetyczne elementy (`data-magnetic`), płynne hovery (spring/cubic-bezier),
+   satysfakcjonujące klikalne elementy. Zawsze `prefers-reduced-motion`, ruch na transform/opacity.
+6. Zero długich myślników (—) w treści i komentarzach.

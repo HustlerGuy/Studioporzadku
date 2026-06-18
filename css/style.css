@@ -2150,3 +2150,85 @@ h1, h2, h3, h4 { letter-spacing: -0.022em; }
   transition: opacity .3s ease;
 }
 .galeria-item:hover::after { opacity: 1; }
+
+
+
+/* =========================================================
+   v22 — NIEZAWODNE menu mobilne (zastepuje fixed + --header-h)
+   Panel pozycjonowany wzgledem naglowka (position: absolute; top: 100%),
+   wiec zawsze rozwija sie tuz pod belka, bez zaleznosci od JS.
+   ========================================================= */
+@media (max-width: 900px) {
+  /* naglowek = kontekst pozycjonowania panelu (jest position: sticky) */
+  .site-header { background: #ffffff; }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: auto;
+    max-width: none;
+    height: auto;
+    max-height: 78vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    margin: 0;
+    padding: 10px 16px calc(18px + env(safe-area-inset-bottom, 0px));
+    background: #ffffff;
+    border-top: 1px solid var(--line);
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 24px 36px rgba(15, 17, 22, 0.18);
+    transform: translateY(-12px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .24s ease, transform .24s ease, visibility .24s;
+    z-index: 45;
+  }
+  .nav-links.open {
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* pozycje menu */
+  .nav-links > li { width: 100%; }
+  .nav-links > li > a {
+    display: block;
+    width: 100%;
+    padding: 14px 14px;
+    font-size: 1.04rem;
+    border-radius: 10px;
+    color: var(--ink);
+  }
+  .nav-links > li > a:hover,
+  .nav-links a.active { background: var(--bg-soft); color: var(--brand-red); }
+  /* wylacz desktopowe podkreslenie w panelu mobilnym */
+  .nav-links > li > a::after { display: none; }
+
+  /* podmenu "Uslugi" rozwiniete inline */
+  .has-dropdown .dropdown {
+    position: static;
+    display: block;
+    background: transparent;
+    box-shadow: none;
+    border: 0;
+    margin: 0;
+    padding: 2px 0 6px 12px;
+    animation: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    max-height: none;
+    min-width: 0;
+  }
+  .has-dropdown .dropdown a { padding: 11px 12px; font-size: 0.98rem; border-radius: 8px; color: var(--ink-soft); }
+  .has-dropdown .dropdown a:hover { background: var(--bg-soft); color: var(--brand-red); }
+
+  /* naglowek nad panelem-> hamburger zawsze klikalny */
+  body.menu-open .site-header { z-index: 80; }
+}

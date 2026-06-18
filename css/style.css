@@ -1685,3 +1685,95 @@ body.menu-open .site-header { z-index: 80; }
   }
   .has-dropdown .dropdown a { padding: 11px 12px; font-size: 0.98rem; border-radius: 8px; }
 }
+
+
+/* =========================================================
+   Expert polish (v17) — dodatki additywne, bez zmian istniejacych regul
+   ========================================================= */
+
+/* Wezszy kontener (np. FAQ na stronie glownej) */
+.container--narrow { max-width: 860px; }
+
+/* Karty: delikatna markowa poswiata podazajaca za kursorem (desktop) */
+.card > * { position: relative; z-index: 1; }
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(240px circle at var(--mx, 50%) var(--my, -20%),
+              rgba(226, 35, 26, 0.10), transparent 70%);
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+.card:hover::after { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .card::after { display: none; }
+}
+
+/* Licznik statystyk: stabilna szerokosc podczas animacji (bez skakania) */
+.stat-card .num { font-variant-numeric: tabular-nums; }
+.stat-card .num.counting { will-change: contents; }
+
+
+/* ---------- Przed / po (compare slider) ---------- */
+.ba-grid {
+  display: grid;
+  gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+.ba-item { margin: 0; }
+.ba-item figcaption {
+  margin-top: 14px;
+  text-align: center;
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--ink);
+}
+.compare {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  aspect-ratio: 3 / 2;
+  background: var(--bg-soft);
+  user-select: none;
+  touch-action: pan-y;
+}
+.compare-layer { position: absolute; inset: 0; }
+.compare-layer img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ba-before {
+  clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0);
+}
+.ba-before img { filter: grayscale(.55) brightness(.82) contrast(.92) sepia(.18); }
+.compare-label {
+  position: absolute; top: 12px;
+  padding: 5px 12px; border-radius: 999px;
+  font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: #fff; backdrop-filter: blur(4px); z-index: 3;
+}
+.compare-label--before { left: 12px; background: rgba(20, 22, 28, .62); }
+.compare-label--after { right: 12px; background: var(--grad-red); }
+.compare-handle {
+  position: absolute; top: 0; bottom: 0; left: var(--pos, 50%);
+  width: 3px; transform: translateX(-50%);
+  background: #fff; box-shadow: 0 0 0 1px rgba(20,22,28,.12);
+  z-index: 2; pointer-events: none;
+  display: grid; place-items: center;
+}
+.compare-handle svg {
+  width: 22px; height: 22px; color: var(--brand-red);
+  background: #fff; border-radius: 50%; padding: 7px;
+  box-shadow: var(--shadow-sm);
+}
+.compare-range {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  margin: 0; padding: 0; opacity: 0; cursor: ew-resize; z-index: 4;
+  -webkit-appearance: none; appearance: none; background: transparent;
+}
+.compare-range::-webkit-slider-thumb { -webkit-appearance: none; width: 44px; height: 100%; cursor: ew-resize; }
+.compare-range::-moz-range-thumb { width: 44px; height: 100%; border: 0; background: transparent; cursor: ew-resize; }
+.compare-range:focus-visible { outline: none; }
+.compare:has(.compare-range:focus-visible) .compare-handle svg { box-shadow: 0 0 0 4px rgba(226,35,26,.35); }

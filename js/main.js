@@ -70,6 +70,38 @@
     window.addEventListener("resize", function () {
       if (window.innerWidth > 900 && links.classList.contains("open")) closeMenu();
     });
+
+    // gest: przeciagniecie szuflady w lewo zamyka ja (z odczuciem kontroli pod palcem)
+    var sx = 0, sy = 0, sdx = 0, sDecided = "", sDrag = false;
+    links.addEventListener("touchstart", function (e) {
+      if (!links.classList.contains("open")) return;
+      sx = e.touches[0].clientX;
+      sy = e.touches[0].clientY;
+      sdx = 0; sDecided = ""; sDrag = false;
+    }, { passive: true });
+    links.addEventListener("touchmove", function (e) {
+      if (!links.classList.contains("open")) return;
+      var dx = e.touches[0].clientX - sx;
+      var dy = e.touches[0].clientY - sy;
+      if (!sDecided && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
+        sDecided = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+        if (sDecided === "x") { sDrag = true; links.style.transition = "none"; }
+      }
+      if (sDrag) {
+        sdx = Math.min(0, dx);            // tylko w lewo
+        links.style.transform = "translateX(" + sdx + "px)";
+      }
+    }, { passive: true });
+    var endDrag = function () {
+      if (!sDrag) return;
+      sDrag = false;
+      links.style.transition = "";       // przywroc animacje CSS (snap / zamkniecie)
+      links.style.transform = "";
+      var w = links.offsetWidth || 300;
+      if (sdx < -Math.min(90, w * 0.33)) closeMenu();
+    };
+    links.addEventListener("touchend", endDrag, { passive: true });
+    links.addEventListener("touchcancel", endDrag, { passive: true });
   }
 
   /* ---------- Aktualny rok w stopce ---------- */

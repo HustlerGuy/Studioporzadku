@@ -2051,13 +2051,11 @@ h1, h2, h3, h4 { letter-spacing: -0.022em; }
   gap: 14px;
 }
 .lightbox-figure img {
-  max-width: 92vw;
-  max-height: 78vh;
-  width: auto;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
-  background: #fff;
+  width: 92vw;
+  max-width: 1100px;
+  height: 80vh;
+  object-fit: contain;
+  border-radius: 10px;
   animation: lbZoom .28s cubic-bezier(.2, .8, .2, 1);
 }
 @keyframes lbZoom { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: none; } }

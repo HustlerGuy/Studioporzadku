@@ -377,3 +377,39 @@
     if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
   }, { passive: true });
 })();
+
+
+
+/* =========================================================
+   Logo w banerze CTA (prawy gorny rog) + kontakt social w stopce
+   ========================================================= */
+(function () {
+  "use strict";
+
+  // sciezka do bialego logo bierzemy ze stopki (poprawna na kazdej podstronie)
+  var footerLogo = document.querySelector(".footer-brand img");
+  var logoSrc = footerLogo ? footerLogo.getAttribute("src") : null;
+
+  if (logoSrc) {
+    document.querySelectorAll(".cta-band").forEach(function (b) {
+      if (b.querySelector(".cta-logo")) return;
+      var img = document.createElement("img");
+      img.className = "cta-logo";
+      img.src = logoSrc;
+      img.alt = "";
+      img.setAttribute("aria-hidden", "true");
+      b.appendChild(img);
+    });
+  }
+
+  var fb = document.querySelector(".footer-brand");
+  if (fb && !fb.querySelector(".footer-social")) {
+    var s = document.createElement("div");
+    s.className = "footer-social";
+    s.innerHTML =
+      '<a href="https://www.facebook.com/StudioPorzadku" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7h2.3l.4-2.9h-2.7V9.3c0-.84.26-1.4 1.46-1.4H16.3V5.3A20 20 0 0 0 14.2 5.2c-2.1 0-3.5 1.27-3.5 3.6v2.3H8.3V14h2.4v7z"/></svg></a>' +
+      '<a href="https://www.instagram.com/studio_porzadku/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>' +
+      '<a href="https://wa.me/48506507171" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.9c0 1.76.46 3.45 1.34 4.95L2 22l5.3-1.39a9.9 9.9 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.45 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2zm0 1.8c2.16 0 4.18.84 5.71 2.37a8.03 8.03 0 0 1 2.37 5.72c0 4.46-3.63 8.09-8.1 8.09a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.04 8.04 0 0 1-1.25-4.32c0-4.46 3.63-8.09 8.1-8.09zm-3.06 4.3c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.14 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.43-.58 1.63-1.15.2-.56.2-1.05.14-1.15-.06-.1-.22-.16-.46-.28-.24-.12-1.43-.7-1.65-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.41h-.46z"/></svg></a>';
+    fb.appendChild(s);
+  }
+})();

@@ -1,5 +1,5 @@
 /* =========================================================
-   Studio Porzadku — Foundation interactions
+   Studio Porzadku · Foundation interactions
    Magnetyzm · wskaznik nawigacji · pelnoekranowe menu ·
    staggered reveal · litery stopki. Vanilla, GPU-friendly.
    ========================================================= */

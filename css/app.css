@@ -1457,28 +1457,62 @@ html.js [data-hero-mask] .w { transform: translateY(110%); }
 
 /* logo na bialo (kropka zostaje czerwona) */
 .hdr--invert .brandmark,
-body:has(.subhero) .hdr:not(.is-scrolled) .brandmark { color: #fff; }
+body:has(.subhero, .hero) .hdr:not(.is-scrolled) .brandmark { color: #fff; }
 
 /* linki + przelacznik Uslugi */
 .hdr--invert .nav__link,
 .hdr--invert .nav__drop-toggle,
-body:has(.subhero) .hdr:not(.is-scrolled) .nav__link,
-body:has(.subhero) .hdr:not(.is-scrolled) .nav__drop-toggle { color: #fff; }
+body:has(.subhero, .hero) .hdr:not(.is-scrolled) .nav__link,
+body:has(.subhero, .hero) .hdr:not(.is-scrolled) .nav__drop-toggle { color: #fff; }
 
 /* mobilna ikona telefonu */
 .hdr--invert .hdr__call,
-body:has(.subhero) .hdr:not(.is-scrolled) .hdr__call { color: #fff; }
+body:has(.subhero, .hero) .hdr:not(.is-scrolled) .hdr__call { color: #fff; }
 
 /* hamburger na bialo */
 .hdr--invert .burger span,
 .hdr--invert .burger span::before,
 .hdr--invert .burger span::after,
-body:has(.subhero) .hdr:not(.is-scrolled) .burger span,
-body:has(.subhero) .hdr:not(.is-scrolled) .burger span::before,
-body:has(.subhero) .hdr:not(.is-scrolled) .burger span::after { background: #fff; }
+body:has(.subhero, .hero) .hdr:not(.is-scrolled) .burger span,
+body:has(.subhero, .hero) .hdr:not(.is-scrolled) .burger span::before,
+body:has(.subhero, .hero) .hdr:not(.is-scrolled) .burger span::after { background: #fff; }
 
 /* CTA jako elegancki outline na hero */
 .hdr--invert .nav__cta,
-body:has(.subhero) .hdr:not(.is-scrolled) .nav__cta { background: transparent; border-color: rgba(255, 255, 255, .6); color: #fff; }
+body:has(.subhero, .hero) .hdr:not(.is-scrolled) .nav__cta { background: transparent; border-color: rgba(255, 255, 255, .6); color: #fff; }
 .hdr--invert .nav__cta:hover,
-body:has(.subhero) .hdr:not(.is-scrolled) .nav__cta:hover { border-color: var(--red); color: #fff; }
+body:has(.subhero, .hero) .hdr:not(.is-scrolled) .nav__cta:hover { border-color: var(--red); color: #fff; }
+
+
+
+
+/* =========================================================
+   v12 · HOME HERO jako ciemny obraz + RWD mobile-safe crop
+   ========================================================= */
+.hero__media { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: var(--ink); }
+.hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+/* overlay: przyciemnienie z lewej (pod tekst) + od dolu, dla krystalicznej czytelnosci */
+.hero__overlay {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to right, rgba(15, 15, 15, .78), rgba(15, 15, 15, .35) 55%, rgba(15, 15, 15, .12)),
+    linear-gradient(to bottom, rgba(15, 15, 15, .25), rgba(15, 15, 15, .8));
+}
+
+/* tresc hero na bialo */
+.hero__eyebrow { color: rgba(255, 255, 255, .72); }
+.hero__title { color: #fff; }
+.hero__lead { color: rgba(255, 255, 255, .82); }
+.hero__ghost { color: #fff; }
+.hero__ghost::after { background: #fff; }
+.hero__scroll { color: rgba(255, 255, 255, .7); }
+.hero__scroll .rail { background: rgba(255, 255, 255, .3); }
+
+/* glowny CTA: jasny pill dla maksymalnego kontrastu na ciemnym hero (blask zostaje) */
+.hero .cta-glow { background: var(--paper); color: var(--ink); box-shadow: 0 14px 40px rgba(0, 0, 0, .4); }
+
+/* RWD: mobile-safe crop. Ucinamy lewa krawedz, zostawiamy prawa,
+   dzieki czemu bialy tekst lezy na bezpiecznym, wygaszonym tle z lewej. */
+@media (max-width: 720px) {
+  .hero__img, .subhero__img { object-position: right center; }
+}

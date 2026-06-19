@@ -936,3 +936,53 @@ html.js [data-splitlines] { visibility: hidden; }
   .drop__link { opacity: 1; transform: none; transition: none; }
   .drop { transition: none; }
 }
+
+
+
+/* =========================================================
+   v4 · Siatka uslug (strona glowna)
+   ========================================================= */
+.svc-head { max-width: 60ch; }
+.svc-head .h-display { font-size: clamp(2rem, 5vw, 3.6rem); }
+.svc-head .lead-lg { margin-top: .55em; color: var(--ink-2); }
+
+.svc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: clamp(14px, 1.6vw, 22px);
+  margin-top: var(--sp-lg);
+}
+.svc-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(200px, 22vw, 264px);
+  padding: clamp(22px, 2.6vw, 36px);
+  background: #fff;
+  border: 1px solid rgba(28, 29, 34, .09);
+  border-radius: 20px;
+  color: var(--ink);
+  overflow: hidden;
+  transition: transform .55s var(--ease-out), box-shadow .55s var(--ease-out), border-color .4s ease;
+  will-change: transform;
+}
+.svc-tile::after {
+  content: "";
+  position: absolute; right: -40%; top: -60%;
+  width: 90%; height: 120%;
+  background: radial-gradient(circle, rgba(226, 35, 26, .10), transparent 70%);
+  opacity: 0; transition: opacity .5s ease; pointer-events: none;
+}
+.svc-tile:hover { transform: translateY(-8px); box-shadow: 0 30px 64px rgba(12, 13, 16, .14); border-color: transparent; }
+.svc-tile:hover::after { opacity: 1; }
+.svc-tile__idx { font-family: var(--display); font-weight: 600; font-size: .85rem; color: var(--red); letter-spacing: .1em; }
+.svc-tile__name {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(1.3rem, 2vw, 1.85rem); line-height: 1.05; letter-spacing: -.02em;
+  margin: .55em 0 .35em; transition: color .3s ease;
+}
+.svc-tile:hover .svc-tile__name { color: var(--red); }
+.svc-tile__tag { color: var(--ink-2); font-size: .98rem; max-width: 30ch; }
+.svc-tile__go { margin-top: auto; padding-top: 22px; display: inline-flex; align-items: center; gap: 9px; font-weight: 600; font-size: .92rem; color: var(--ink); }
+.svc-tile__go svg { width: 18px; height: 18px; transition: transform .45s var(--ease-out); }
+.svc-tile:hover .svc-tile__go svg { transform: translateX(6px); }

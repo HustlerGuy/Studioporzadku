@@ -445,3 +445,78 @@
     return { open: open, close: close };
   })();
 })();
+
+
+
+
+/* =========================================================
+   TEASER PRZED/PO (home) + FORMULARZ KONTAKTOWY
+   Suwak z fizyka GSAP (waga/wyhamowanie) · mailto compose.
+   ========================================================= */
+(function () {
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var hasGSAP = !!window.gsap;
+  var qa = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+
+  /* ---------- BEFORE / AFTER ---------- */
+  qa("[data-ba]").forEach(function (stage) {
+    var handle = stage.querySelector(".ba__handle");
+    var proxy = { v: 50 };
+    var dragging = false;
+    function render() {
+      stage.style.setProperty("--pos", proxy.v + "%");
+      if (handle) handle.setAttribute("aria-valuenow", Math.round(proxy.v));
+    }
+    function toTarget(v) {
+      v = Math.max(0, Math.min(100, v));
+      if (hasGSAP && !reduce) gsap.to(proxy, { v: v, duration: 0.6, ease: "power3.out", overwrite: true, onUpdate: render });
+      else { proxy.v = v; render(); }
+    }
+    function posFromEvent(e) {
+      var r = stage.getBoundingClientRect();
+      var cx = (e.touches ? e.touches[0].clientX : e.clientX);
+      return ((cx - r.left) / r.width) * 100;
+    }
+    var down = function (e) { dragging = true; stage.classList.add("is-drag"); toTarget(posFromEvent(e)); };
+    var move = function (e) { if (!dragging) return; toTarget(posFromEvent(e)); if (e.cancelable && e.type === "touchmove") e.preventDefault(); };
+    var up = function () { dragging = false; stage.classList.remove("is-drag"); };
+    stage.addEventListener("pointerdown", down);
+    window.addEventListener("pointermove", move, { passive: true });
+    window.addEventListener("pointerup", up);
+    stage.addEventListener("touchstart", down, { passive: true });
+    stage.addEventListener("touchmove", move, { passive: false });
+    stage.addEventListener("touchend", up);
+    if (handle) {
+      handle.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowLeft") { toTarget(proxy.v - 4); e.preventDefault(); }
+        else if (e.key === "ArrowRight") { toTarget(proxy.v + 4); e.preventDefault(); }
+      });
+      handle.addEventListener("click", function (e) { e.stopPropagation(); });
+    }
+    render();
+  });
+
+  /* ---------- FORMULARZ KONTAKTOWY (mailto compose, bez backendu) ---------- */
+  var form = document.querySelector("[data-contact-form]");
+  if (form) {
+    var statusEl = form.querySelector(".cform__status");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (typeof form.reportValidity === "function" && !form.reportValidity()) return;
+      var get = function (n) { var el = form.elements[n]; return el ? String(el.value).trim() : ""; };
+      var name = get("name"), email = get("email"), phone = get("phone"), msg = get("message");
+      var subject = "Zapytanie ze strony - " + (name || "Studio Porzadku");
+      var body = [
+        "Imie i nazwisko: " + name,
+        "E-mail: " + email,
+        "Telefon: " + phone,
+        "",
+        "Wiadomosc:",
+        msg
+      ].join("\n");
+      window.location.href = "mailto:biuro@studioporzadku.pl?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+      if (statusEl) { statusEl.textContent = "Otwieramy Twoj program pocztowy z gotowa wiadomoscia. Dziekujemy!"; statusEl.classList.add("is-ok"); }
+    });
+  }
+})();

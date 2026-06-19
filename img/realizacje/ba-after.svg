@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Tapicerka po praniu">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2a8d7d"/><stop offset="1" stop-color="#0c322c"/>
+    </linearGradient>
+    <radialGradient id="sheen" cx="0.62" cy="0.3" r="0.7">
+      <stop offset="0" stop-color="#9fe6d6" stop-opacity="0.5"/><stop offset="1" stop-color="#9fe6d6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg2)"/>
+  <g stroke="#ffffff" stroke-opacity="0.12" stroke-width="2" fill="none">
+    <path d="M-100 250 L1700 -50 M-100 500 L1700 200 M-100 750 L1700 450 M-100 1000 L1700 700"/>
+    <path d="M-100 -50 L1700 250 M-100 200 L1700 500 M-100 450 L1700 750 M-100 700 L1700 1000"/>
+  </g>
+  <rect width="1600" height="1000" fill="url(#sheen)"/>
+  <text x="64" y="940" fill="#fff" fill-opacity="0.6" font-family="Inter, sans-serif" font-size="30" letter-spacing="3">fabryczna świeżość</text>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Tapicerka przed praniem">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5b5248"/><stop offset="1" stop-color="#2c2823"/>
+    </linearGradient>
+    <radialGradient id="grime" cx="0.5" cy="0.45" r="0.75">
+      <stop offset="0" stop-color="#1c140d" stop-opacity="0"/><stop offset="1" stop-color="#0f0a06" stop-opacity="0.55"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <g stroke="#ffffff" stroke-opacity="0.05" stroke-width="2" fill="none">
+    <path d="M-100 250 L1700 -50 M-100 500 L1700 200 M-100 750 L1700 450 M-100 1000 L1700 700"/>
+    <path d="M-100 -50 L1700 250 M-100 200 L1700 500 M-100 450 L1700 750 M-100 700 L1700 1000"/>
+  </g>
+  <g fill="#1f140c">
+    <ellipse cx="520" cy="430" rx="190" ry="120" opacity="0.5"/>
+    <ellipse cx="1080" cy="640" rx="150" ry="110" opacity="0.45"/>
+    <ellipse cx="900" cy="300" rx="90" ry="70" opacity="0.4"/>
+  </g>
+  <g fill="none" stroke="#241910" stroke-width="14" opacity="0.4">
+    <circle cx="430" cy="700" r="80"/>
+  </g>
+  <rect width="1600" height="1000" fill="url(#grime)"/>
+  <text x="64" y="940" fill="#fff" fill-opacity="0.4" font-family="Inter, sans-serif" font-size="30" letter-spacing="3">stan zastany</text>
+</svg>

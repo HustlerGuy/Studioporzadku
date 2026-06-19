@@ -1300,3 +1300,59 @@ body.lb-open { overflow: hidden; }
   .cf__card, .gal__knob, .mason__tile img, .lb__img, .cf__title { transition: none !important; }
   .js .mason__tile { opacity: 1; transform: none; }
 }
+
+
+
+
+/* =========================================================
+   v8 · HEADER MOBILNY (3 strefy) + telefon->WhatsApp + duzy przycisk X
+   ========================================================= */
+.hdr__call { display: none; }
+
+@media (max-width: 920px) {
+  /* desktopowa nawigacja znika calkowicie (nie zajmuje sciezki gridu) */
+  .nav { display: none; }
+  .burger { display: inline-flex; }
+
+  /* 3 rowne strefy: hamburger | brand (srodek) | telefon */
+  .hdr__inner { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; }
+  .burger { order: 1; justify-self: start; margin-left: -12px; }
+  .brandmark { order: 2; justify-self: center; }
+  .hdr__call {
+    order: 3; justify-self: end;
+    display: grid; place-items: center;
+    width: 46px; height: 46px; border-radius: 999px;
+    color: var(--ink);
+  }
+}
+
+/* maskowany kontener: telefon -> WhatsApp */
+.hdr__call-mask { position: relative; width: 24px; height: 26px; overflow: hidden; display: block; }
+.hdr__call .ic { position: absolute; inset: 0; display: grid; place-items: center; }
+.hdr__call .ic svg { width: 24px; height: 24px; }
+.hdr__call .ic--phone { transform: translateY(0); transition: transform .5s var(--ease-spring); }
+.hdr__call .ic--wa { transform: translateY(120%); color: #25d366; transition: transform .5s var(--ease-spring); }
+/* fallback bez GSAP (klasa is-armed) */
+.hdr__call.is-armed .ic--phone { transform: translateY(-120%); }
+.hdr__call.is-armed .ic--wa { transform: translateY(0); }
+
+/* duzy, niezawodny przycisk zamkniecia w pelnoekranowym menu */
+.menu__close {
+  position: absolute; top: 16px; right: var(--gutter); z-index: 6;
+  width: 58px; height: 58px; border-radius: 999px;
+  border: 1px solid rgba(244, 241, 234, .22);
+  background: rgba(244, 241, 234, .06);
+  color: var(--paper); cursor: pointer;
+  display: grid; place-items: center;
+  opacity: 0; transform: scale(.7) rotate(-25deg);
+  transition: opacity .4s ease .2s, transform .55s var(--ease-spring) .2s, background .3s ease, border-color .3s ease;
+}
+.menu.is-open .menu__close { opacity: 1; transform: none; }
+.menu__close:hover { background: rgba(244, 241, 234, .16); border-color: rgba(244, 241, 234, .4); }
+.menu__close:active { transform: scale(.92); }
+.menu__close svg { width: 28px; height: 28px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hdr__call .ic { transition: none !important; }
+  .menu__close { transition: opacity .2s ease !important; transform: none !important; }
+}

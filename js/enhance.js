@@ -290,7 +290,7 @@
         titleEl.textContent = data[idx] ? data[idx].title : "";
         requestAnimationFrame(function () { titleEl.classList.add("is-in"); });
       }
-      if (countEl) countEl.textContent = (idx + 1) + " / " + N;
+      if (countEl) { var p2 = function (n) { return (n < 10 ? "0" : "") + n; }; countEl.textContent = p2(idx + 1) + " / " + p2(N); }
     }
 
     function animateTo(target) {
@@ -315,40 +315,44 @@
       });
     });
 
-    /* DRAG */
-    var dragging = false, startX = 0, startPos = 0, moved = false;
+    /* DRAG · pointer-only, axis-lock, pointer capture (zero kolizji z pionowym scrollem) */
+    var dragging = false, decided = false, horiz = false, startX = 0, startY = 0, startPos = 0, moved = false, pid = null;
     function down(e) {
-      dragging = true; moved = false;
-      startX = e.touches ? e.touches[0].clientX : e.clientX;
-      startPos = pos;
-      track.classList.add("is-drag");
+      if (e.button != null && e.button !== 0) return;
+      dragging = true; decided = false; horiz = false; moved = false; pid = e.pointerId;
+      startX = e.clientX; startY = e.clientY; startPos = pos;
       if (hasGSAP) gsap.killTweensOf(proxy);
     }
     function move(e) {
-      if (!dragging) return;
-      var x = e.touches ? e.touches[0].clientX : e.clientX;
-      var dx = x - startX;
-      if (Math.abs(dx) > 4) moved = true;
+      if (!dragging || (pid !== null && e.pointerId !== pid)) return;
+      var dx = e.clientX - startX, dy = e.clientY - startY;
+      if (!decided) {
+        if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;   // czekaj na wyrazny gest
+        decided = true;
+        horiz = Math.abs(dx) > Math.abs(dy);
+        if (!horiz) { dragging = false; return; }            // gest pionowy -> oddaj scroll stronie
+        track.classList.add("is-drag");
+        try { track.setPointerCapture(pid); } catch (err) {}
+      }
+      moved = true;
       var p = startPos - dx / (gap || 220);
-      pos = Math.max(-0.4, Math.min(N - 0.6, p));
+      pos = Math.max(-0.45, Math.min(N - 0.55, p));
       render(pos);
-      if (e.cancelable && e.type === "touchmove" && Math.abs(dx) > 6) e.preventDefault();
     }
     function up() {
-      if (!dragging) return;
-      dragging = false;
+      if (pid !== null) { try { track.releasePointerCapture(pid); } catch (err) {} }
+      var wasHoriz = horiz;
+      dragging = false; decided = false; horiz = false; pid = null;
       track.classList.remove("is-drag");
-      animateTo(Math.round(pos));
+      if (wasHoriz) animateTo(Math.round(pos));
     }
     track.addEventListener("pointerdown", down);
-    window.addEventListener("pointermove", move, { passive: true });
-    window.addEventListener("pointerup", up);
-    track.addEventListener("touchstart", down, { passive: true });
-    track.addEventListener("touchmove", move, { passive: false });
-    track.addEventListener("touchend", up);
-    // blokuj klik po przeciagnieciu
+    track.addEventListener("pointermove", move);
+    track.addEventListener("pointerup", up);
+    track.addEventListener("pointercancel", up);
+    // blokuj klik tuz po przeciagnieciu
     cards.forEach(function (card) {
-      card.addEventListener("click", function (e) { if (moved) { e.stopImmediatePropagation(); e.preventDefault(); } }, true);
+      card.addEventListener("click", function (e) { if (moved) { e.stopImmediatePropagation(); e.preventDefault(); moved = false; } }, true);
     });
 
     /* strzalki */
@@ -519,4 +523,44 @@
       if (statusEl) { statusEl.textContent = "Otwieramy Twoj program pocztowy z gotowa wiadomoscia. Dziekujemy!"; statusEl.classList.add("is-ok"); }
     });
   }
+})();
+
+
+
+
+/* =========================================================
+   MOBILNY TELEFON -> WHATSAPP · maskowany reveal (back.out)
+   Hover (desktop) lub dlugie przytrzymanie (dotyk) odslania WhatsApp.
+   ========================================================= */
+(function () {
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var hasGSAP = !!window.gsap;
+  var el = document.querySelector(".hdr__call");
+  if (!el) return;
+  var phone = el.querySelector(".ic--phone");
+  var wa = el.querySelector(".ic--wa");
+  var armed = false, holdT = null;
+
+  function arm() {
+    if (armed) return; armed = true;
+    if (hasGSAP && !reduce) {
+      gsap.to(phone, { yPercent: -130, duration: 0.4, ease: "power3.in", overwrite: true });
+      gsap.fromTo(wa, { yPercent: 130 }, { yPercent: 0, duration: 0.6, ease: "back.out(2.4)", overwrite: true });
+    } else { el.classList.add("is-armed"); }
+  }
+  function disarm() {
+    if (!armed) return; armed = false;
+    if (hasGSAP && !reduce) {
+      gsap.to(wa, { yPercent: 130, duration: 0.35, ease: "power3.in", overwrite: true });
+      gsap.fromTo(phone, { yPercent: -130 }, { yPercent: 0, duration: 0.55, ease: "back.out(2)", overwrite: true });
+    } else { el.classList.remove("is-armed"); }
+  }
+
+  el.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") arm(); });
+  el.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") disarm(); });
+  // dotyk: dlugie przytrzymanie odslania WhatsApp (potem klik nawiguje do wa.me)
+  el.addEventListener("touchstart", function () { holdT = setTimeout(arm, 280); }, { passive: true });
+  el.addEventListener("touchend", function () { clearTimeout(holdT); });
+  el.addEventListener("touchcancel", function () { clearTimeout(holdT); });
 })();

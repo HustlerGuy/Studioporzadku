@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1250" role="img" aria-label="Realizacja: tapicerka meblowa">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1f6f54"/><stop offset="1" stop-color="#0a2c22"/></linearGradient>
+    <radialGradient id="h" cx="0.72" cy="0.24" r="0.85"><stop offset="0" stop-color="#57c79f" stop-opacity="0.4"/><stop offset="1" stop-color="#57c79f" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1000" height="1250" fill="url(#g)"/>
+  <rect width="1000" height="1250" fill="url(#h)"/>
+  <g fill="none" stroke="#fff" stroke-opacity="0.07" stroke-width="2"><circle cx="720" cy="320" r="170"/><circle cx="720" cy="320" r="290"/><circle cx="720" cy="320" r="420"/></g>
+  <text x="60" y="150" fill="#fff" fill-opacity="0.5" font-family="Inter,sans-serif" font-size="44" font-weight="700" letter-spacing="6">04</text>
+  <text x="60" y="1160" fill="#fff" fill-opacity="0.6" font-family="Inter,sans-serif" font-size="30" letter-spacing="1">Tapicerka meblowa · Studio Porządku</text>
+</svg>

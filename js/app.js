@@ -11,6 +11,31 @@
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
+  /* ---------- inject: mobilny telefon->WhatsApp (prawa strefa) + duzy przycisk X w menu ---------- */
+  (function () {
+    var inner = document.querySelector(".hdr__inner");
+    if (inner && !inner.querySelector(".hdr__call")) {
+      var phoneSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>';
+      var waSvg = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.9c0 1.76.46 3.45 1.34 4.95L2 22l5.3-1.39a9.9 9.9 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.45 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2zm5.76 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.5-1.2-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5c-.1.2-.3.3-.1.6.1.3.7 1.1 1.4 1.8.9.8 1.7 1 2 1.2.2.1.4.1.5-.1l.7-.8c.2-.2.3-.2.6-.1l1.8.9c.3.1.5.2.5.4.1.2.1.7-.1 1.3z"/></svg>';
+      var a = document.createElement("a");
+      a.className = "hdr__call";
+      a.href = "https://wa.me/48506507171";
+      a.setAttribute("aria-label", "Zadzwon lub napisz na WhatsApp: 506 507 171");
+      a.setAttribute("data-magnetic", "0.25");
+      a.innerHTML = '<span class="hdr__call-mask"><span class="ic ic--phone">' + phoneSvg + '</span><span class="ic ic--wa">' + waSvg + '</span></span>';
+      inner.appendChild(a);
+    }
+    var menuEl = document.querySelector(".menu");
+    if (menuEl && !menuEl.querySelector(".menu__close")) {
+      var btn = document.createElement("button");
+      btn.className = "menu__close";
+      btn.type = "button";
+      btn.setAttribute("aria-label", "Zamknij menu");
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+      menuEl.insertBefore(btn, menuEl.firstChild);
+    }
+  })();
+
   /* ---------- 1. Magnetyzm (przyciaganie do kursora + spring powrot) ---------- */
   if (finePointer && !reduce) {
     $$("[data-magnetic]").forEach(function (el) {
@@ -128,6 +153,8 @@
     burger.addEventListener("click", function () {
       setMenu(!menu.classList.contains("is-open"));
     });
+    var closeBtn = $(".menu__close", menu);
+    if (closeBtn) closeBtn.addEventListener("click", function () { setMenu(false); });
     // akordeon "Uslugi" w menu mobilnym
     $$(".menu__acc", menu).forEach(function (btn) {
       btn.addEventListener("click", function () {

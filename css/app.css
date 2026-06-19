@@ -689,3 +689,143 @@ html.js [data-splitlines] { visibility: hidden; }
 @media (prefers-reduced-motion: reduce) {
   [data-splitlines] .ch { transform: none !important; transition: none !important; }
 }
+
+
+
+/* =========================================================
+   v2 · FLUID SCALING · CURSOR · HAPTIC · USLUGI · CENNIK
+   (dokladamy do obecnego designu, niczego nie zmieniajac wizualnie)
+   ========================================================= */
+
+/* --- pelnoplynne skalowanie odstepow (clamp, bez przeskokow) --- */
+:root {
+  --sp-xs: clamp(8px, 1.4vw, 14px);
+  --sp-sm: clamp(14px, 2.4vw, 22px);
+  --sp-md: clamp(22px, 4vw, 40px);
+  --sp-lg: clamp(40px, 7vw, 96px);
+  --sp-xl: clamp(64px, 11vw, 170px);
+}
+
+/* =========================================================
+   CUSTOM CURSOR (inwersja kolorow) + magnetyzm
+   ========================================================= */
+.cur { position: fixed; left: 0; top: 0; z-index: 9999; pointer-events: none; mix-blend-mode: difference; }
+.cur__dot, .cur__ring { position: fixed; left: 0; top: 0; border-radius: 50%; transform: translate3d(-50%, -50%, 0); pointer-events: none; }
+.cur__dot { width: 7px; height: 7px; background: #fff; }
+.cur__ring { width: 42px; height: 42px; border: 1px solid #fff; transition: width .3s var(--ease-out), height .3s var(--ease-out), background .3s var(--ease-out), opacity .3s; }
+.cur.is-hot .cur__ring { width: 64px; height: 64px; background: rgba(255, 255, 255, 0.12); }
+.cur.is-hot .cur__dot { opacity: 0; }
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  body.cursor-on { cursor: none; }
+  body.cursor-on a, body.cursor-on button, body.cursor-on [data-magnetic], body.cursor-on [data-tilt] { cursor: none; }
+}
+@media (pointer: coarse), (prefers-reduced-motion: reduce) { .cur { display: none !important; } }
+
+/* =========================================================
+   HAPTIC · fizyczne wcisniecie ze sprezystym powrotem
+   (back-ease), bez kolizji z magnetyzmem
+   ========================================================= */
+.btn, .cta-glow, .plan__cta, .cert, .ftr__links a, .pricing__switch button {
+  transition: transform .12s var(--ease-out);
+}
+.btn:active, .plan__cta:active, .cert:active, .pricing__switch button:active { transform: scale(0.96); }
+.cta-glow:active { transform: scale(0.94); }
+/* sprezysty powrot po puszczeniu */
+.btn:not(:active), .cta-glow:not(:active), .plan__cta:not(:active), .pricing__switch button:not(:active) {
+  transition: transform .5s var(--ease-spring);
+}
+
+/* hamburger: sprezysty hover na "X" */
+.menu-open .burger:hover span::before { transform: rotate(45deg) scale(1.12); }
+.menu-open .burger:hover span::after { transform: rotate(-45deg) scale(1.12); }
+.burger span::before, .burger span::after { transition: transform .5s var(--ease-spring), top .3s ease; }
+
+/* =========================================================
+   USLUGI · proces + teaser ceny (reuzywa prymitywow sekcji)
+   ========================================================= */
+.svc-meta { display: flex; flex-wrap: wrap; gap: var(--sp-sm) var(--sp-lg); margin-top: var(--sp-md); }
+.svc-meta__item { }
+.svc-meta__k { display: block; font-size: .76rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 6px; }
+.svc-meta__v { font-family: var(--display); font-weight: 600; font-size: clamp(1.1rem, 2vw, 1.5rem); }
+
+.priceteaser { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--sp-md); }
+.priceteaser__amt { font-family: var(--display); font-weight: 700; font-size: clamp(2.2rem, 6vw, 4.4rem); line-height: 1; letter-spacing: -.03em; }
+.priceteaser__amt small { display: block; font-family: var(--font); font-weight: 500; font-size: .9rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 8px; }
+
+/* =========================================================
+   CENNIK · kinetyczny toggle · 3D tilt · rysowane ptaszki
+   ========================================================= */
+.pricing__switch {
+  position: relative; display: inline-flex; align-items: center; gap: 4px;
+  padding: 6px; border-radius: 999px; background: var(--paper-2);
+  border: 1px solid rgba(28, 29, 34, .1); margin-top: var(--sp-md);
+}
+.pricing__switch button {
+  position: relative; z-index: 1; border: 0; background: transparent; cursor: pointer;
+  padding: 11px 22px; border-radius: 999px; font-weight: 600; font-size: .96rem; color: var(--ink-2);
+}
+.pricing__switch button.is-on { color: var(--paper); }
+.pricing__switch .knob {
+  position: absolute; z-index: 0; top: 6px; bottom: 6px; left: 6px;
+  width: 50%; border-radius: 999px; background: var(--ink);
+  transform: translateX(0);
+  transition: transform .5s var(--ease-spring);
+}
+.pricing__switch.is-year .knob { transform: translateX(calc(100% - 8px)); }
+.pricing__save { margin-left: 14px; font-size: .82rem; color: var(--red); font-weight: 600; opacity: 0; transform: translateX(-6px); transition: opacity .4s, transform .4s var(--ease-out); }
+.pricing__switch.is-year ~ .pricing__save, .pricing__save.show { opacity: 1; transform: none; }
+
+.plans {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(18px, 2.4vw, 32px);
+  margin-top: var(--sp-lg); perspective: 1400px; align-items: start;
+}
+.plan { position: relative; }
+.plan__card {
+  position: relative; height: 100%;
+  background: #fff; border: 1px solid rgba(28, 29, 34, .1); border-radius: 22px;
+  padding: clamp(26px, 3.4vw, 44px);
+  transform-style: preserve-3d; will-change: transform;
+  transition: box-shadow .5s var(--ease-out), border-color .4s ease;
+}
+.plan--featured .plan__card {
+  border-color: var(--red);
+  box-shadow: 0 30px 70px rgba(226, 35, 26, .14);
+}
+.plan__card:hover { box-shadow: 0 36px 80px rgba(12, 13, 16, .16); }
+.plan__badge {
+  position: absolute; top: -13px; left: clamp(26px, 3.4vw, 44px);
+  background: var(--red); color: #fff; font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  padding: 6px 14px; border-radius: 999px; transform: translateZ(40px);
+}
+.plan__name { font-family: var(--display); font-weight: 600; font-size: 1.15rem; letter-spacing: .02em; }
+.plan__price { margin: 14px 0 4px; display: flex; align-items: baseline; gap: 8px; transform: translateZ(30px); }
+.plan__amount { font-family: var(--display); font-weight: 700; font-size: clamp(2.6rem, 6vw, 3.8rem); line-height: 1; letter-spacing: -.03em; }
+.plan__unit { font-size: .9rem; color: var(--ink-2); }
+.plan__from { font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
+.plan__desc { color: var(--ink-2); margin: 14px 0 22px; font-size: 1rem; }
+.plan__list { list-style: none; margin: 0 0 28px; padding: 0; }
+.plan__list li { display: flex; align-items: flex-start; gap: 12px; padding: 9px 0; font-size: 1rem; }
+.chk { flex: 0 0 auto; width: 22px; height: 22px; color: var(--red); margin-top: 1px; }
+.chk path { stroke-dasharray: 26; stroke-dashoffset: 26; transition: stroke-dashoffset .55s var(--ease-out); }
+.plan.is-in .chk path { stroke-dashoffset: 0; }
+.plan.is-in .plan__list li:nth-child(2) .chk path { transition-delay: .08s; }
+.plan.is-in .plan__list li:nth-child(3) .chk path { transition-delay: .16s; }
+.plan.is-in .plan__list li:nth-child(4) .chk path { transition-delay: .24s; }
+.plan.is-in .plan__list li:nth-child(5) .chk path { transition-delay: .32s; }
+.plan.is-in .plan__list li:nth-child(6) .chk path { transition-delay: .40s; }
+.plan__cta {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+  padding: 16px 24px; border-radius: 999px; border: 1.5px solid var(--ink);
+  background: transparent; color: var(--ink); font-family: var(--display); font-weight: 600; font-size: 1rem;
+  cursor: pointer; transition: background .35s var(--ease-out), color .35s, transform .12s var(--ease-out);
+}
+.plan__cta:hover { background: var(--ink); color: var(--paper); }
+.plan--featured .plan__cta { background: var(--red); border-color: var(--red); color: #fff; }
+.plan--featured .plan__cta:hover { background: var(--ink); border-color: var(--ink); }
+
+@media (max-width: 900px) { .plans { grid-template-columns: 1fr; max-width: 460px; margin-inline: auto; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .chk path { stroke-dashoffset: 0 !important; transition: none; }
+  .plan__card { transform: none !important; }
+}

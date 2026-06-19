@@ -112,6 +112,56 @@
     btns.forEach(function (b) { b.addEventListener("click", function () { setPeriod(b.getAttribute("data-period") === "year"); }); });
   }
 
+  /* ---------- CENNIK: selektor 9 kategorii + plynne przejscia ---------- */
+  var cp = document.querySelector("[data-cprice]");
+  if (cp) {
+    var tabs = $$(".cp-tab", cp);
+    var panels = $$(".cp-panel", cp);
+    var curCat = null;
+
+    var showCat = function (id) {
+      if (id === curCat) return;
+      curCat = id;
+      tabs.forEach(function (t) {
+        var on = t.getAttribute("data-cat") === id;
+        t.classList.toggle("is-on", on);
+        t.setAttribute("aria-selected", on ? "true" : "false");
+      });
+      panels.forEach(function (p) {
+        var on = p.getAttribute("data-cat") === id;
+        if (!on) { p.classList.remove("is-active"); return; }
+        p.classList.add("is-active");
+        // zamknij otwarte akordeony przy zmianie kategorii
+        $$(".acc.is-open", p).forEach(function (a) {
+          a.classList.remove("is-open");
+          var b = a.querySelector(".acc__btn");
+          if (b) b.setAttribute("aria-expanded", "false");
+        });
+        if (hasGSAP && !reduce) {
+          gsap.killTweensOf(p);
+          gsap.fromTo(p, { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", clearProps: "transform" });
+          var kids = $$(".cp-title, .cp-intro, .cp-row, .acc, .cp-cta, .cp-note", p);
+          gsap.fromTo(kids, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.035, delay: 0.06, clearProps: "transform" });
+        }
+      });
+    };
+
+    tabs.forEach(function (t) {
+      t.addEventListener("click", function () { showCat(t.getAttribute("data-cat")); });
+    });
+    if (tabs[0]) showCat(tabs[0].getAttribute("data-cat"));
+  }
+
+  /* ---------- generyczny akordeon (dodatki / detale) ---------- */
+  $$(".acc__btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var acc = btn.closest(".acc");
+      if (!acc) return;
+      var open = acc.classList.toggle("is-open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  });
+
   /* ---------- rysowanie ptaszkow + reveal kart cennika (IO) ---------- */
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {

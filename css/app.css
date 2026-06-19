@@ -986,3 +986,71 @@ html.js [data-splitlines] { visibility: hidden; }
 .svc-tile__go { margin-top: auto; padding-top: 22px; display: inline-flex; align-items: center; gap: 9px; font-weight: 600; font-size: .92rem; color: var(--ink); }
 .svc-tile__go svg { width: 18px; height: 18px; transition: transform .45s var(--ease-out); }
 .svc-tile:hover .svc-tile__go svg { transform: translateX(6px); }
+
+
+
+/* =========================================================
+   v5 · CENNIK: selektor kategorii + akordeony (dodatki / detale)
+   ========================================================= */
+.cp-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-top: var(--sp-md); }
+.cp-tab {
+  border: 1px solid rgba(28, 29, 34, .16);
+  background: transparent;
+  color: var(--ink-2);
+  border-radius: 999px;
+  padding: 11px 20px;
+  font-weight: 600;
+  font-size: .95rem;
+  cursor: pointer;
+  transition: background .35s var(--ease-out), color .3s ease, border-color .3s ease, transform .12s var(--ease-out);
+}
+.cp-tab:hover { border-color: var(--ink); color: var(--ink); }
+.cp-tab:active { transform: scale(.96); }
+.cp-tab.is-on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+.cp-stage { margin-top: var(--sp-lg); }
+.cp-panel { display: none; }
+.cp-panel.is-active { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: clamp(28px, 5vw, 78px); align-items: start; }
+.cp-side { position: sticky; top: calc(var(--header-h) + 22px); }
+.cp-title { font-family: var(--display); font-weight: 700; font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1; letter-spacing: -.03em; margin: .35em 0 0; }
+.cp-intro { color: var(--ink-2); margin-top: 1em; font-size: 1.06rem; max-width: 42ch; }
+@media (max-width: 900px) { .cp-panel.is-active { grid-template-columns: 1fr; gap: 22px; } .cp-side { position: static; } }
+
+/* lista cen */
+.cp-list { margin: 0; padding: 0; list-style: none; }
+.cp-row { display: flex; justify-content: space-between; align-items: baseline; gap: 22px; padding: 16px 0; border-bottom: 1px solid rgba(28, 29, 34, .1); }
+.cp-row__name { font-weight: 500; }
+.cp-row__name small { display: block; color: var(--ink-2); font-size: .86rem; font-weight: 400; margin-top: 4px; }
+.cp-row__price { font-family: var(--display); font-weight: 700; white-space: nowrap; color: var(--ink); }
+.cp-row--add .cp-row__price { color: var(--red); }
+.cp-note { color: var(--ink-2); font-size: .9rem; margin-top: 16px; }
+
+/* akordeony */
+.acc { border-top: 1px solid rgba(28, 29, 34, .12); }
+.acc:last-of-type { border-bottom: 1px solid rgba(28, 29, 34, .12); }
+.acc--addons { margin-top: 26px; border-top: 0; background: linear-gradient(180deg, rgba(226, 35, 26, .05), rgba(226, 35, 26, 0)); border-radius: 16px; padding: 0 18px; border: 1px solid rgba(226, 35, 26, .16); }
+.acc__btn {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  background: none; border: 0; cursor: pointer; text-align: left;
+  padding: 20px 0; font-family: var(--display); font-weight: 600; font-size: 1.06rem; color: var(--ink);
+}
+.acc--addons .acc__btn { color: var(--red); }
+.acc--details .acc__btn { font-size: .96rem; color: var(--ink-2); }
+.acc__btn .caret { width: 18px; height: 18px; flex: 0 0 auto; transition: transform .45s var(--ease-out); }
+.acc.is-open .acc__btn .caret { transform: rotate(180deg); }
+.acc__hint { font-family: var(--font); font-weight: 500; font-size: .8rem; color: var(--ink-2); margin-left: auto; margin-right: 12px; }
+.acc__panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .55s var(--ease-out); }
+.acc.is-open .acc__panel { grid-template-rows: 1fr; }
+.acc__inner { overflow: hidden; min-height: 0; }
+.acc__inner > * { margin-top: 0; }
+.acc__body { padding: 2px 0 22px; }
+.acc__body p { color: var(--ink-2); margin: 0 0 .8em; }
+.acc__body p:last-child { margin-bottom: 0; }
+
+/* karta "wycena indywidualna" (skora / biura) */
+.cp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
+.cp-cta p { color: var(--ink-2); font-size: 1.12rem; max-width: 52ch; margin: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .acc__panel { transition: none; }
+}

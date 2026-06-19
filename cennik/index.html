@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cennik · Studio Porządku</title>
-<meta name="description" content="Przejrzyste pakiety Studio Porządku: Odświeżenie, Głęboka Odnowa i Premium Detailing. Inwestycja w sterylną czystość i fabryczną świeżość.">
+<meta name="description" content="Przejrzysty cennik Studio Porządku dla 9 usług: pralnia dywanów, tapicerka, ozonowanie, auto detailing, mycie okien i więcej. Wybierz usługę, poznaj ceny, skonfiguruj dodatki.">
 <meta name="theme-color" content="#0c0d10">
 <script>document.documentElement.classList.add('js');</script>
 <link rel="icon" href="../img/logo.svg" type="image/svg+xml">
@@ -88,86 +88,322 @@
     </h1>
   </section>
 
-  <section class="section u-container" style="padding-top: var(--sp-md);">
-    <p class="lead-lg" data-reveal style="max-width: 30ch;">Trzy poziomy troski. Wybierz, jak głęboko mamy sięgnąć.</p>
+  <section class="section u-container" data-cprice style="padding-top: var(--sp-md);">
+    <p class="lead-lg" data-reveal style="max-width: 34ch;">Dziewięć usług, jeden standard. Wybierz kategorię, by zobaczyć jej cennik.</p>
 
-    <div data-reveal style="display:flex; align-items:center; flex-wrap:wrap;">
-      <div class="pricing__switch" data-switch>
-        <span class="knob" aria-hidden="true"></span>
-        <button type="button" data-period="month" class="is-on">Jednorazowo</button>
-        <button type="button" data-period="year">Abonament</button>
-      </div>
-      <span class="pricing__save">oszczędzasz 15%</span>
+    <div class="cp-tabs" role="tablist" aria-label="Kategorie usług" data-reveal>
+      <button class="cp-tab" type="button" role="tab" data-cat="dywany">Pralnia Dywanów</button>
+      <button class="cp-tab" type="button" role="tab" data-cat="karcher">Wypożyczalnia Karcher</button>
+      <button class="cp-tab" type="button" role="tab" data-cat="ozon">Ozonowanie</button>
+      <button class="cp-tab" type="button" role="tab" data-cat="tapicerka">Tapicerka Meblowa</button>
+      <button class="cp-tab" type="button" role="tab" data-cat="uklienta">Dywany u Klienta</button>
+      <button class="cp-tab" type="button" role="tab" data-cat="skora">Meble Skórzane</button>
+      <button class="cp-tab" type="button" role="tab" data-cat="auto">Tapicerka Auto</button>
+      <button class="cp-tab" type="button" role="tab" data-cat="okna">Mycie Okien</button>
+      <button class="cp-tab" type="button" role="tab" data-cat="biura">Sprzątanie Biur</button>
     </div>
 
-    <div class="plans">
+    <div class="cp-stage">
 
-      <!-- ODSWIEZENIE -->
-      <div class="plan" data-reveal>
-        <div class="plan__card" data-tilt="6">
-          <div class="plan__name">Odświeżenie</div>
-          <div class="plan__price">
-            <span class="plan__amount" data-month="150" data-year="128">150</span>
-            <span class="plan__unit">PLN</span>
-          </div>
-          <div class="plan__from">od · cena startowa</div>
-          <p class="plan__desc">Pierwsza pomoc dla zmęczonych tkanin. Szybkie przywrócenie świeżości tam, gdzie codzienność odcisnęła swój ślad.</p>
-          <ul class="plan__list">
-            <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Pranie powierzchniowe</li>
-            <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Neutralizacja zapachów</li>
-            <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Bezpieczne preparaty</li>
-            <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Realizacja 2-4 dni</li>
+      <!-- 01 · PRALNIA DYWANOW -->
+      <div class="cp-panel" data-cat="dywany" role="tabpanel">
+        <div class="cp-side">
+          <span class="eyebrow">01 · Pralnia stacjonarna</span>
+          <h2 class="cp-title">Stacjonarna<br>Pralnia Dywanów</h2>
+          <p class="cp-intro">Twój dywan trafia do naszej pracowni, gdzie poddajemy go pełnej kąpieli regeneracyjnej. Wyciągamy lata kurzu, alergenów i historii, przywracając kolorom głębię, a włóknom sprężystość.</p>
+        </div>
+        <div class="cp-main">
+          <ul class="cp-list">
+            <li class="cp-row"><span class="cp-row__name">Dywany niski włos<small>Sztuczne, wełniane</small></span><span class="cp-row__price">18 zł / m²</span></li>
+            <li class="cp-row"><span class="cp-row__name">Wysoki włos<small>Shaggy, akryl, gruba wełna</small></span><span class="cp-row__price">20 zł / m²</span></li>
+            <li class="cp-row"><span class="cp-row__name">Ekskluzywne<small>Jedwab, orient, kilimy</small></span><span class="cp-row__price">25 zł / m²</span></li>
+            <li class="cp-row"><span class="cp-row__name">Koce i narzuty</span><span class="cp-row__price">70–150 zł / szt.</span></li>
           </ul>
-          <a class="plan__cta" href="../#kontakt">Wybieram</a>
+
+          <div class="acc acc--addons">
+            <button class="acc__btn" type="button" aria-expanded="false">Skonfiguruj dodatki<span class="acc__hint">opcje premium</span><svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+            <div class="acc__panel"><div class="acc__inner"><div class="acc__body">
+              <ul class="cp-list">
+                <li class="cp-row cp-row--add"><span class="cp-row__name">Impregnacja ochronna<small>Bariera odporna na brud i wilgoć</small></span><span class="cp-row__price">+10 zł / m²</span></li>
+                <li class="cp-row cp-row--add"><span class="cp-row__name">Usuwanie ekstremalnych zapachów<small>Mocz, wymioty</small></span><span class="cp-row__price">+4 zł / m²</span></li>
+                <li class="cp-row cp-row--add"><span class="cp-row__name">Ozonowanie</span><span class="cp-row__price">+20 zł / szt.</span></li>
+                <li class="cp-row cp-row--add"><span class="cp-row__name">Obszywanie i naprawa</span><span class="cp-row__price">od 12 zł / mb</span></li>
+              </ul>
+            </div></div></div>
+          </div>
+
+          <div class="acc acc--details">
+            <button class="acc__btn" type="button" aria-expanded="false">Detale i proces<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+            <div class="acc__panel"><div class="acc__inner"><div class="acc__body">
+              <p>Pracownia czynna 24/7 dzięki samoobsługowemu Dywanomatowi. Odbierzesz dywan wtedy, kiedy Tobie pasuje.</p>
+              <p>W cenie, bez dopłat: foliowanie do transportu, dokładne usuwanie sierści, program antyalergiczny, odplamianie oraz mikrokapsułki zapachowe uwalniane przy chodzeniu.</p>
+            </div></div></div>
+          </div>
+
+          <p class="cp-note">Ceny orientacyjne, zależne od metrażu, materiału i stopnia zabrudzenia. Bezpłatną wycenę potwierdzamy przed startem.</p>
         </div>
       </div>
 
-      <!-- GLEBOKA ODNOWA (REKOMENDOWANY) -->
-      <div class="plan plan--featured" data-reveal>
-        <div class="plan__card" data-tilt="6">
-          <span class="plan__badge">Rekomendowany</span>
-          <div class="plan__name">Głęboka Odnowa</div>
-          <div class="plan__price">
-            <span class="plan__amount" data-month="250" data-year="213">250</span>
-            <span class="plan__unit">PLN</span>
-          </div>
-          <div class="plan__from">od · najczęściej wybierany</div>
-          <p class="plan__desc">Czystość, która sięga włókna. Wyciągamy brud, alergeny i historię z głębi materiału, przywracając fabryczną świeżość.</p>
-          <ul class="plan__list">
-            <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Pranie ekstrakcyjne na wskroś</li>
-            <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Usuwanie plam i roztoczy</li>
-            <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Pielęgnacja i ochrona włókien</li>
-            <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Dojazd do klienta w cenie</li>
-            <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Gwarancja efektu</li>
+      <!-- 02 · WYPOZYCZALNIA KARCHER -->
+      <div class="cp-panel" data-cat="karcher" role="tabpanel">
+        <div class="cp-side">
+          <span class="eyebrow">02 · Wypożyczalnia</span>
+          <h2 class="cp-title">Sprzęt Karcher<br>w Twoich rękach</h2>
+          <p class="cp-intro">Profesjonalna moc do wynajęcia na dobę. Oddajemy w Twoje ręce sprzęt klasy premium, gotowy do pracy, wraz ze szkoleniem i wszystkim, czego potrzebujesz do perfekcyjnego efektu.</p>
+        </div>
+        <div class="cp-main">
+          <ul class="cp-list">
+            <li class="cp-row"><span class="cp-row__name">Odkurzacz piorący Puzzi 200<small>Wzmocniony natrysk 1400W, proszek na 70 l w cenie</small></span><span class="cp-row__price">80 zł / doba</span></li>
+            <li class="cp-row"><span class="cp-row__name">Myjka do okien WV</span><span class="cp-row__price">35 zł / doba</span></li>
+            <li class="cp-row"><span class="cp-row__name">Parownica Ariete<small>Ciśnienie 5 bar</small></span><span class="cp-row__price">120 zł / doba</span></li>
+            <li class="cp-row"><span class="cp-row__name">Odkurzacz przemysłowy</span><span class="cp-row__price">60 zł / doba</span></li>
+            <li class="cp-row"><span class="cp-row__name">Myjka ciśnieniowa HD<small>Wydajność 600 l/h</small></span><span class="cp-row__price">140 zł / doba</span></li>
           </ul>
-          <a class="plan__cta" href="../#kontakt">Wybieram</a>
+
+          <div class="acc acc--addons">
+            <button class="acc__btn" type="button" aria-expanded="false">Skonfiguruj dodatki<span class="acc__hint">akcesoria i środki</span><svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+            <div class="acc__panel"><div class="acc__inner"><div class="acc__body">
+              <ul class="cp-list">
+                <li class="cp-row cp-row--add"><span class="cp-row__name">Dodatkowa porcja proszku<small>Na kolejne 70 l płynu</small></span><span class="cp-row__price">+20 zł</span></li>
+                <li class="cp-row cp-row--add"><span class="cp-row__name">Preparat neutralizujący zapachy</span><span class="cp-row__price">+20 zł</span></li>
+                <li class="cp-row cp-row--add"><span class="cp-row__name">Impregnat do tapicerki DIY</span><span class="cp-row__price">+30 zł</span></li>
+                <li class="cp-row cp-row--add"><span class="cp-row__name">Talerz myjący T-RACER HD<small>Do myjki ciśnieniowej</small></span><span class="cp-row__price">+50 zł</span></li>
+              </ul>
+            </div></div></div>
+          </div>
+
+          <div class="acc acc--details">
+            <button class="acc__btn" type="button" aria-expanded="false">Detale i proces<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+            <div class="acc__panel"><div class="acc__inner"><div class="acc__body">
+              <p>Kaucje zwrotne pobieramy w gotówce i oddajemy w całości przy zwrocie sprawnego sprzętu.</p>
+              <p>Nasz Puzzi 200 ma podmienioną turbinę, dzięki czemu wyciąga znacznie więcej wilgoci niż wersja standardowa. Krótkie szkolenie z obsługi na miejscu zawsze w cenie.</p>
+            </div></div></div>
+          </div>
+
+          <p class="cp-note">Dostępność sprzętu warto potwierdzić telefonicznie przed planowanym terminem.</p>
         </div>
       </div>
 
-      <!-- PREMIUM DETAILING -->
-      <div class="plan" data-reveal>
-        <div class="plan__card" data-tilt="6">
-          <div class="plan__name">Premium Detailing</div>
-          <div class="plan__price">
-            <span class="plan__amount" data-month="450" data-year="383">450</span>
-            <span class="plan__unit">PLN</span>
-          </div>
-          <div class="plan__from">od · bezkompromisowo</div>
-          <p class="plan__desc">Najwyższa półka troski. Pełna renowacja, impregnacja i ozonowanie, wykończone z dbałością o każdy detal.</p>
-          <ul class="plan__list">
-            <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Wszystko z Głębokiej Odnowy</li>
-            <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Renowacja i impregnacja</li>
-            <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Ozonowanie w pakiecie</li>
-            <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Priorytetowy termin</li>
-            <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Opieka powykonawcza</li>
+      <!-- 03 · OZONOWANIE -->
+      <div class="cp-panel" data-cat="ozon" role="tabpanel">
+        <div class="cp-side">
+          <span class="eyebrow">03 · Dezynfekcja</span>
+          <h2 class="cp-title">Ozonowanie<br>i Odgrzybianie</h2>
+          <p class="cp-intro">Tam, gdzie zwykłe sprzątanie się kończy, zaczyna się ozon. Aktywny tlen dociera w każdą szczelinę, neutralizując u źródła to, czego nie widać: drobnoustroje, grzyby i uporczywe zapachy.</p>
+        </div>
+        <div class="cp-main">
+          <ul class="cp-list">
+            <li class="cp-row"><span class="cp-row__name">Samochód osobowy<small>30 min zabiegu plus wietrzenie</small></span><span class="cp-row__price">50 zł</span></li>
+            <li class="cp-row"><span class="cp-row__name">Bus i Kamper</span><span class="cp-row__price">80 zł</span></li>
+            <li class="cp-row"><span class="cp-row__name">Pomieszczenia do 50 m²</span><span class="cp-row__price">200–600 zł</span></li>
+            <li class="cp-row"><span class="cp-row__name">Pomieszczenia do 100 m²</span><span class="cp-row__price">600–900 zł</span></li>
           </ul>
-          <a class="plan__cta" href="../#kontakt">Wybieram</a>
+
+          <div class="acc acc--addons">
+            <button class="acc__btn" type="button" aria-expanded="false">Skonfiguruj dodatki<span class="acc__hint">dezynfekcja przedmiotów</span><svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+            <div class="acc__panel"><div class="acc__inner"><div class="acc__body">
+              <ul class="cp-list">
+                <li class="cp-row cp-row--add"><span class="cp-row__name">Dezynfekcja pojedynczych przedmiotów<small>Buty, kaski, zabawki, ubrania</small></span><span class="cp-row__price">10–40 zł / szt.</span></li>
+              </ul>
+            </div></div></div>
+          </div>
+
+          <div class="acc acc--details">
+            <button class="acc__btn" type="button" aria-expanded="false">Detale i proces<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+            <div class="acc__panel"><div class="acc__inner"><div class="acc__body">
+              <p>Pracujemy na profesjonalnych generatorach O3 o wydajności 45 000 mg/h, polskiej produkcji laboratoryjnej.</p>
+              <p>Skutecznie usuwamy trupi jad, wirusy, grzyby pleśniowe oraz głęboko wniknięty zapach papierosów, przywracając przestrzeni czystość na poziomie cząsteczkowym.</p>
+            </div></div></div>
+          </div>
+
+          <p class="cp-note">Ostateczna cena pomieszczeń zależy od kubatury i celu zabiegu.</p>
+        </div>
+      </div>
+
+      <!-- 04 · TAPICERKA MEBLOWA -->
+      <div class="cp-panel" data-cat="tapicerka" role="tabpanel">
+        <div class="cp-side">
+          <span class="eyebrow">04 · Tapicerka meblowa</span>
+          <h2 class="cp-title">Pranie<br>Tapicerki Meblowej</h2>
+          <p class="cp-intro">Sofa, na której zasypiasz, fotel, w którym czytasz. Wracamy tym tkaninom fabryczną świeżość, wyciągając z głębi włókna kurz, roztocza i ślady codzienności.</p>
+        </div>
+        <div class="cp-main">
+          <ul class="cp-list">
+            <li class="cp-row"><span class="cp-row__name">Krzesła i pufy</span><span class="cp-row__price">od 10 zł</span></li>
+            <li class="cp-row"><span class="cp-row__name">Fotele</span><span class="cp-row__price">35–75 zł</span></li>
+            <li class="cp-row"><span class="cp-row__name">Sofy i kanapy</span><span class="cp-row__price">150–220 zł</span></li>
+            <li class="cp-row"><span class="cp-row__name">Narożniki</span><span class="cp-row__price">od 200 zł</span></li>
+            <li class="cp-row"><span class="cp-row__name">Materace z odkażaniem<small>Jednoosobowe / dwuosobowe</small></span><span class="cp-row__price">70–170 zł</span></li>
+          </ul>
+
+          <div class="acc acc--addons">
+            <button class="acc__btn" type="button" aria-expanded="false">Skonfiguruj dodatki<span class="acc__hint">ochrona i renowacja</span><svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+            <div class="acc__panel"><div class="acc__inner"><div class="acc__body">
+              <ul class="cp-list">
+                <li class="cp-row cp-row--add"><span class="cp-row__name">Impregnacja hydrofobowa<small>Efekt kwiatu lotosu</small></span><span class="cp-row__price">wycena indyw.</span></li>
+                <li class="cp-row cp-row--add"><span class="cp-row__name">Czyszczenie elementów skórzanych</span><span class="cp-row__price">+45%</span></li>
+              </ul>
+            </div></div></div>
+          </div>
+
+          <div class="acc acc--details">
+            <button class="acc__btn" type="button" aria-expanded="false">Detale i proces<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+            <div class="acc__panel"><div class="acc__inner"><div class="acc__body">
+              <p>Minimalna wartość zamówienia wynosi 200 zł. Stosujemy sześcioetapowy proces ekstrakcji z presprayem rozbijającym brud.</p>
+              <p>Pracujemy gorącym roztworem do 80°C, a czas schnięcia skracamy do kilku godzin. Większe meble możemy zabrać do firmowej suszarni.</p>
+            </div></div></div>
+          </div>
+
+          <p class="cp-note">Cena zależy od rozmiaru mebla, rodzaju tkaniny i stopnia zabrudzenia.</p>
+        </div>
+      </div>
+
+      <!-- 05 · DYWANY U KLIENTA -->
+      <div class="cp-panel" data-cat="uklienta" role="tabpanel">
+        <div class="cp-side">
+          <span class="eyebrow">05 · U klienta</span>
+          <h2 class="cp-title">Dywany i Wykładziny<br>u Klienta</h2>
+          <p class="cp-intro">Pełna moc naszej pracowni z dojazdem pod Twój adres. Idealne rozwiązanie dla dywanów przyklejonych na stałe i rozległych wykładzin biurowych, których nie sposób zdjąć.</p>
+        </div>
+        <div class="cp-main">
+          <ul class="cp-list">
+            <li class="cp-row"><span class="cp-row__name">Krótki włos</span><span class="cp-row__price">od 12 zł / m²</span></li>
+            <li class="cp-row"><span class="cp-row__name">Shaggy<small>Włochacze</small></span><span class="cp-row__price">od 15 zł / m²</span></li>
+            <li class="cp-row"><span class="cp-row__name">Wykładziny biurowe<small>Powierzchnia do 30 m²</small></span><span class="cp-row__price">od 12 zł / m²</span></li>
+            <li class="cp-row"><span class="cp-row__name">Wykładziny biurowe<small>Powierzchnia 30–200 m²</small></span><span class="cp-row__price">8–15 zł / m²</span></li>
+            <li class="cp-row"><span class="cp-row__name">Czyszczenie na sucho</span><span class="cp-row__price">od 3 zł / m²</span></li>
+          </ul>
+
+          <div class="acc acc--addons">
+            <button class="acc__btn" type="button" aria-expanded="false">Skonfiguruj dodatki<span class="acc__hint">ochrona runa</span><svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+            <div class="acc__panel"><div class="acc__inner"><div class="acc__body">
+              <ul class="cp-list">
+                <li class="cp-row cp-row--add"><span class="cp-row__name">Impregnacja runa<small>Ogranicza wchłanianie brudu</small></span><span class="cp-row__price">wycena indyw.</span></li>
+              </ul>
+            </div></div></div>
+          </div>
+
+          <div class="acc acc--details">
+            <button class="acc__btn" type="button" aria-expanded="false">Detale i proces<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+            <div class="acc__panel"><div class="acc__inner"><div class="acc__body">
+              <p>Nie przemaczamy dywanów na wskroś, dzięki czemu metoda jest w pełni bezpieczna dla parkietów i podłóg pod spodem.</p>
+              <p>Stosujemy ekstrakcję termiczną. Po czyszczeniu na dywan można wejść od razu w czystym obuwiu, bez długiego oczekiwania.</p>
+            </div></div></div>
+          </div>
+
+          <p class="cp-note">Dla większych metraży przygotujemy indywidualną, korzystniejszą wycenę.</p>
+        </div>
+      </div>
+
+      <!-- 06 · MEBLE SKORZANE (BEZ CEN) -->
+      <div class="cp-panel" data-cat="skora" role="tabpanel">
+        <div class="cp-side">
+          <span class="eyebrow">06 · Skóra naturalna</span>
+          <h2 class="cp-title">Czyszczenie<br>Mebli Skórzanych</h2>
+          <p class="cp-intro">Skóra to materia żywa. Wymaga nie cennika, lecz dłoni rzemieślnika.</p>
+        </div>
+        <div class="cp-main">
+          <div class="cp-cta">
+            <p>Każdy skórzany mebel pielęgnujemy ręcznie, dobierając preparaty do jego garbowania i kondycji. Delikatnie oczyszczamy, odżywiamy i odbudowujemy naturalny lipidowy płaszcz, a na koniec zabezpieczamy powierzchnię impregnatem chroniącym przed wysychaniem i pęknięciami.</p>
+            <p>Efekt to przywrócona głębia koloru, miękkość w dotyku i ochrona, która zostaje na długo. Ponieważ liczy się każdy detal, wycenę przygotowujemy zawsze indywidualnie, po obejrzeniu mebla.</p>
+            <a class="btn" href="../#kontakt" data-magnetic="0.45"><span class="btn__label">Zamów indywidualną wycenę</span></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 07 · TAPICERKA AUTO -->
+      <div class="cp-panel" data-cat="auto" role="tabpanel">
+        <div class="cp-side">
+          <span class="eyebrow">07 · Auto detailing</span>
+          <h2 class="cp-title">Pranie Tapicerki<br>Samochodowej</h2>
+          <p class="cp-intro">Wnętrze auta jak prosto z salonu. Detailingowa precyzja, dzięki której każdy centymetr kabiny odzyskuje świeżość, a Ty wsiadasz do samochodu, który pachnie i wygląda jak nowy.</p>
+        </div>
+        <div class="cp-main">
+          <ul class="cp-list">
+            <li class="cp-row"><span class="cp-row__name">Komplet Hatchback / Sedan / Kombi<small>Fotele, boki, podsufitka, podłoga, bagażnik</small></span><span class="cp-row__price">od 450 zł</span></li>
+            <li class="cp-row"><span class="cp-row__name">Komplet VAN<small>6–9 miejsc</small></span><span class="cp-row__price">od 520 zł</span></li>
+            <li class="cp-row"><span class="cp-row__name">Czyszczenie i impregnacja skóry</span><span class="cp-row__price">280–370 zł</span></li>
+            <li class="cp-row"><span class="cp-row__name">Odświeżenie plastików<small>Opcja ekonomiczna</small></span><span class="cp-row__price">od 100 zł</span></li>
+          </ul>
+
+          <div class="acc acc--addons">
+            <button class="acc__btn" type="button" aria-expanded="false">Skonfiguruj dodatki<span class="acc__hint">ochrona i ozon</span><svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+            <div class="acc__panel"><div class="acc__inner"><div class="acc__body">
+              <ul class="cp-list">
+                <li class="cp-row cp-row--add"><span class="cp-row__name">Impregnacja foteli materiałowych</span><span class="cp-row__price">od 30 zł / fotel</span></li>
+                <li class="cp-row cp-row--add"><span class="cp-row__name">Ozonowanie wnętrza i klimatyzacji</span><span class="cp-row__price">w pakiecie</span></li>
+                <li class="cp-row cp-row--add"><span class="cp-row__name">Usuwanie ekstremalnych plam i zapachów</span><span class="cp-row__price">wycena indyw.</span></li>
+              </ul>
+            </div></div></div>
+          </div>
+
+          <div class="acc acc--details">
+            <button class="acc__btn" type="button" aria-expanded="false">Detale i proces<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+            <div class="acc__panel"><div class="acc__inner"><div class="acc__body">
+              <p>Suszenie jest zawsze w cenie. Auto odbierasz całkowicie suche i gotowe do jazdy, bez wilgoci i nieprzyjemnego zapachu.</p>
+              <p>Pracujemy w dziewięcioetapowym procesie detailingu, łącznie z myciem wnęki na koło zapasowe i zabezpieczeniem plastików w wykończeniu półmat lub połysk.</p>
+            </div></div></div>
+          </div>
+
+          <p class="cp-note">Finalna cena zależy od rozmiaru kabiny i stopnia zabrudzenia.</p>
+        </div>
+      </div>
+
+      <!-- 08 · MYCIE OKIEN -->
+      <div class="cp-panel" data-cat="okna" role="tabpanel">
+        <div class="cp-side">
+          <span class="eyebrow">08 · Okna i witryny</span>
+          <h2 class="cp-title">Mycie<br>Okien i Witryn</h2>
+          <p class="cp-intro">Krystaliczne szkło bez jednej smugi. Wpuszczamy do wnętrz światło w pełnej intensywności, dbając o ramy i uszczelki tak samo starannie jak o samą szybę.</p>
+        </div>
+        <div class="cp-main">
+          <ul class="cp-list">
+            <li class="cp-row"><span class="cp-row__name">Witryny jednostronnie</span><span class="cp-row__price">od 4 zł / m²</span></li>
+            <li class="cp-row"><span class="cp-row__name">Witryny obustronnie</span><span class="cp-row__price">od 7 zł / m²</span></li>
+            <li class="cp-row"><span class="cp-row__name">Okna domowe<small>Skrzydłowe, balkonowe, dachowe</small></span><span class="cp-row__price">15–50 zł</span></li>
+          </ul>
+
+          <div class="acc acc--addons">
+            <button class="acc__btn" type="button" aria-expanded="false">Skonfiguruj dodatki<span class="acc__hint">prace specjalne</span><svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+            <div class="acc__panel"><div class="acc__inner"><div class="acc__body">
+              <ul class="cp-list">
+                <li class="cp-row cp-row--add"><span class="cp-row__name">Osady poremontowe, farby, naklejki, graffiti</span><span class="cp-row__price">wycena indyw.</span></li>
+                <li class="cp-row cp-row--add"><span class="cp-row__name">Mycie szklanych balustrad i neonów</span><span class="cp-row__price">wycena indyw.</span></li>
+              </ul>
+            </div></div></div>
+          </div>
+
+          <div class="acc acc--details">
+            <button class="acc__btn" type="button" aria-expanded="false">Detale i proces<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+            <div class="acc__panel"><div class="acc__inner"><div class="acc__body">
+              <p>Minimalna wartość zamówienia wynosi 150 zł, a dojazd na terenie Krakowa jest bezpłatny.</p>
+              <p>Pracujemy metodami bezpiecznymi dla ram i uszczelek, bez smug. Efekt to nawet do 30% więcej naturalnego światła wpadającego do wnętrza.</p>
+            </div></div></div>
+          </div>
+
+          <p class="cp-note">Cena zależy od liczby, typu i dostępności okien.</p>
+        </div>
+      </div>
+
+      <!-- 09 · SPRZATANIE BIUR (CTA) -->
+      <div class="cp-panel" data-cat="biura" role="tabpanel">
+        <div class="cp-side">
+          <span class="eyebrow">09 · Powierzchnie biurowe</span>
+          <h2 class="cp-title">Sprzątanie<br>Biur</h2>
+          <p class="cp-intro">Czysta przestrzeń pracuje za Ciebie na pierwsze wrażenie.</p>
+        </div>
+        <div class="cp-main">
+          <div class="cp-cta">
+            <p>Zajmujemy się porządkami jednorazowymi i cyklicznymi, a w razie potrzeby udostępniamy pracownika na zastępstwo. Bierzemy na siebie całość: od codziennej higieny biura, przez doczyszczanie, aż po zapas papieru i profesjonalnej chemii. Ty zajmujesz się biznesem, my czystością.</p>
+            <p>Każde biuro ma inny rytm i inne potrzeby, dlatego zakres oraz cenę ustalamy indywidualnie, dopasowując współpracę do Twojego harmonogramu.</p>
+            <a class="btn" href="../#kontakt" data-magnetic="0.45"><span class="btn__label">Zamów darmową wycenę</span></a>
+          </div>
         </div>
       </div>
 
     </div>
 
-    <p class="vnote" data-reveal>Ceny mają charakter orientacyjny i zależą od metrażu, rodzaju materiału oraz stopnia zabrudzenia. Ostateczną, bezpłatną wycenę przygotowujemy przed rozpoczęciem pracy. Bez niespodzianek.</p>
+    <p class="vnote" data-reveal>Wszystkie ceny mają charakter orientacyjny i zależą od metrażu, rodzaju materiału oraz stopnia zabrudzenia. Ostateczną, bezpłatną wycenę przygotowujemy przed rozpoczęciem pracy. Bez niespodzianek.</p>
   </section>
 
 </main>

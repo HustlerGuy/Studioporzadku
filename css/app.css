@@ -1458,31 +1458,31 @@ html.js [data-hero-mask] .w { transform: translateY(110%); }
 
 /* logo na bialo (kropka zostaje czerwona) */
 .hdr--invert .brandmark,
-body:has(.subhero, .hero) .hdr:not(.is-scrolled) .brandmark { color: #fff; }
+body:has(.subhero, .hero, .introhero) .hdr:not(.is-scrolled) .brandmark { color: #fff; }
 
 /* linki + przelacznik Uslugi */
 .hdr--invert .nav__link,
 .hdr--invert .nav__drop-toggle,
-body:has(.subhero, .hero) .hdr:not(.is-scrolled) .nav__link,
-body:has(.subhero, .hero) .hdr:not(.is-scrolled) .nav__drop-toggle { color: #fff; }
+body:has(.subhero, .hero, .introhero) .hdr:not(.is-scrolled) .nav__link,
+body:has(.subhero, .hero, .introhero) .hdr:not(.is-scrolled) .nav__drop-toggle { color: #fff; }
 
 /* mobilna ikona telefonu */
 .hdr--invert .hdr__call,
-body:has(.subhero, .hero) .hdr:not(.is-scrolled) .hdr__call { color: #fff; }
+body:has(.subhero, .hero, .introhero) .hdr:not(.is-scrolled) .hdr__call { color: #fff; }
 
 /* hamburger na bialo */
 .hdr--invert .burger span,
 .hdr--invert .burger span::before,
 .hdr--invert .burger span::after,
-body:has(.subhero, .hero) .hdr:not(.is-scrolled) .burger span,
-body:has(.subhero, .hero) .hdr:not(.is-scrolled) .burger span::before,
-body:has(.subhero, .hero) .hdr:not(.is-scrolled) .burger span::after { background: #fff; }
+body:has(.subhero, .hero, .introhero) .hdr:not(.is-scrolled) .burger span,
+body:has(.subhero, .hero, .introhero) .hdr:not(.is-scrolled) .burger span::before,
+body:has(.subhero, .hero, .introhero) .hdr:not(.is-scrolled) .burger span::after { background: #fff; }
 
 /* CTA jako elegancki outline na hero */
 .hdr--invert .nav__cta,
-body:has(.subhero, .hero) .hdr:not(.is-scrolled) .nav__cta { background: transparent; border-color: rgba(255, 255, 255, .6); color: #fff; }
+body:has(.subhero, .hero, .introhero) .hdr:not(.is-scrolled) .nav__cta { background: transparent; border-color: rgba(255, 255, 255, .6); color: #fff; }
 .hdr--invert .nav__cta:hover,
-body:has(.subhero, .hero) .hdr:not(.is-scrolled) .nav__cta:hover { border-color: var(--red); color: #fff; }
+body:has(.subhero, .hero, .introhero) .hdr:not(.is-scrolled) .nav__cta:hover { border-color: var(--red); color: #fff; }
 
 
 
@@ -1517,3 +1517,44 @@ body:has(.subhero, .hero) .hdr:not(.is-scrolled) .nav__cta:hover { border-color:
 @media (max-width: 720px) {
   .hero__img, .subhero__img { object-position: right center; }
 }
+
+
+
+
+/* =========================================================
+   v13 · INTRO-HEADER (ciemny grafit + animowany szum)
+   Dla stron bez zdjecia (O studiu, Realizacje, Kontakt) -
+   ciemne tlo gwarantuje czytelnosc bialego, przezroczystego headera.
+   ========================================================= */
+.introhero {
+  position: relative;
+  min-height: 40vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--ink);
+  color: #fff;
+}
+.introhero__noise {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  animation: introNoise .9s steps(6) infinite;
+}
+@keyframes introNoise {
+  0% { background-position: 0 0; }
+  100% { background-position: 160px 160px; }
+}
+.introhero__inner { position: relative; z-index: 1; width: 100%; padding-top: calc(var(--header-h) + clamp(36px, 7vw, 80px)); padding-bottom: clamp(34px, 5vw, 64px); }
+.introhero__top { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+.introhero__eyebrow { color: rgba(255, 255, 255, .72); }
+.introhero__eyebrow::before { background: var(--red-2); opacity: 1; }
+.introhero__meta { text-align: right; color: rgba(255, 255, 255, .6); font-size: .9rem; line-height: 1.7; }
+.introhero__meta b { color: #fff; font-weight: 600; }
+.introhero__title { font-family: var(--display); font-weight: 700; color: #fff; font-size: clamp(2.4rem, 8vw, 6rem); line-height: .96; letter-spacing: -.035em; margin: clamp(18px, 3vw, 34px) 0 0; }
+.introhero__title .line { display: block; overflow: hidden; padding-bottom: .04em; }
+.introhero__title .w { display: block; }
+.introhero__title em { color: var(--red); font-style: normal; }
+@media (max-width: 600px) { .introhero__meta { display: none; } }
+@media (prefers-reduced-motion: reduce) { .introhero__noise { animation: none; } }

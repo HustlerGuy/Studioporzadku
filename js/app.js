@@ -104,7 +104,7 @@
   /* ---------- 3. Header: dynamiczny (bialy na hero) + szklo po scrollu + chowanie ---------- */
   var hdr = $(".hdr");
   var lastY = window.scrollY;
-  var heroEl = document.querySelector(".subhero, .hero");   /* ciemny hero -> bialy header u gory */
+  var heroEl = document.querySelector(".subhero, .hero, .introhero");   /* ciemny hero -> bialy header u gory */
   var heroH = heroEl ? heroEl.offsetHeight : 0;
   function recalcHero() { heroH = heroEl ? heroEl.offsetHeight : 0; }
   function onScroll() {

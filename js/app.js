@@ -101,13 +101,23 @@
     window.addEventListener("resize", function () { moveTo(active); });
   }
 
-  /* ---------- 3. Header: szklo przy scrollu + chowanie w dol ---------- */
+  /* ---------- 3. Header: dynamiczny (bialy na hero) + szklo po scrollu + chowanie ---------- */
   var hdr = $(".hdr");
   var lastY = window.scrollY;
+  var heroEl = document.querySelector(".subhero");   /* ciemny hero -> bialy header u gory */
+  var heroH = heroEl ? heroEl.offsetHeight : 0;
+  function recalcHero() { heroH = heroEl ? heroEl.offsetHeight : 0; }
   function onScroll() {
     var y = window.scrollY;
     if (hdr) {
-      hdr.classList.toggle("is-scrolled", y > 10);
+      if (heroEl) {
+        var th = Math.max(40, heroH - hdr.offsetHeight - 8);
+        var overHero = y < th;
+        hdr.classList.toggle("hdr--invert", overHero);   /* przezroczysty + bialy */
+        hdr.classList.toggle("is-scrolled", !overHero);  /* szklo + ciemny dopiero pod hero */
+      } else {
+        hdr.classList.toggle("is-scrolled", y > 10);
+      }
       var goingDown = y > lastY && y > 200;
       if (!document.body.classList.contains("menu-open")) {
         hdr.classList.toggle("is-hidden", goingDown);
@@ -116,6 +126,8 @@
     lastY = y;
   }
   window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", function () { recalcHero(); onScroll(); });
+  window.addEventListener("load", function () { recalcHero(); onScroll(); });
   onScroll();
 
   /* ---------- 4. Menu mobilne (pelnoekranowe, blokada scrolla) ---------- */

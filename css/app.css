@@ -1434,3 +1434,51 @@ html.js [data-hero-mask] .w { transform: translateY(110%); }
   .subhero__img { transform: none !important; }
   [data-hero-mask] .w { transform: none !important; }
 }
+
+
+
+
+/* =========================================================
+   v11 · DYNAMICZNY HEADER (bialy na ciemnym hero -> ciemny po scrollu)
+   Sterowane klasa .hdr--invert (JS) + :has() jako zabezpieczenie pre-paint.
+   ========================================================= */
+
+/* maslane przejscia kolorow naglowka */
+.hdr .brandmark,
+.hdr .nav__link,
+.hdr .nav__drop-toggle,
+.hdr .nav__cta,
+.hdr__call,
+.hdr .burger span,
+.hdr .burger span::before,
+.hdr .burger span::after {
+  transition: color .45s var(--ease-out), background-color .45s var(--ease-out), border-color .45s var(--ease-out);
+}
+
+/* logo na bialo (kropka zostaje czerwona) */
+.hdr--invert .brandmark,
+body:has(.subhero) .hdr:not(.is-scrolled) .brandmark { color: #fff; }
+
+/* linki + przelacznik Uslugi */
+.hdr--invert .nav__link,
+.hdr--invert .nav__drop-toggle,
+body:has(.subhero) .hdr:not(.is-scrolled) .nav__link,
+body:has(.subhero) .hdr:not(.is-scrolled) .nav__drop-toggle { color: #fff; }
+
+/* mobilna ikona telefonu */
+.hdr--invert .hdr__call,
+body:has(.subhero) .hdr:not(.is-scrolled) .hdr__call { color: #fff; }
+
+/* hamburger na bialo */
+.hdr--invert .burger span,
+.hdr--invert .burger span::before,
+.hdr--invert .burger span::after,
+body:has(.subhero) .hdr:not(.is-scrolled) .burger span,
+body:has(.subhero) .hdr:not(.is-scrolled) .burger span::before,
+body:has(.subhero) .hdr:not(.is-scrolled) .burger span::after { background: #fff; }
+
+/* CTA jako elegancki outline na hero */
+.hdr--invert .nav__cta,
+body:has(.subhero) .hdr:not(.is-scrolled) .nav__cta { background: transparent; border-color: rgba(255, 255, 255, .6); color: #fff; }
+.hdr--invert .nav__cta:hover,
+body:has(.subhero) .hdr:not(.is-scrolled) .nav__cta:hover { border-color: var(--red); color: #fff; }

@@ -32,12 +32,31 @@
     });
   }
 
-  /* ---------- 2. Wskaznik aktywnego elementu nawigacji ---------- */
+  /* ---------- 2a. Automatyczny active-state wg adresu URL ---------- */
+  (function () {
+    var path = location.pathname.replace(/index\.html$/, "");
+    var isRoot = /\/Studioporzadku\/?$/.test(path) || path === "/";
+    var svc = /(pralnia-dywanow|wypozyczalnia-karcher|ozonowanie|pranie-tapicerki-meblowej|pranie-wykladzin-dywanow|czyszczenie-mebli-skorzanych|pranie-tapicerki-samochodowej|mycie-okien-witryn|sprzatanie-biur)\//.test(path);
+    $$(".nav__link[href], .drop__link[href], .menu__link[href], .menu__sub a[href]").forEach(function (a) {
+      var href = a.getAttribute("href");
+      if (!href || href.charAt(0) === "#") return;
+      var lp;
+      try { lp = new URL(href, location.href).pathname.replace(/index\.html$/, ""); } catch (e) { return; }
+      if (lp === path) a.classList.add("active");
+    });
+    if (svc) $$(".nav__drop-toggle, .menu__acc").forEach(function (t) { t.classList.add("active"); });
+    if (isRoot) {
+      var s = document.querySelector('.nav__link[href="#"]') || document.querySelector(".nav__list li:first-child .nav__link");
+      if (s) s.classList.add("active");
+    }
+  })();
+
+  /* ---------- 2b. Wskaznik aktywnego elementu nawigacji ---------- */
   var nav = $(".nav");
   if (nav) {
     var indicator = $(".nav__indicator", nav);
     var links = $$(".nav__link", nav);
-    var active = nav.querySelector(".nav__link.is-active") || links[0];
+    var active = nav.querySelector(".nav__link.active") || links[0];
 
     var moveTo = function (link) {
       if (!link || !indicator) return;
@@ -109,7 +128,18 @@
     burger.addEventListener("click", function () {
       setMenu(!menu.classList.contains("is-open"));
     });
-    $$(".menu__link, .menu__foot a", menu).forEach(function (a) {
+    // akordeon "Uslugi" w menu mobilnym
+    $$(".menu__acc", menu).forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var item = btn.closest(".has-acc");
+        if (!item) return;
+        var open = item.classList.toggle("is-open");
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+    });
+    // klik w realny link (nie w toggle akordeonu) zamyka menu
+    $$(".menu__link, .menu__foot a, .menu__sub a", menu).forEach(function (a) {
+      if (a.classList.contains("menu__acc")) return;
       a.addEventListener("click", function () { setMenu(false); });
     });
     document.addEventListener("keydown", function (e) {

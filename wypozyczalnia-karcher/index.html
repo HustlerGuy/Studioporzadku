@@ -21,8 +21,21 @@
     <nav class="nav" aria-label="Główna nawigacja">
       <ul class="nav__list">
         <li><a class="nav__link" href="../" data-magnetic="0.3">Start</a></li>
-        <li><a class="nav__link" href="../#uslugi" data-magnetic="0.3">Usługi</a></li>
-        <li><a class="nav__link" href="../#realizacje" data-magnetic="0.3">Realizacje</a></li>
+        <li class="has-drop">
+          <span class="nav__link nav__drop-toggle" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" data-magnetic="0.3">Usługi<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+          <div class="drop" role="menu">
+            <a class="drop__link" href="/Studioporzadku/pralnia-dywanow/">Stacjonarna Pralnia Dywanów</a>
+            <a class="drop__link" href="/Studioporzadku/wypozyczalnia-karcher/">Wypożyczalnia Karcher</a>
+            <a class="drop__link" href="/Studioporzadku/ozonowanie/">Ozonowanie i Odgrzybianie</a>
+            <a class="drop__link" href="/Studioporzadku/pranie-tapicerki-meblowej/">Pranie Tapicerki Meblowej</a>
+            <a class="drop__link" href="/Studioporzadku/pranie-wykladzin-dywanow/">Pranie Dywanów i Wykładzin u Klienta</a>
+            <a class="drop__link" href="/Studioporzadku/czyszczenie-mebli-skorzanych/">Czyszczenie Mebli Skórzanych</a>
+            <a class="drop__link" href="/Studioporzadku/pranie-tapicerki-samochodowej/">Pranie Tapicerki Samochodowej</a>
+            <a class="drop__link" href="/Studioporzadku/mycie-okien-witryn/">Mycie Okien i Witryn</a>
+            <a class="drop__link" href="/Studioporzadku/sprzatanie-biur/">Sprzątanie Biur</a>
+          </div>
+        </li>
+        <li><a class="nav__link" href="/Studioporzadku/cennik/" data-magnetic="0.3">Cennik</a></li>
         <li><a class="nav__link" href="../o-nas/" data-magnetic="0.3">O studiu</a></li>
         <li><a class="nav__link" href="../#kontakt" data-magnetic="0.3">Kontakt</a></li>
         <span class="nav__indicator" aria-hidden="true"></span>
@@ -36,8 +49,21 @@
 <nav class="menu" id="menu" aria-label="Menu mobilne">
   <ul class="menu__nav">
     <li class="menu__item"><a class="menu__link" href="../"><span class="idx">01</span> Start</a></li>
-    <li class="menu__item"><a class="menu__link" href="../#uslugi"><span class="idx">02</span> Usługi</a></li>
-    <li class="menu__item"><a class="menu__link" href="../#realizacje"><span class="idx">03</span> Realizacje</a></li>
+    <li class="menu__item has-acc">
+      <button class="menu__link menu__acc" type="button" aria-expanded="false"><span class="idx">02</span> Usługi <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+      <ul class="menu__sub">
+        <li><a href="/Studioporzadku/pralnia-dywanow/">Stacjonarna Pralnia Dywanów</a></li>
+        <li><a href="/Studioporzadku/wypozyczalnia-karcher/">Wypożyczalnia Karcher</a></li>
+        <li><a href="/Studioporzadku/ozonowanie/">Ozonowanie i Odgrzybianie</a></li>
+        <li><a href="/Studioporzadku/pranie-tapicerki-meblowej/">Pranie Tapicerki Meblowej</a></li>
+        <li><a href="/Studioporzadku/pranie-wykladzin-dywanow/">Pranie Dywanów i Wykładzin u Klienta</a></li>
+        <li><a href="/Studioporzadku/czyszczenie-mebli-skorzanych/">Czyszczenie Mebli Skórzanych</a></li>
+        <li><a href="/Studioporzadku/pranie-tapicerki-samochodowej/">Pranie Tapicerki Samochodowej</a></li>
+        <li><a href="/Studioporzadku/mycie-okien-witryn/">Mycie Okien i Witryn</a></li>
+        <li><a href="/Studioporzadku/sprzatanie-biur/">Sprzątanie Biur</a></li>
+      </ul>
+    </li>
+    <li class="menu__item"><a class="menu__link" href="/Studioporzadku/cennik/"><span class="idx">03</span> Cennik</a></li>
     <li class="menu__item"><a class="menu__link" href="../o-nas/"><span class="idx">04</span> O studiu</a></li>
     <li class="menu__item"><a class="menu__link" href="../#kontakt"><span class="idx">05</span> Kontakt</a></li>
   </ul>

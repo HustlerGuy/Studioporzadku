@@ -260,7 +260,7 @@ a, button { -webkit-tap-highlight-color: transparent; }
 /* =========================================================
    MAIN placeholder (zeby fundament zyl)
    ========================================================= */
-.shell { padding-top: var(--header-h); }
+.shell { padding-top: 0; }   /* hero/sub-hero wjezdza pod przezroczysty header; gorny odstep jest WEWNATRZ sekcji */
 .teaser {
   min-height: 92vh;
   display: flex;
@@ -424,11 +424,12 @@ a, button { -webkit-tap-highlight-color: transparent; }
    ========================================================= */
 .hero {
   position: relative;
-  min-height: calc(100svh - var(--header-h));
+  min-height: 100svh;
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding-block: 9vh;
+  padding-top: calc(var(--header-h) + 6vh);   /* H1 nie wchodzi pod nawigacje */
+  padding-bottom: 9vh;
   isolation: isolate;
 }
 

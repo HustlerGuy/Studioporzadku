@@ -564,3 +564,49 @@
   el.addEventListener("touchend", function () { clearTimeout(holdT); });
   el.addEventListener("touchcancel", function () { clearTimeout(holdT); });
 })();
+
+
+
+
+/* =========================================================
+   SUB-HERO · maska tytulu (slowa z dolu, power4.out) + parallax tla
+   ========================================================= */
+(function () {
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var hasGSAP = !!window.gsap;
+  var qa = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+
+  /* ---------- Text Reveal Mask ---------- */
+  qa("[data-hero-mask]").forEach(function (h) {
+    var words = qa(".w", h);
+    if (!words.length) return;
+    if (hasGSAP && !reduce) {
+      gsap.set(words, { yPercent: 110 });
+      gsap.to(words, { yPercent: 0, duration: 1.1, ease: "power4.out", stagger: 0.12, delay: 0.15 });
+    } else {
+      h.classList.add("is-ready");
+    }
+  });
+
+  /* ---------- Parallax tla (tlo przesuwa sie wolniej) ---------- */
+  if (!reduce) {
+    qa("[data-subhero]").forEach(function (sec) {
+      var img = sec.querySelector(".subhero__img");
+      if (!img) return;
+      var qy = hasGSAP ? gsap.quickTo(img, "yPercent", { duration: 0.5, ease: "power2.out" }) : null;
+      var ticking = false;
+      function update() {
+        var r = sec.getBoundingClientRect();
+        var prog = (r.top + r.height / 2 - window.innerHeight / 2) / window.innerHeight;
+        var shift = Math.max(-12, Math.min(12, prog * 14));   // procentowe, mieszczace sie w 30% naddatku obrazu
+        if (qy) qy(shift); else img.style.transform = "translateY(" + shift + "%)";
+        ticking = false;
+      }
+      function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll);
+      update();
+    });
+  }
+})();

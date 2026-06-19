@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1250" role="img" aria-label="Realizacja: czyszczenie mebli skorzanych">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6e4429"/><stop offset="1" stop-color="#2c1a10"/>
+    </linearGradient>
+    <radialGradient id="h" cx="0.7" cy="0.25" r="0.8">
+      <stop offset="0" stop-color="#c98a5a" stop-opacity="0.55"/><stop offset="1" stop-color="#c98a5a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1000" height="1250" fill="url(#g)"/>
+  <rect width="1000" height="1250" fill="url(#h)"/>
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.07" stroke-width="2">
+    <circle cx="720" cy="300" r="180"/><circle cx="720" cy="300" r="300"/><circle cx="720" cy="300" r="430"/>
+  </g>
+  <text x="64" y="120" fill="#fff" fill-opacity="0.55" font-family="Inter, sans-serif" font-size="32" font-weight="600" letter-spacing="8">01</text>
+  <text x="60" y="1110" fill="#fff" font-family="'Space Grotesk', sans-serif" font-size="104" font-weight="700" letter-spacing="-3">Skóra</text>
+  <text x="64" y="1170" fill="#fff" fill-opacity="0.55" font-family="Inter, sans-serif" font-size="27" letter-spacing="1">Studio Porządku · realizacja</text>
+</svg>

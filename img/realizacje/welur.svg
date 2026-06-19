@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1250" role="img" aria-label="Realizacja: pranie tapicerki welurowej">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1f5f54"/><stop offset="1" stop-color="#0c2b26"/>
+    </linearGradient>
+    <radialGradient id="h" cx="0.3" cy="0.2" r="0.85">
+      <stop offset="0" stop-color="#4fb7a4" stop-opacity="0.55"/><stop offset="1" stop-color="#4fb7a4" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1000" height="1250" fill="url(#g)"/>
+  <rect width="1000" height="1250" fill="url(#h)"/>
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.07" stroke-width="2">
+    <circle cx="280" cy="260" r="170"/><circle cx="280" cy="260" r="290"/><circle cx="280" cy="260" r="420"/>
+  </g>
+  <text x="64" y="120" fill="#fff" fill-opacity="0.55" font-family="Inter, sans-serif" font-size="32" font-weight="600" letter-spacing="8">02</text>
+  <text x="60" y="1110" fill="#fff" font-family="'Space Grotesk', sans-serif" font-size="104" font-weight="700" letter-spacing="-3">Welur</text>
+  <text x="64" y="1170" fill="#fff" fill-opacity="0.55" font-family="Inter, sans-serif" font-size="27" letter-spacing="1">Studio Porządku · realizacja</text>
+</svg>

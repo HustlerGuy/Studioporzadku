@@ -172,3 +172,276 @@
     $$(".plan").forEach(function (p) { p.classList.add("is-in"); });
   }
 })();
+
+
+
+
+/* =========================================================
+   REALIZACJE · hybrydowa galeria
+   Przelacznik widoku (pigulka) · coverflow 3D (drag/klik) ·
+   masonry reveal · pelnoekranowy lightbox z magnetycznymi strzalkami.
+   GSAP gdy dostepny, pelny fallback vanilla. Tresc nie zalezy od JS.
+   ========================================================= */
+(function () {
+  "use strict";
+  var gallery = document.querySelector("[data-gallery]");
+  if (!gallery) return;
+
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var hasGSAP = !!window.gsap;
+  var q = function (s, c) { return (c || document).querySelector(s); };
+  var qa = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+
+  /* ---------- dane (z DOM coverflow, zeby tresc istniala bez JS) ---------- */
+  var cards = qa(".cf__card", gallery);
+  var data = cards.map(function (card) {
+    var img = card.querySelector("img");
+    return { src: img.getAttribute("src"), title: card.getAttribute("data-title") || (img ? img.alt : ""), alt: img ? img.alt : "" };
+  });
+  var N = data.length;
+
+  /* =========================================================
+     1. PRZELACZNIK WIDOKU
+     ========================================================= */
+  var toggle = q(".gal__toggle", gallery);
+  var knob = q(".gal__knob", gallery);
+  var tgBtns = qa(".gal__tg-btn", toggle);
+  var views = { slider: q(".gal__view--slider", gallery), grid: q(".gal__view--grid", gallery) };
+  var currentView = "slider";
+  var gridRevealed = false;
+
+  function syncKnob(btn) {
+    if (!knob || !btn) return;
+    knob.style.width = btn.offsetWidth + "px";
+    knob.style.transform = "translateX(" + (btn.offsetLeft - 6) + "px)";
+  }
+
+  function showView(name) {
+    if (name === currentView) return;
+    var outEl = views[currentView];
+    var inEl = views[name];
+    currentView = name;
+    tgBtns.forEach(function (b) { b.classList.toggle("is-on", b.getAttribute("data-view") === name); });
+    syncKnob(toggle.querySelector(".gal__tg-btn.is-on"));
+
+    var reveal = function () {
+      inEl.hidden = false;
+      if (name === "slider") { coverflow.layout(); coverflow.refreshTitle(); }
+      if (name === "grid") { revealGrid(true); }
+      if (hasGSAP && !reduce) {
+        gsap.fromTo(inEl, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", clearProps: "transform" });
+      }
+    };
+
+    if (hasGSAP && !reduce && outEl) {
+      gsap.to(outEl, { opacity: 0, y: 14, duration: 0.32, ease: "power2.in", onComplete: function () { outEl.hidden = true; gsap.set(outEl, { clearProps: "all" }); reveal(); } });
+    } else {
+      if (outEl) outEl.hidden = true;
+      reveal();
+    }
+  }
+
+  tgBtns.forEach(function (b) {
+    b.addEventListener("click", function () { showView(b.getAttribute("data-view")); });
+  });
+  // ustaw knob na starcie
+  requestAnimationFrame(function () { syncKnob(toggle.querySelector(".gal__tg-btn.is-on") || tgBtns[0]); });
+  window.addEventListener("resize", function () { syncKnob(toggle.querySelector(".gal__tg-btn.is-on") || tgBtns[0]); });
+
+  /* =========================================================
+     2. COVERFLOW 3D
+     ========================================================= */
+  var coverflow = (function () {
+    var track = q(".cf__track", gallery);
+    var titleEl = q(".cf__title", gallery);
+    var countEl = q(".cf__count", gallery);
+    var pos = 0;          // float pozycja (0..N-1)
+    var active = 0;
+    var gap = 0;
+
+    function calcGap() {
+      var cw = cards[0] ? cards[0].offsetWidth : 320;
+      gap = Math.min(cw * 0.62, 260);
+    }
+
+    function render(p) {
+      cards.forEach(function (card, i) {
+        var o = i - p;
+        var ao = Math.abs(o);
+        var clamped = Math.max(-2.4, Math.min(2.4, o));
+        var x = clamped * gap;
+        var rotY = -clamped * 22;
+        var sc = Math.max(0.62, 1 - ao * 0.16);
+        var tz = -ao * 90;
+        card.style.transform = "translate(-50%,-50%) translateX(" + x + "px) translateZ(" + tz + "px) rotateY(" + rotY + "deg) scale(" + sc + ")";
+        card.style.zIndex = String(200 - Math.round(ao * 10));
+        card.style.opacity = ao > 2.6 ? "0" : "1";
+        var near = Math.round(p);
+        card.classList.toggle("is-active", i === near);
+      });
+    }
+
+    function refreshTitle() {
+      var idx = Math.max(0, Math.min(N - 1, Math.round(pos)));
+      if (titleEl) {
+        titleEl.classList.remove("is-in");
+        // reflow -> ponowne wyostrzenie
+        void titleEl.offsetWidth;
+        titleEl.textContent = data[idx] ? data[idx].title : "";
+        requestAnimationFrame(function () { titleEl.classList.add("is-in"); });
+      }
+      if (countEl) countEl.textContent = (idx + 1) + " / " + N;
+    }
+
+    function animateTo(target) {
+      target = Math.max(0, Math.min(N - 1, target));
+      active = target;
+      if (hasGSAP && !reduce) {
+        gsap.to(proxy, { p: target, duration: 0.75, ease: "power3.out", overwrite: true, onUpdate: function () { pos = proxy.p; render(pos); } });
+      } else {
+        proxy.p = target; pos = target; render(pos);
+      }
+      refreshTitle();
+    }
+    var proxy = { p: 0 };
+
+    function layout() { calcGap(); render(pos); }
+
+    /* klik w karte: aktywna -> lightbox, boczna -> na srodek */
+    cards.forEach(function (card, i) {
+      card.addEventListener("click", function () {
+        if (Math.round(pos) === i) lightbox.open(i);
+        else animateTo(i);
+      });
+    });
+
+    /* DRAG */
+    var dragging = false, startX = 0, startPos = 0, moved = false;
+    function down(e) {
+      dragging = true; moved = false;
+      startX = e.touches ? e.touches[0].clientX : e.clientX;
+      startPos = pos;
+      track.classList.add("is-drag");
+      if (hasGSAP) gsap.killTweensOf(proxy);
+    }
+    function move(e) {
+      if (!dragging) return;
+      var x = e.touches ? e.touches[0].clientX : e.clientX;
+      var dx = x - startX;
+      if (Math.abs(dx) > 4) moved = true;
+      var p = startPos - dx / (gap || 220);
+      pos = Math.max(-0.4, Math.min(N - 0.6, p));
+      render(pos);
+      if (e.cancelable && e.type === "touchmove" && Math.abs(dx) > 6) e.preventDefault();
+    }
+    function up() {
+      if (!dragging) return;
+      dragging = false;
+      track.classList.remove("is-drag");
+      animateTo(Math.round(pos));
+    }
+    track.addEventListener("pointerdown", down);
+    window.addEventListener("pointermove", move, { passive: true });
+    window.addEventListener("pointerup", up);
+    track.addEventListener("touchstart", down, { passive: true });
+    track.addEventListener("touchmove", move, { passive: false });
+    track.addEventListener("touchend", up);
+    // blokuj klik po przeciagnieciu
+    cards.forEach(function (card) {
+      card.addEventListener("click", function (e) { if (moved) { e.stopImmediatePropagation(); e.preventDefault(); } }, true);
+    });
+
+    /* strzalki */
+    var prev = q(".cf__arrow--prev", gallery);
+    var next = q(".cf__arrow--next", gallery);
+    if (prev) prev.addEventListener("click", function () { animateTo(active - 1); });
+    if (next) next.addEventListener("click", function () { animateTo(active + 1); });
+
+    /* klawiatura w widoku slider */
+    document.addEventListener("keydown", function (e) {
+      if (currentView !== "slider" || document.body.classList.contains("lb-open")) return;
+      if (e.key === "ArrowLeft") animateTo(active - 1);
+      else if (e.key === "ArrowRight") animateTo(active + 1);
+    });
+
+    calcGap();
+    render(0);
+    requestAnimationFrame(function () { refreshTitle(); });
+    window.addEventListener("resize", layout);
+
+    return { layout: layout, refreshTitle: refreshTitle, animateTo: animateTo };
+  })();
+
+  /* =========================================================
+     3. MASONRY reveal
+     ========================================================= */
+  var masonTiles = qa(".mason__tile", gallery);
+  function revealGrid(force) {
+    if (gridRevealed && !force) return;
+    gridRevealed = true;
+    if (hasGSAP && !reduce) {
+      gsap.killTweensOf(masonTiles);
+      gsap.fromTo(masonTiles, { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out", stagger: 0.06, onComplete: function () { masonTiles.forEach(function (t) { t.classList.add("is-in"); t.style.transform = ""; t.style.opacity = ""; }); } });
+    } else {
+      masonTiles.forEach(function (t) { t.classList.add("is-in"); });
+    }
+  }
+  masonTiles.forEach(function (t) {
+    t.addEventListener("click", function () {
+      var idx = parseInt(t.getAttribute("data-index"), 10) || 0;
+      lightbox.open(idx);
+    });
+  });
+
+  /* =========================================================
+     4. LIGHTBOX
+     ========================================================= */
+  var lightbox = (function () {
+    var lb = q("[data-lightbox]");
+    if (!lb) return { open: function () {} };
+    var imgEl = q(".lb__img", lb);
+    var capEl = q(".lb__cap", lb);
+    var btnClose = q(".lb__close", lb);
+    var btnPrev = q(".lb__nav--prev", lb);
+    var btnNext = q(".lb__nav--next", lb);
+    var idx = 0;
+
+    function set(i) {
+      idx = (i + N) % N;
+      var d = data[idx];
+      if (hasGSAP && !reduce) {
+        gsap.to(imgEl, { opacity: 0, duration: 0.16, onComplete: function () {
+          imgEl.src = d.src; imgEl.alt = d.alt;
+          gsap.fromTo(imgEl, { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.45, ease: "power3.out" });
+        } });
+      } else { imgEl.src = d.src; imgEl.alt = d.alt; }
+      if (capEl) capEl.textContent = d.title;
+    }
+
+    function open(i) {
+      set(i);
+      lb.classList.add("is-open");
+      document.body.classList.add("lb-open");
+      lb.setAttribute("aria-hidden", "false");
+      btnClose && btnClose.focus();
+    }
+    function close() {
+      lb.classList.remove("is-open");
+      document.body.classList.remove("lb-open");
+      lb.setAttribute("aria-hidden", "true");
+    }
+
+    btnClose && btnClose.addEventListener("click", close);
+    btnPrev && btnPrev.addEventListener("click", function () { set(idx - 1); });
+    btnNext && btnNext.addEventListener("click", function () { set(idx + 1); });
+    lb.addEventListener("click", function (e) { if (e.target === lb || (e.target.classList && e.target.classList.contains("lb__stage"))) close(); });
+    document.addEventListener("keydown", function (e) {
+      if (!lb.classList.contains("is-open")) return;
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowLeft") set(idx - 1);
+      else if (e.key === "ArrowRight") set(idx + 1);
+    });
+
+    return { open: open, close: close };
+  })();
+})();
